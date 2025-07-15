@@ -40,3 +40,43 @@
 .read-the-docs {
   color: #888;
 }
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent global scrollbars */
+  background-color:  #fafafa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* css for home page popover menu 
+.hover-bg-light:hover {
+  background-color: #f8f9fa;
+}
+
+.list-group-item:focus {
+  box-shadow: none;
+}
+
+.fade {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.fade.show {
+  opacity: 1;
+}
+
+/* Light hover effect 
+.list-item-hover:hover {
+  background-color: #f8f9fa; /* Or any light color you prefer 
+}
+
+.popover-item:hover {
+  background-color: red !important; /* Light gray on hover 
+}*/

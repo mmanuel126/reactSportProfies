@@ -1,0 +1,17 @@
+.news-scroll-container {
+  max-height: 400px;   /* or any scroll height */
+  overflow-y: auto;
+  padding: 10px;
+}
+
+/* src/components/RecentNews.css */
+.spin {
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Vite + Chrome Debug",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",     // Vite default port
+      "webRoot": "${workspaceFolder}", // source folder
+      "sourceMaps": true,
+      "trace": true,
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}

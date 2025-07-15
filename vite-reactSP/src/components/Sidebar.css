@@ -1,0 +1,8 @@
+/* boostrap icon hovering color */
+.bi:hover {
+  color: red;
+}
+
+.sidebar-custom {
+  background-color: white;
+}
