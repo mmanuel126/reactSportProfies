@@ -116,7 +116,7 @@ const LoginPage: React.FC = () => {
               </a>
               <b>·</b>
               <a href="/signup" className="ms-2 text-decoration-none">
-                Sign up
+                Sign up2
               </a>
             </div>
           </form>
