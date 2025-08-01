@@ -37,7 +37,7 @@ const RecentNews: React.FC = () => {
         style={{ borderTopLeftRadius: "1rem", borderTopRightRadius: "1rem" }}
       >
         <div className="card-header-title font-weight-normal text-body-tertiary ">
-          <i>What's new?</i>
+          What's new?
         </div>
 
         <OverlayTrigger
@@ -63,18 +63,31 @@ const RecentNews: React.FC = () => {
         </OverlayTrigger>
       </div>
 
-      
-
       {/* News items */}
       <div>
         {recentNews.map((res, index) => (
           <div className="card m-3" key={index}>
             <a href={res.navigateUrl} target="_blank" rel="noopener noreferrer">
-              <img className="card-img-top" src={res.imageUrl.replace("~",imageBaseUrl)} alt="" />
+              <img
+                className="card-img-top"
+                src={res.imageUrl.replace("~", imageBaseUrl)}
+                alt=""
+              />
             </a>
             <div className="card-body">
-              <span style={{ fontSize: "12pt", fontWeight: "normal" }}>
-                <a href={res.navigateUrl} target="_blank" rel="noopener noreferrer">
+              <span
+                style={{
+                  fontSize: "12pt",
+                  fontWeight: "normal",
+                  textDecoration: "none",
+                }}
+              >
+                <a
+                  href={res.navigateUrl}
+                  target="_blank"
+                  style={{ textDecoration: "none" }}
+                  rel="noopener noreferrer"
+                >
                   {res.headerText}
                 </a>
               </span>
@@ -87,6 +100,7 @@ const RecentNews: React.FC = () => {
                   <a
                     href={res.navigateUrl}
                     target="_blank"
+                    style={{ textDecoration: "none" }}
                     rel="noopener noreferrer"
                   >
                     Details

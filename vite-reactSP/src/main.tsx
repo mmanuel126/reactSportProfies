@@ -8,13 +8,13 @@ import { store } from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { NotificationProvider } from './context/NotificationContext';
-import { BrowserRouter } from 'react-router-dom'; // 👈 Import BrowserRouter
+import { BrowserRouter } from 'react-router-dom'; 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter> {/* ✅ Must wrap everything that uses React Router */}
-        <NotificationProvider> {/* ✅ Now safely inside Router context */}
+      <BrowserRouter> {/* Must wrap everything that uses React Router */}
+        <NotificationProvider> {/* Now safely inside Router context */}
           <App />
         </NotificationProvider>
       </BrowserRouter>

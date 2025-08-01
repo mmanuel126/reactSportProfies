@@ -1,4 +1,3 @@
-// src/components/HomePopoverMenu.tsx
 import React, { useRef, useState } from "react";
 import {
   Popover,
@@ -82,7 +81,7 @@ const HomePopoverMenu: React.FC<HomePopoverMenuProps> = ({
         onClick={() => setShow(!show)}
       >
         <span className="text-dark">{selected}</span>
-        <i className="fa-solid fa-circle-chevron-down fa-lg"></i>
+        <i className="fa-solid fa-circle-chevron-down fa-lg" style={{color:"red"}}></i>
       </Button>
 
       <Overlay

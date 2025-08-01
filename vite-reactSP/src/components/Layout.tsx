@@ -1,5 +1,5 @@
 import React from 'react';
-import Footer from './PageFooter'; // or whatever your footer component is called
+import Footer from './PageFooter'; 
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (

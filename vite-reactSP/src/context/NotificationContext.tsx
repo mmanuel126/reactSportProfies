@@ -1,6 +1,5 @@
-// src/context/NotificationContext.tsx
-import React, { createContext, useContext, useState } from 'react';
-import type {ReactNode} from 'react';
+import React, { createContext, useContext, useState } from "react";
+import type { ReactNode } from "react";
 
 type Notification = {
   id: number;
@@ -12,9 +11,13 @@ type NotificationContextType = {
   addNotification: (message: ReactNode) => void;
 };
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
+const NotificationContext = createContext<NotificationContextType | undefined>(
+  undefined
+);
 
-export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
   const addNotification = (message: ReactNode) => {
@@ -36,6 +39,9 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useNotificationContext = () => {
   const context = useContext(NotificationContext);
-  if (!context) throw new Error('useNotificationContext must be used inside NotificationProvider');
+  if (!context)
+    throw new Error(
+      "useNotificationContext must be used inside NotificationProvider"
+    );
   return context;
 };

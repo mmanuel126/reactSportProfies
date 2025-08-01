@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Container, Modal, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store";
 
 const PageFooter: React.FC = () => {
   const [showAbout, setShowAbout] = useState(false);
@@ -7,14 +9,22 @@ const PageFooter: React.FC = () => {
   const handleShow = () => setShowAbout(true);
   const handleClose = () => setShowAbout(false);
 
+  const authenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+
   return (
     <>
       <footer className="text-center py-3">
         <Container>
           <p className="mb-0" style={{ fontSize: "10pt", color: "gray" }}>
-            A sport social networking site for athletes, agents, and fanatics to
-            connect.
-            <br />
+            {!authenticated && (
+              <>
+                A sport social networking site for athletes, agents, and
+                fanatics to connect.
+                <br />
+              </>
+            )}
             &copy; {new Date().getFullYear()} MarcManMedia. |{" "}
             <Button
               variant="link"

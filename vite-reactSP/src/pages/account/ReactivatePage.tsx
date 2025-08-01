@@ -2,12 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import logo from "../../assets/spLongLogo.jpg";
 import type { LoginFormInputs } from "../../types/account";
 import { loginUser, setMemberStatus } from "../../services/accountService";
 import { loginSuccess } from "../../store/authSlice";
 import { useNotification } from "../../hooks/useNotification";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch } from "../../hooks/redux";
 import { useNavigate } from "react-router-dom";
 
 // Validation schema
@@ -74,15 +73,19 @@ const ReactivatePage: React.FC = () => {
         left: 0,
       }}
     >
-      <div className="card shadow-sm w-100" style={{ maxWidth: "400px" }}>
+      <div
+        className="card shadow-sm w-100"
+        style={{ maxWidth: "400px", borderRadius: "1.5rem" }}
+      >
         <div className="card-body p-4">
-          <h2 className="text-center mb-4 fw-bold">
-            <img
-              src={logo}
-              width="160px"
-              height="40px"
-              alt="A sport social networking site for athletes, agents, and fans to connect."
-            />
+          <h2
+            className="text-center mb-4 fw-bold"
+            style={{
+              color: "red",
+              fontFamily: "Arial, Helvetica,sans-serif",
+            }}
+          >
+            Sport Profiles
           </h2>
           <h5 className="text-center">Reactivate Account</h5>
           <h6 className="mt-2 text-center">
@@ -127,7 +130,14 @@ const ReactivatePage: React.FC = () => {
                 className="btn btn-dark"
                 disabled={isSubmitting || !isValid}
               >
-                {isSubmitting ? (<><i className='fa fa-spinner fa-spin'/> Reactivating. Please wait...</>) : ("Reactivate")}
+                {isSubmitting ? (
+                  <>
+                    <i className="fa fa-spinner fa-spin" /> Reactivating. Please
+                    wait...
+                  </>
+                ) : (
+                  "Reactivate"
+                )}
               </button>
             </div>
           </form>

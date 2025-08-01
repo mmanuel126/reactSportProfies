@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import logo from "../../assets/spLongLogo.jpg";
 import type { SignUpFormInputs } from "../../types/account";
 import ModalComponent from "../../components/ModalComponent";
 import termsText from "../../constants/terms";
@@ -52,7 +51,6 @@ const years = Array.from({ length: 100 }, (_, i) =>
 );
 
 const SignUpPage: React.FC = () => {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const notify = useNotification();
   const navigate = useNavigate();
@@ -67,15 +65,20 @@ const SignUpPage: React.FC = () => {
   });
 
   const onSubmit = async (data: SignUpFormInputs) => {
-   try 
-   {
+    try {
       const result = await createUserAccount(data); // API call
       if (result == "ExistingEmail") {
-         //system cannot create an existing email for a new account
-         notify(<div style={{textAlign:'center'}}>The email you entered already exists on this site. You may have already created an account. Try to recover the password or use a different email!</div>);
+        //system cannot create an existing email for a new account
+        notify(
+          <div style={{ textAlign: "center" }}>
+            The email you entered already exists on this site. You may have
+            already created an account. Try to recover the password or use a
+            different email!
+          </div>
+        );
       } else if (result == "NewEmail") {
         //redirect to confirm page
-         navigate("/confirm-signup?email=" + data.email); 
+        navigate("/confirm-signup?email=" + data.email);
       }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -88,23 +91,27 @@ const SignUpPage: React.FC = () => {
     <div
       className="d-flex justify-content-center align-items-center px-3"
       style={{
-        padding: "2rem",
+        padding: "0rem",
         width: "100vw",
         top: 0,
         left: 0,
       }}
     >
-      <div className="card shadow-sm w-100" style={{ maxWidth: "500px" }}>
+      <div
+        className="card shadow-sm w-100"
+        style={{ maxWidth: "500px", borderRadius: "1.5rem" }}
+      >
         <div className="card-body p-4">
-          <h2 className="text-center mb-4 fw-bold">
-            <img
-              src={logo}
-              width="160px"
-              height="40px"
-              alt="A sport social networking site for athletes, agents, and fans to connect."
-            />
+          <h2
+            className="text-center mb-3 fw-bold"
+            style={{
+              color: "red",
+              fontFamily: "Arial, Helvetica,sans-serif",
+            }}
+          >
+            Sport Profiles
           </h2>
-          <h6 className="mt-2 text-center">
+          <h6 className="mt-0 text-center">
             <span>
               It only takes a <span className="text-success">few seconds</span>{" "}
               to create your account.
@@ -330,7 +337,14 @@ const SignUpPage: React.FC = () => {
                 className="btn btn-dark"
                 disabled={isSubmitting || !isValid}
               >
-                  {isSubmitting ? (<><i className='fa fa-spinner fa-spin'/> Creating Account. Please wait...</>) : ("Sign Up")}
+                {isSubmitting ? (
+                  <>
+                    <i className="fa fa-spinner fa-spin" /> Creating Account.
+                    Please wait...
+                  </>
+                ) : (
+                  "Sign Up"
+                )}
               </button>
             </div>
           </form>

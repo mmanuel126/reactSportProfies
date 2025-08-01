@@ -1,4 +1,3 @@
-// src/components/Notification.tsx
 import React from 'react';
 import { useNotificationContext } from '../context/NotificationContext';
 import './Notification.css';

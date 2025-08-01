@@ -1,16 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import HomePopoverMenu from "../../components/HomePopoverMenu";
 import RecentNews from "../../components/RecentNews";
-import Following from "../../components/Following"; // same here
+import Following from "../../components/Following";
 import RecentPosts from "../../components/RecentPosts";
 
 export default function HomePage() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [selected, setSelected] = useState("Recent News");
+
+  // Controls for the PostModal
+  const [showPostModal, setShowPostModal] = useState(false);
+  const [modalMode, setModalMode] = useState<"new" | "reply">("new");
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const pstate = params.get("pstate");
+
+    if (pstate === "Posts") {
+      setSelected("Posts");
+      setModalMode("new");
+      setShowPostModal(true);
+
+      // Optional: Clean up URL
+      navigate("/", { replace: true });
+    } else if (pstate === "Following" || pstate === "Recent News") {
+      setSelected(pstate);
+    }
+  }, [location.search, navigate]);
 
   const renderContent = () => {
     switch (selected) {
       case "Posts":
-        return <RecentPosts />;
+        return (
+          <RecentPosts
+            showModal={showPostModal}
+            setShowModal={setShowPostModal}
+            modalMode={modalMode}
+            setModalMode={setModalMode}
+          />
+        );
       case "Following":
         return <Following />;
       case "Recent News":
@@ -21,7 +53,6 @@ export default function HomePage() {
 
   return (
     <div className="d-flex flex-column h-100">
-      {/* Sticky topbar centered at the top */}
       <div
         className="position-sticky top-0 z-3 w-100"
         style={{
@@ -35,8 +66,10 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Dynamic content */}
-      <div className="container d-flex justify-content-center align-items-center" style={{ maxWidth: "900px" }}>
+      <div
+        className="container d-flex justify-content-center align-items-center"
+        style={{ maxWidth: "900px" }}
+      >
         {renderContent()}
       </div>
     </div>

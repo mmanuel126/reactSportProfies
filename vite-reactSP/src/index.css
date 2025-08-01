@@ -103,11 +103,6 @@ html, body, #root {
   opacity: 1;
 }
 
-/* Light hover effect 
-.list-item-hover:hover {
-  background-color: #f8f9fa; /* Or any light color you prefer 
-}*/
-
 .popover-item:hover {
   background-color: #f8f9fa !important; /* Light gray on hover */
 }

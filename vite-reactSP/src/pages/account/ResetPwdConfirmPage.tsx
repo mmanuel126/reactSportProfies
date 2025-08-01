@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../../assets/spLongWithBG.jpg";
 import { Link } from "react-router-dom";
 
 const ResetPwdConfirmPage: React.FC = () => {
@@ -16,15 +15,15 @@ const ResetPwdConfirmPage: React.FC = () => {
     >
       <div style={{ maxWidth: "500px" }}>
         <div>
-          <h4 className="text-center mb-3 fw-bold">
-            <img
-              src={logo}
-              width="160px"
-              height="40px"
-              alt="A sport social networking site for athletes, agents, and fans to connect."
-            />
-          </h4>
-          <br></br>
+          <h2
+            className="text-center mb-4 fw-bold"
+            style={{
+              color: "red",
+              fontFamily: "Arial, Helvetica,sans-serif",
+            }}
+          >
+            Sport Profiles
+          </h2>
           <h5 className="text-center">Reset Password Confirmation</h5>
           <span className="text-center">
             Your password has been successfully reset.{" "}

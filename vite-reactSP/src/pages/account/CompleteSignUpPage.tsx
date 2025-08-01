@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import logo from "../../assets/spLongLogo.jpg";
+import logo from "../../assets/splogov1.png";
 import type { SignUpFormInputs } from "../../types/account";
 import ModalComponent from "../../components/ModalComponent";
 import termsText from "../../constants/terms";
@@ -47,8 +47,8 @@ const SignUpPage: React.FC = () => {
           <h2 className="text-center mb-4 fw-bold">
             <img
               src={logo}
-              width="160px"
-              height="40px"
+              width="180px"
+              height="70px"
               alt="A sport social networking site for athletes, agents, and fans to connect."
             />
           </h2>
@@ -107,7 +107,14 @@ const SignUpPage: React.FC = () => {
                 className="btn btn-dark"
                 disabled={isSubmitting || !isValid}
               >
-                {isSubmitting ? (<><i className='fa fa-spinner fa-spin'/> Signing. Please wait...</>) : ("Accept")}
+                {isSubmitting ? (
+                  <>
+                    <i className="fa fa-spinner fa-spin" /> Signing. Please
+                    wait...
+                  </>
+                ) : (
+                  "Accept"
+                )}
               </button>
             </div>
           </form>

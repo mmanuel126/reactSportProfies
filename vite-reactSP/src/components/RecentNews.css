@@ -4,7 +4,6 @@
   padding: 10px;
 }
 
-/* src/components/RecentNews.css */
 .spin {
   animation: spin 1s linear infinite;
   display: inline-block;

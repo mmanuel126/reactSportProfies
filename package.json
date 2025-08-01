@@ -2,6 +2,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
     "bootstrap": "^5.3.7",
+    "react-bootstrap-typeahead": "^6.4.1",
     "react-hook-form": "^7.60.0",
     "yup": "^1.6.1"
   }

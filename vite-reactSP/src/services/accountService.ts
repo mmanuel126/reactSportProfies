@@ -72,7 +72,7 @@ export async function setMemberStatus(
   memberId: string,
   status: string
 ): Promise<string> {
-  const url = `services/member/setMemberStatus?memberId=${memberId}&status=${status}`;
+  const url = `/services/member/SetMemberStatus?memberId=${memberId}&status=${status}`;
   const result = await apiFetch<string>(url, {
     method: "GET",
   });

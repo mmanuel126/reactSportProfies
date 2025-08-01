@@ -1,12 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch } from "../../hooks/redux";
 import { loginSuccess } from "../../store/authSlice";
 import { loginUser } from "../../services/accountService";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import logo from "../../assets/spLongWithBG.jpg";
 import type { LoginFormInputs } from "../../types/account";
 
 import { useNotification } from "../../hooks/useNotification";
@@ -53,7 +52,14 @@ const LoginPage: React.FC = () => {
           </span>
         );
       } else {
-         notify(<div style={{textAlign:'center'}}>Incorrect email or password.<br/>If you recently signed up, check your email to complete the registration process.</div>);
+        notify(
+          <div style={{ textAlign: "center" }}>
+            Incorrect email or password.
+            <br />
+            If you recently signed up, check your email to complete the
+            registration process.
+          </div>
+        );
       }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,10 +73,19 @@ const LoginPage: React.FC = () => {
       className="d-flex justify-content-center align-items-center px-3"
       style={{ padding: "2rem", width: "100vw" }}
     >
-      <div className="w-100" style={{ maxWidth: "400px" }}>
-        <div className=" p-4">
-          <h2 className="text-center mb-4 fw-bold">
-            <img src={logo} width="160px" height="40px" alt="Logo" />
+      <div
+        className=" card shadow-sm w-100"
+        style={{ maxWidth: "400px", borderRadius: "1.5rem" }}
+      >
+        <div className="card-body p-4">
+          <h2
+            className="text-center mb-4 fw-bold"
+            style={{
+              color: "red",
+              fontFamily: "Arial, Helvetica,sans-serif",
+            }}
+          >
+            Sport Profiles
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="mb-3">
@@ -107,7 +122,14 @@ const LoginPage: React.FC = () => {
                 className="btn btn-dark"
                 disabled={isSubmitting || !isValid}
               >
-                {isSubmitting ? (<><i className='fa fa-spinner fa-spin'/> Logging. Please wait...</>) : ("Log In")}
+                {isSubmitting ? (
+                  <>
+                    <i className="fa fa-spinner fa-spin" /> Logging. Please
+                    wait...
+                  </>
+                ) : (
+                  "Log In"
+                )}
               </button>
             </div>
             <div className="text-center small">
@@ -116,7 +138,7 @@ const LoginPage: React.FC = () => {
               </a>
               <b>·</b>
               <a href="/signup" className="ms-2 text-decoration-none">
-                Sign up2
+                Sign up
               </a>
             </div>
           </form>

@@ -4,11 +4,32 @@ import { getPostReplies, getRecentPosts } from "../services/memberService";
 import { Button, Spinner } from "react-bootstrap";
 
 import { useSelector } from "react-redux";
-import type { RootState } from "../store"; // adjust the path as needed
+import type { RootState } from "../store";
+
+import PostModal from "../components/PostModal"; 
+import {
+  incrementLikedPost,
+  addPostReply,
+  addNewPost,
+} from "../services/memberService"; 
+
+import { Link } from "react-router-dom";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const RecentPosts: React.FC = () => {
+type RecentPostsProps = {
+  showModal: boolean;
+  setShowModal: (val: boolean) => void;
+  modalMode: "new" | "reply";
+  setModalMode: (val: "new" | "reply") => void;
+};
+
+const RecentPosts: React.FC<RecentPostsProps> = ({
+  showModal,
+  setShowModal,
+  modalMode,
+  setModalMode,
+}) => {
   const memberID = useSelector((state: RootState) => state.auth.user?.memberID);
   const [posts, setPosts] = useState<PostItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -18,6 +39,7 @@ const RecentPosts: React.FC = () => {
 
   const [replies, setReplies] = useState<Record<number, ReplyItem[]>>({});
   const [loadingReplies, setLoadingReplies] = useState<Set<number>>(new Set());
+  const [targetPostID, setTargetPostID] = useState<number | null>(null);
 
   const fetchPosts = async () => {
     setLoading(true);
@@ -63,6 +85,54 @@ const RecentPosts: React.FC = () => {
     }
   };
 
+  const handleLike = async (postID: number) => {
+    // Optimistically update UI
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.postID === postID
+          ? { ...post, likeCounter: post.likeCounter + 1 }
+          : post
+      )
+    );
+
+    try {
+      await incrementLikedPost(postID); // API call
+    } catch (error) {
+      console.error("Failed to like post", error);
+
+      // Revert UI if API call fails
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post.postID === postID
+            ? { ...post, likeCounter: post.likeCounter - 1 }
+            : post
+        )
+      );
+    }
+  };
+
+  const handlePostSubmit = async (text: string) => {
+    if (!memberID) return;
+
+    try {
+      if (modalMode === "reply" && targetPostID) {
+        const newReply = await addPostReply(targetPostID, memberID, text);
+        setReplies((prev) => ({
+          ...prev,
+          [targetPostID]: [...(prev[targetPostID] || []), newReply],
+        }));
+      } else if (modalMode === "new") {
+        const newPost = await addNewPost(memberID, text);
+        setPosts((prev) => [newPost, ...prev]);
+      }
+    } catch (err) {
+      console.error("Failed to submit post", err);
+    } finally {
+      setShowModal(false);
+      setTargetPostID(null);
+    }
+  };
+
   return (
     <div
       className="card p-0 mb-3"
@@ -74,7 +144,7 @@ const RecentPosts: React.FC = () => {
       >
         <div>
           <span className="card-header-title font-weight-normal text-body-tertiary">
-            <i>What's on your mind?</i>
+            What's on your mind?
           </span>
         </div>
         <div>
@@ -91,7 +161,11 @@ const RecentPosts: React.FC = () => {
             className="fs-5 text-dark text-primary"
             title="Add Post"
             variant="link"
-            onClick={() => alert("Add New Post")}
+            onClick={() => {
+              setModalMode("new");
+              setTargetPostID(null);
+              setShowModal(true);
+            }}
           >
             <i className="bi bi-plus"></i>
           </Button>
@@ -99,7 +173,7 @@ const RecentPosts: React.FC = () => {
       </div>
 
       {loading ? (
-        <div className="text-center p-3 ">
+        <div className="text-center p-3 " style={{ fontSize: "10pt" }}>
           <Spinner animation="border" size="sm" /> Refreshing posts...
         </div>
       ) : (
@@ -113,25 +187,33 @@ const RecentPosts: React.FC = () => {
                   index !== posts.length - 1 ? "1px solid #e0e0e0" : "none",
               }}
             >
-              <img
-                src={`${BASE_URL}/Images/members/${
-                  res.picturePath || "default.png"
-                }`}
-                alt="User"
-                className="rounded-circle"
-                style={{ width: "35px", height: "35px" }}
-              />
+              <Link to={`/profile/${res.memberID}`}>
+                <img
+                  src={`${BASE_URL}/Images/members/${
+                    res.picturePath || "default.png"
+                  }`}
+                  alt="User"
+                  className="rounded-circle"
+                  style={{ width: "35px", height: "35px" }}
+                />
+              </Link>
               <div className="ms-3" style={{ maxWidth: "700px" }}>
                 <div
                   style={{
-                    /*backgroundColor: "seashell",*/
                     borderRadius: "10px",
                     padding: "0px",
                     fontSize: "10pt",
                     color: "#36454f",
                   }}
                 >
-                  <strong>{res.memberName}</strong>
+                  <strong>
+                    <Link
+                      to={`/profile/${res.memberID}`}
+                      style={{ textDecoration: "none", fontWeight: "bold" }}
+                    >
+                      {res.memberName}
+                    </Link>
+                  </strong>
                   <br />
                   {res.description}
                 </div>
@@ -141,24 +223,26 @@ const RecentPosts: React.FC = () => {
                   <Button
                     size="sm"
                     variant="link"
-                    className="p-0 fs-6 text-dark text-primary"
+                    className="p-0 fs-6 "
                     title="Reply"
-                    style={{ fontSize: "9pt" }}
+                    style={{ fontSize: "9pt", textDecoration: "none" }}
                     onClick={() => toggleReplies(res.postID)}
                   >
-                    <i className={`bi bi-chat`} />({res.replyCount})
+                    <i className={`bi bi-chat`} />
                   </Button>
+                  {res.childPostCnt > 0 && <>&nbsp;{res.childPostCnt}</>}
                   <span className="mx-2 text-secondary">|</span>
                   <Button
                     size="sm"
                     title="Like"
                     variant="link"
-                    className="p-0 fs-6 text-dark text-primary"
-                    style={{ fontSize: "9pt" }}
-                    onClick={() => alert("Liked!")}
+                    className="p-0 fs-6 "
+                    style={{ fontSize: "9pt", textDecoration: "none" }}
+                    onClick={() => handleLike(res.postID)}
                   >
-                    <i className={`bi bi-hand-thumbs-up`} /> ({res.likeCount})
+                    <i className={`bi bi-hand-thumbs-up`} />
                   </Button>
+                  {res.likeCounter > 0 && <>&nbsp;{res.likeCounter}</>}
                 </div>
 
                 {/* Replies */}
@@ -171,40 +255,86 @@ const RecentPosts: React.FC = () => {
                       </div>
                     ) : replies[res.postID]?.length > 0 ? (
                       replies[res.postID].map((chi, i) => (
-                        <div key={i} className="d-flex mb-2">
-                          <img
-                            src={`${BASE_URL}/Images/${
-                              chi.picturePath || "default.png"
-                            }`}
-                            alt="User"
-                            className="rounded-circle"
-                            style={{ width: "30px", height: "30px" }}
-                          />
+                        <div
+                          key={i}
+                          className="d-flex mb-2 pb-2"
+                          style={{
+                            borderBottom:
+                              i !== replies[res.postID].length - 1
+                                ? "1px solid #ddd"
+                                : "none",
+                          }}
+                        >
+                          <Link to={`/profile/${chi.memberID}`}>
+                            <img
+                              src={`${BASE_URL}/Images/members/${
+                                chi.picturePath || "default.png"
+                              }`}
+                              alt="User"
+                              className="rounded-circle"
+                              style={{ width: "30px", height: "30px" }}
+                            />
+                          </Link>
                           <div
                             className="ms-2"
                             style={{ fontSize: "9pt", color: "#36454f" }}
                           >
-                            <strong>{chi.memberName}</strong>&nbsp;
+                            <strong>
+                              <Link
+                                to={`/profile/${chi.memberID}`}
+                                style={{
+                                  textDecoration: "none",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {chi.memberName}
+                              </Link>
+                            </strong>
+                            <br />
                             {chi.description}
                             <br />
-                            <small className="text-muted">
+                            <span className="text-muted">
                               {chi.dateResponded}
-                            </small>
+                            </span>
+                            <br />
                             <Button
                               size="sm"
                               variant="link"
-                              className="p-0 ms-2"
-                              style={{ fontSize: "8pt" }}
-                              onClick={() => alert("Reply to reply")}
+                              className="p-0 ms-0 fs-7"
+                              style={{
+                                fontSize: "9pt",
+                                textDecoration: "none",
+                              }}
+                              onClick={() => {
+                                setModalMode("reply");
+                                setTargetPostID(res.postID); 
+                                setShowModal(true);
+                              }}
                             >
-                              Reply
+                              <i className="bi bi-reply"></i>&nbsp;Reply
                             </Button>
                           </div>
                         </div>
                       ))
                     ) : (
                       <div className="text-muted" style={{ fontSize: "9pt" }}>
-                        No replies yet.
+                        No replies yet! &nbsp;-&nbsp;
+                        <Button
+                          size="sm"
+                          variant="link"
+                          className="p-0 ms-0 fs-7"
+                          style={{
+                            fontSize: "9pt",
+                            textDecoration: "none",
+                          }}
+                          onClick={() => {
+                            setModalMode("reply");
+                            setTargetPostID(res.postID); 
+                            setShowModal(true);
+                          }}
+                        >
+                          <i className="bi bi-reply"></i>&nbsp;Reply
+                        </Button>
                       </div>
                     )}
                   </div>
@@ -214,6 +344,16 @@ const RecentPosts: React.FC = () => {
           ))}
         </div>
       )}
+
+      <PostModal
+        show={showModal}
+        onClose={() => {
+          setShowModal(false);
+          setTargetPostID(null);
+        }}
+        onSubmit={handlePostSubmit}
+        title={modalMode === "reply" ? "Reply to Post" : "New Post"}
+      />
     </div>
   );
 };

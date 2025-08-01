@@ -5,14 +5,14 @@ export interface PostItem {
   picturePath: string;
   description: string;
   datePosted: string;
-  likeCount: number;
-  replyCount: number;
+  likeCounter: number;
+  childPostCnt: number;
   children: ReplyItem[];
 }
 
 export interface ReplyItem {
   postResponseID: string;
-  postID: string;  
+  postID: string;
   memberID: string;
   memberName: string;
   picturePath: string;

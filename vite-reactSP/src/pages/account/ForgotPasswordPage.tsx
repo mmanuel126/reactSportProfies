@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/spLongLogo.jpg";
 import type { ForgotPasswordFormInputs } from "../../types/account";
 import { resetPassword } from "../../services/accountService";
 import { useNotification } from "../../hooks/useNotification";
@@ -50,18 +49,23 @@ const ForgotPasswordPage: React.FC = () => {
         overflowY: "auto",
       }}
     >
-      <div className="card shadow-sm w-100" style={{ maxWidth: "400px" }}>
+      <div
+        className="card shadow-sm w-100"
+        style={{ maxWidth: "400px", borderRadius: "1.5rem" }}
+      >
         <div className="card-body p-4">
-          <h4 className="text-center mb-3 fw-bold">
-            <img
-              src={logo}
-              width="160px"
-              height="40px"
-              alt="A sport social networking site for athletes, agents, and fans to connect."
-            />
-          </h4>
+          <h2
+            className="text-center mb-3 fw-bold"
+            style={{
+              color: "red",
+              fontFamily: "Arial, Helvetica,sans-serif",
+            }}
+          >
+            Sport Profiles
+          </h2>
           <p className="text-muted text-center mb-4">
-            Enter your email so we can help you get back into your account.
+            Enter your email address below so we can help you get back into your
+            account.
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -85,7 +89,14 @@ const ForgotPasswordPage: React.FC = () => {
                 className="btn btn-dark"
                 disabled={isSubmitting || !isValid}
               >
-                {isSubmitting ? (<><i className='fa fa-spinner fa-spin'/> Resetting. Please wait...</>) : ("Reset Password")}
+                {isSubmitting ? (
+                  <>
+                    <i className="fa fa-spinner fa-spin" /> Resetting. Please
+                    wait...
+                  </>
+                ) : (
+                  "Reset Password"
+                )}
               </button>
             </div>
 

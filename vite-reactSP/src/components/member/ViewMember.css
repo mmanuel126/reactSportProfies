@@ -1,0 +1,76 @@
+.show_member_pic_bg {
+  background-image: linear-gradient(to top left, #f5f7fa, #aab2bd);
+  background-size: cover;
+  color: white;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+.padded-span {
+  display: inline-block; /* Or display: block; */
+  padding-bottom: 7px; /* Adjust the value as needed */
+}
+
+/* Material-style Bootstrap Tabs */
+
+.material-tabs-wrapper {
+  background: #fff;
+  padding-top: 1rem;
+}
+
+/* Make the tab bar scrollable */
+.material-tabs .nav-tabs {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 2px solid #e0e0e0;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border-bottom: none !important;
+}
+.material-tabs .nav-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+/* Tab Item Styles */
+.material-tabs .nav-tabs .nav-item {
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.material-tabs .nav-tabs .nav-link {
+  border: none !important;
+  background-color: transparent !important;
+  color: #555;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: 0;
+  transition: color 0.3s ease;
+}
+
+.material-tabs .nav-tabs .nav-link:hover {
+  color: #1976d2;
+}
+
+/* Underline animation using ::after */
+.material-tabs .nav-tabs .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background-color: #1976d2;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-in-out;
+}
+
+.material-tabs .nav-tabs .nav-link.active {
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.material-tabs .nav-tabs .nav-link.active::after {
+  transform: scaleX(1);
+}

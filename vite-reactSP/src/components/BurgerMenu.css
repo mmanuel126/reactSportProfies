@@ -1,21 +1,41 @@
+/* Rounded menu container */
 .burger-dropdown {
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  min-width: 200px;
-  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 0.92rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  border-radius: 1.5rem !important;
+  padding: 0.25rem;
+  background-clip: padding-box;
 }
 
-.burger-dropdown .dropdown-item {
+/* Common style for all items */
+.burger-item {
   padding: 0.5rem 1rem;
+  margin-bottom: 0.125rem;
   transition: background-color 0.2s ease;
-  border-radius: 0;
-  color: #333;
 }
 
-.burger-dropdown .dropdown-item:hover {
-  background-color: #f5f5f5;
+/* First item gets top rounded corners */
+.burger-item:first-child {
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+}
+
+/* Last item gets bottom rounded corners */
+.burger-item:last-child {
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+/* Optional: background on hover */
+.burger-item:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-header-info {
+  background-color: #f8f9fa;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  font-weight: 500;
+}
+
+.burger-dropdown .dropdown-divider {
+  margin: 0.25rem 0;
 }

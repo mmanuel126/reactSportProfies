@@ -2,7 +2,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import logo from "../../assets/spLongLogo.jpg";
 import type { ChangePasswordFormInputs } from "../../types/account";
 import { useLocation, useNavigate } from "react-router-dom";
 import { changePassword } from "../../services/accountService";
@@ -69,15 +68,19 @@ const ChangePasswordPage: React.FC = () => {
         left: 0,
       }}
     >
-      <div className="card shadow-sm w-100" style={{ maxWidth: "400px" }}>
-        <div className="card-body p-4">
-          <h2 className="text-center mb-4 fw-bold">
-            <img
-              src={logo}
-              width="160px"
-              height="40px"
-              alt="A sport social networking site for athletes, agents, and fans to connect."
-            />
+      <div
+        className="card shadow-sm w-100"
+        style={{ maxWidth: "400px", borderRadius: "1.5rem" }}
+      >
+        <div className="card-body p-4 text-center">
+          <h2
+            className="text-center mb-4 fw-bold"
+            style={{
+              color: "red",
+              fontFamily: "Arial, Helvetica,sans-serif",
+            }}
+          >
+            Sport Profiles
           </h2>
           <p>
             Please use the form below to change your password. It is required
@@ -134,7 +137,14 @@ const ChangePasswordPage: React.FC = () => {
                 className="btn btn-dark"
                 disabled={isSubmitting || !isValid}
               >
-                {isSubmitting ? (<><i className='fa fa-spinner fa-spin'/> Changing password. Please wait...</>) : ("Change Password")}
+                {isSubmitting ? (
+                  <>
+                    <i className="fa fa-spinner fa-spin" /> Changing password.
+                    Please wait...
+                  </>
+                ) : (
+                  "Change Password"
+                )}
               </button>
             </div>
 

@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import logo from "../../assets/spLongLogo.jpg";
 import type { ResetPasswordFormInputs } from "../../types/account";
 import { useNotification } from "../../hooks/useNotification";
 import { isResetCodeExpired } from "../../services/accountService";
@@ -67,16 +66,20 @@ const ResetPasswordPage: React.FC = () => {
         overflowY: "auto",
       }}
     >
-      <div className="card shadow-sm w-100" style={{ maxWidth: "400px" }}>
+      <div
+        className="card shadow-sm w-100"
+        style={{ maxWidth: "400px", borderRadius: "1.5rem" }}
+      >
         <div className="card-body p-4">
-          <h4 className="text-center mb-3 fw-bold">
-            <img
-              src={logo}
-              width="160px"
-              height="40px"
-              alt="A sport social networking site for athletes, agents, and fans to connect."
-            />
-          </h4>
+          <h2
+            className="text-center mb-3 fw-bold"
+            style={{
+              color: "red",
+              fontFamily: "Arial, Helvetica,sans-serif",
+            }}
+          >
+            Sport Profiles
+          </h2>
           <p className="text-center mb-4">
             An email describing how to get to your new password has been sent to
             you at <b>{email}</b>.
@@ -112,7 +115,14 @@ const ResetPasswordPage: React.FC = () => {
                 className="btn btn-dark"
                 disabled={isSubmitting || !isValid}
               >
-                {isSubmitting ? (<><i className='fa fa-spinner fa-spin'/> Resetting. Please wait...</>) : ("Reset")}
+                {isSubmitting ? (
+                  <>
+                    <i className="fa fa-spinner fa-spin" /> Resetting. Please
+                    wait...
+                  </>
+                ) : (
+                  "Reset"
+                )}
               </button>
             </div>
 

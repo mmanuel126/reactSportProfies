@@ -1,17 +1,21 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://sportprofiles.space';
 
+
 export async function apiFetch<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
   const token = localStorage.getItem('token');
 
+  const isFormData = options.body instanceof FormData;
+
   const res = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin':'*',
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(isFormData
+        ? {} // Don't set Content-Type when using FormData
+        : { 'Content-Type': 'application/json' }),
       ...(options.headers || {}),
     },
   });
@@ -24,10 +28,8 @@ export async function apiFetch<T>(
   const contentType = res.headers.get('Content-Type');
 
   if (contentType?.includes('application/json')) {
-    return res.json() 
+    return res.json();
   } else {
     return res.text() as unknown as Promise<T>;
   }
-  
-  //return res.json();
 }
