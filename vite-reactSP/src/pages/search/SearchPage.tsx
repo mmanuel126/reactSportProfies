@@ -104,13 +104,13 @@ const SearchPage: React.FC = () => {
             {query.trim() !== "" && (
               <ListGroup variant="flush">
                 {results.map((user) => (
-                  <ListGroup.Item key={user.entityID}>
+                  <ListGroup.Item key={user.EntityID}>
                     <Row className="align-items-center">
                       <Col xs="auto">
-                        <Link to={`/profile/${user.entityID}`}>
+                        <Link to={`/profile/${user.EntityID}`}>
                           <Image
-                            src={`${BASE_URL}/Images/members/${
-                              user.picturePath || "default.png"
+                            src={`${BASE_URL}/static/images/members/${
+                              user.PicturePath || "default.png"
                             }`}
                             roundedCircle
                             fluid
@@ -122,16 +122,17 @@ const SearchPage: React.FC = () => {
                         {/*<h6 className="mb-0">{user.entityName}</h6>*/}
                         <strong>
                           <Link
-                            to={`/profile/${user.entityID}`}
+                            to={`/profile/${user.EntityID}`}
                             style={{
                               textDecoration: "none",
                               fontWeight: "bold",
                             }}
                           >
-                            {user.entityName}
+                            {user.EntityName}
                           </Link>
-                        </strong><br/>
-                        <small className="text-muted">{user.cityState}</small>
+                        </strong>
+                        <br />
+                        <small className="text-muted">{user.CityState}</small>
                       </Col>
                       <Col xs="auto" className="text-end">
                         <Button
@@ -147,9 +148,9 @@ const SearchPage: React.FC = () => {
                             try {
                               // Replace with actual IDs
                               if (!memberID) return;
-                              const contactId = user.entityID;
+                              const contactId = user.EntityID;
 
-                              await followContact(memberID, contactId.toString());
+                              await followContact(memberID, String(contactId));
 
                               // Update UI
                               setFollowingIds((prev) => [...prev, contactId]);
@@ -158,9 +159,9 @@ const SearchPage: React.FC = () => {
                               // Optionally show an alert or toast
                             }
                           }}
-                          disabled={followingIds.includes(user.entityID)}
+                          disabled={followingIds.includes(user.EntityID)}
                         >
-                          {followingIds.includes(user.entityID)
+                          {followingIds.includes(user.EntityID)
                             ? "Following"
                             : "Follow"}
                         </Button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Form, Spinner } from "react-bootstrap";
-import { getYears } from "../../../services/commonService"; 
+import { getYears } from "../../../services/commonService";
 
 type Props = {
   show: boolean;
@@ -12,18 +12,23 @@ type Props = {
 };
 
 type FormState = {
-  major: string;
-  degree: string;
-  yearClass: string;
-  sportLevelType: string;
+  Major: string;
+  Degree: string;
+  YearClass: string;
+  SportLevelType: string;
 };
 
-const EditSchoolModal: React.FC<Props> = ({ show, onClose, onSave, schoolToEdit }) => {
+const EditSchoolModal: React.FC<Props> = ({
+  show,
+  onClose,
+  onSave,
+  schoolToEdit,
+}) => {
   const [form, setForm] = useState<FormState>({
-    major: "",
-    degree: "",
-    yearClass: "",
-    sportLevelType: "",
+    Major: "",
+    Degree: "",
+    YearClass: "",
+    SportLevelType: "",
   });
 
   const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
@@ -33,10 +38,10 @@ const EditSchoolModal: React.FC<Props> = ({ show, onClose, onSave, schoolToEdit 
   useEffect(() => {
     if (schoolToEdit) {
       setForm({
-        major: schoolToEdit.major || "",
-        degree: schoolToEdit.degreeTypeID || "",
-        yearClass: schoolToEdit.yearClass || "",
-        sportLevelType: schoolToEdit.sportLevelType || "",
+        Major: schoolToEdit.Major || "",
+        Degree: schoolToEdit.DegreeTypeID || "",
+        YearClass: schoolToEdit.YearClass || "",
+        SportLevelType: schoolToEdit.SportLevelType || "",
       });
     }
   }, [schoolToEdit]);
@@ -59,7 +64,7 @@ const EditSchoolModal: React.FC<Props> = ({ show, onClose, onSave, schoolToEdit 
   const isInvalid = (field: keyof FormState) => touched[field] && !form[field];
 
   const isFormValid = () =>
-    form.major && form.degree && form.yearClass && form.sportLevelType;
+    form.Major && form.Degree && form.YearClass && form.SportLevelType;
 
   const handleSubmit = async () => {
     if (!isFormValid()) {
@@ -88,19 +93,23 @@ const EditSchoolModal: React.FC<Props> = ({ show, onClose, onSave, schoolToEdit 
       <Modal.Body>
         <Form>
           <Form.Group className="mb-3">
-            <Form.Label><strong>{schoolToEdit?.schoolName}</strong></Form.Label>
+            <Form.Label>
+              <strong>{schoolToEdit?.SchoolName}</strong>
+            </Form.Label>
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label><strong>Field of Study (or Major):</strong></Form.Label>
+            <Form.Label>
+              <strong>Field of Study (or Major):</strong>
+            </Form.Label>
             <Form.Control
               type="text"
-              name="major"
-              value={form.major}
+              name="Major"
+              value={form.Major}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onChange={(e: React.ChangeEvent<any>) => handleChange(e)}
-              onBlur={() => markTouched("major")}
-              isInvalid={isInvalid("major")}
+              onBlur={() => markTouched("Major")}
+              isInvalid={isInvalid("Major")}
               placeholder="Enter Major"
             />
             <Form.Control.Feedback type="invalid">
@@ -109,13 +118,15 @@ const EditSchoolModal: React.FC<Props> = ({ show, onClose, onSave, schoolToEdit 
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label><strong>Degree:</strong></Form.Label>
+            <Form.Label>
+              <strong>Degree:</strong>
+            </Form.Label>
             <Form.Select
-              name="degree"
-              value={form.degree}
+              name="Degree"
+              value={form.Degree}
               onChange={handleChange}
-              onBlur={() => markTouched("degree")}
-              isInvalid={isInvalid("degree")}
+              onBlur={() => markTouched("Degree")}
+              isInvalid={isInvalid("Degree")}
             >
               <option value="">Select...</option>
               <option value="2">Post Graduate</option>
@@ -129,13 +140,15 @@ const EditSchoolModal: React.FC<Props> = ({ show, onClose, onSave, schoolToEdit 
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label><strong>Year:</strong></Form.Label>
+            <Form.Label>
+              <strong>Year:</strong>
+            </Form.Label>
             <Form.Select
-              name="yearClass"
-              value={form.yearClass}
+              name="YearClass"
+              value={form.YearClass}
               onChange={handleChange}
-              onBlur={() => markTouched("yearClass")}
-              isInvalid={isInvalid("yearClass")}
+              onBlur={() => markTouched("YearClass")}
+              isInvalid={isInvalid("YearClass")}
             >
               <option value="">Select Year...</option>
               {years.map((year) => (
@@ -150,13 +163,15 @@ const EditSchoolModal: React.FC<Props> = ({ show, onClose, onSave, schoolToEdit 
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label><strong>Sport Competition Level:</strong></Form.Label>
+            <Form.Label>
+              <strong>Sport Competition Level:</strong>
+            </Form.Label>
             <Form.Select
-              name="sportLevelType"
-              value={form.sportLevelType}
+              name="SportLevelType"
+              value={form.SportLevelType}
               onChange={handleChange}
-              onBlur={() => markTouched("sportLevelType")}
-              isInvalid={isInvalid("sportLevelType")}
+              onBlur={() => markTouched("SportLevelType")}
+              isInvalid={isInvalid("SportLevelType")}
             >
               <option value="">Select...</option>
               <option value="Division I">Division I</option>

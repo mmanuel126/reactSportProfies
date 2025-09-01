@@ -12,7 +12,7 @@ import "./ViewMember.css";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store";
 
-import CommonBaseModal  from "../CommonBaseModal";
+import CommonBaseModal from "../CommonBaseModal";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -31,11 +31,11 @@ const ViewMember: React.FC<ViewMemberProps> = ({ memberId }) => {
   const [memImage, setMemImage] = useState<string>("");
   const [memName, setMemName] = useState<string>("");
   const [memTitle, setMemTitle] = useState<string>("");
-  const [,setShowAddAsContact] = useState<boolean>(false);
+  const [, setShowAddAsContact] = useState<boolean>(false);
   const [showFollowMember, setShowFollowMember] = useState<boolean>(false);
 
   const [showAddContactPopup, setShowAddContactPopup] = useState(false);
-  const [,setIsContactAdded] = useState(false);
+  const [, setIsContactAdded] = useState(false);
 
   const loggedInUserId = useSelector(
     (state: RootState) => state.auth.user?.memberID
@@ -46,9 +46,9 @@ const ViewMember: React.FC<ViewMemberProps> = ({ memberId }) => {
     const fetchBasicInfo = async () => {
       try {
         const data = await getBasicInfo(memberId);
-        setMemImage(data.picturePath!); 
-        setMemName(data.firstName! + " " + data.lastName!); 
-        setMemTitle(data.titleDesc!);
+        setMemImage(data.PicturePath!);
+        setMemName(data.FirstName! + " " + data.LastName!);
+        setMemTitle(data.TitleDesc!);
       } catch (error) {
         console.error("Failed to fetch member basic info", error);
       }
@@ -103,8 +103,8 @@ const ViewMember: React.FC<ViewMemberProps> = ({ memberId }) => {
 
   const handleAddContact = async () => {
     try {
-      await addContact(loggedInUserId!, memberId); 
-      setIsContactAdded(true); 
+      await addContact(loggedInUserId!, memberId);
+      setIsContactAdded(true);
       setShowAddContactPopup(false);
     } catch (err) {
       console.error("Failed to add contact:", err);
@@ -162,7 +162,7 @@ const ViewMember: React.FC<ViewMemberProps> = ({ memberId }) => {
                     id="memberImg"
                     width="90"
                     height="90"
-                    src={`${BASE_URL}/Images/members/${
+                    src={`${BASE_URL}/static/images/members/${
                       memImage || "default.png"
                     }`}
                     alt="Member"
@@ -199,7 +199,7 @@ const ViewMember: React.FC<ViewMemberProps> = ({ memberId }) => {
                       <span style={{ fontSize: "10pt" }}>
                         <br />
                         <a
-                          style={{textDecoration:"none"}}
+                          style={{ textDecoration: "none" }}
                           href="#"
                           onClick={(e) => {
                             e.preventDefault();
@@ -214,8 +214,8 @@ const ViewMember: React.FC<ViewMemberProps> = ({ memberId }) => {
                     {showFollowMember && (
                       <span style={{ fontSize: "10pt" }}>
                         <br />
-                        <a 
-                          style={{textDecoration:"none"}}
+                        <a
+                          style={{ textDecoration: "none" }}
                           href="#"
                           onClick={(e) => {
                             e.preventDefault();
@@ -276,7 +276,7 @@ const ViewMember: React.FC<ViewMemberProps> = ({ memberId }) => {
         onHide={() => setShowAddContactPopup(false)}
         onSend={handleAddContact}
         titleText="Requesting to Add Contact"
-        bodyText= {`${memName} will have to confirm your request. Are you sure you want to send this contact request?`}
+        bodyText={`${memName} will have to confirm your request. Are you sure you want to send this contact request?`}
         actionButtonText="Send Request"
       />
     </div>

@@ -36,7 +36,7 @@ const Suggesting: React.FC = () => {
     try {
       await followContact(memberID, contactID);
       setSuggesting((prev) =>
-        prev.filter((contact) => contact.contactID !== contactID)
+        prev.filter((contact) => contact.ContactID !== contactID)
       );
     } catch (error) {
       console.error("Error following contact:", error);
@@ -84,7 +84,7 @@ const Suggesting: React.FC = () => {
       <div className="px-3 pt-3">
         {suggesting.map((res, index) => (
           <div
-            key={res.contactID}
+            key={res.ContactID}
             className="d-flex align-items-center justify-content-between pb-3 mb-3"
             style={{
               borderBottom:
@@ -92,10 +92,10 @@ const Suggesting: React.FC = () => {
             }}
           >
             <div className="d-flex align-items-center">
-              <Link to={`/profile/${res.contactID}`}>
+              <Link to={`/profile/${res.ContactID}`}>
                 <img
-                  src={`${BASE_URL}/Images/members/${
-                    res.picturePath || "default.png"
+                  src={`${BASE_URL}/static/images/members/${
+                    res.PicturePath || "default.png"
                   }`}
                   alt="User"
                   className="rounded-circle"
@@ -105,20 +105,20 @@ const Suggesting: React.FC = () => {
               <div className="ms-3">
                 <strong>
                   <Link
-                    to={`/profile/${res.contactID}`}
+                    to={`/profile/${res.ContactID}`}
                     style={{ textDecoration: "none", fontWeight: "bold" }}
                   >
-                    {res.friendName}
+                    {res.FriendName}
                   </Link>
                 </strong>
                 <br />
                 <span style={{ color: "gray", fontSize: "10pt" }}>
-                  {res.titleDesc}
+                  {res.TitleDesc}
                 </span>
               </div>
             </div>
 
-            {res.showFollow ==='true' && (
+            {res.ShowFollow === "true" && (
               <Button
                 size="sm"
                 style={{
@@ -126,7 +126,7 @@ const Suggesting: React.FC = () => {
                   color: "white",
                   border: "none",
                 }}
-                onClick={() => handleFollow(res.contactID)}
+                onClick={() => handleFollow(res.ContactID)}
               >
                 <b>Follow</b>
               </Button>
@@ -139,4 +139,3 @@ const Suggesting: React.FC = () => {
 };
 
 export default Suggesting;
-

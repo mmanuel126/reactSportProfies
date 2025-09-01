@@ -35,9 +35,9 @@ const OpenMessageModal: React.FC<Props> = ({ show, onClose, message }) => {
     const ensureStartsWith = (str: string, prefix: string): string => {
       return str.startsWith(prefix) ? str : prefix + str;
     };
-    const newSubject = ensureStartsWith(message.subject.trim(), "RE: ");
+    const newSubject = ensureStartsWith(message.Subject.trim(), "RE: ");
     if (!message) return;
-    await sendMessage(memberID!, message.fromID!, newSubject, text.trim());
+    await sendMessage(memberID!, message.FromID!, newSubject, text.trim());
     setText("");
     onClose();
   };
@@ -49,7 +49,7 @@ const OpenMessageModal: React.FC<Props> = ({ show, onClose, message }) => {
           <h5 className="modal-title" id="openMsgModalTitle">
             <img
               src={`${BASE_URL}/Images/members/${
-                message!.senderImage || "default.png"
+                message!.SenderImage || "default.png"
               }`}
               style={{
                 color: "#596A7D",
@@ -61,17 +61,17 @@ const OpenMessageModal: React.FC<Props> = ({ show, onClose, message }) => {
                 borderRadius: "50%",
               }}
             />
-            &nbsp; {message!.senderID}
+            &nbsp; {message!.SenderID}
           </h5>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form noValidate>
-          {message!.subject}
+          {message!.Subject}
           <br />
-          {message!.msgDate}
+          {message!.MsgDate}
           <hr />
-          {message!.body}
+          {message!.Body}
           <hr />
           Reply:
           <br />

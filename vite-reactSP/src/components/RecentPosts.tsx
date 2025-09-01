@@ -6,12 +6,12 @@ import { Button, Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store";
 
-import PostModal from "../components/PostModal"; 
+import PostModal from "../components/PostModal";
 import {
   incrementLikedPost,
   addPostReply,
   addNewPost,
-} from "../services/memberService"; 
+} from "../services/memberService";
 
 import { Link } from "react-router-dom";
 
@@ -89,8 +89,8 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
     // Optimistically update UI
     setPosts((prevPosts) =>
       prevPosts.map((post) =>
-        post.postID === postID
-          ? { ...post, likeCounter: post.likeCounter + 1 }
+        post.PostID === postID
+          ? { ...post, likeCounter: post.LikeCounter + 1 }
           : post
       )
     );
@@ -103,8 +103,8 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
       // Revert UI if API call fails
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
-          post.postID === postID
-            ? { ...post, likeCounter: post.likeCounter - 1 }
+          post.PostID === postID
+            ? { ...post, likeCounter: post.LikeCounter - 1 }
             : post
         )
       );
@@ -180,17 +180,17 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
         <div className="p-3">
           {posts.map((res, index) => (
             <div
-              key={res.postID}
+              key={res.PostID}
               className="d-flex pb-3 mb-3"
               style={{
                 borderBottom:
                   index !== posts.length - 1 ? "1px solid #e0e0e0" : "none",
               }}
             >
-              <Link to={`/profile/${res.memberID}`}>
+              <Link to={`/profile/${res.MemberID}`}>
                 <img
-                  src={`${BASE_URL}/Images/members/${
-                    res.picturePath || "default.png"
+                  src={`${BASE_URL}/static/images/members/${
+                    res.PicturePath || "default.png"
                   }`}
                   alt="User"
                   className="rounded-circle"
@@ -208,17 +208,17 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
                 >
                   <strong>
                     <Link
-                      to={`/profile/${res.memberID}`}
+                      to={`/profile/${res.MemberID}`}
                       style={{ textDecoration: "none", fontWeight: "bold" }}
                     >
-                      {res.memberName}
+                      {res.MemberName}
                     </Link>
                   </strong>
                   <br />
-                  {res.description}
+                  {res.Description}
                 </div>
                 <div className="mt-1 text-muted" style={{ fontSize: "9pt" }}>
-                  {res.datePosted}
+                  {res.DatePosted}
                   <br />
                   <Button
                     size="sm"
@@ -226,11 +226,11 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
                     className="p-0 fs-6 "
                     title="Reply"
                     style={{ fontSize: "9pt", textDecoration: "none" }}
-                    onClick={() => toggleReplies(res.postID)}
+                    onClick={() => toggleReplies(res.PostID)}
                   >
                     <i className={`bi bi-chat`} />
                   </Button>
-                  {res.childPostCnt > 0 && <>&nbsp;{res.childPostCnt}</>}
+                  {res.ChildPostCnt > 0 && <>&nbsp;{res.ChildPostCnt}</>}
                   <span className="mx-2 text-secondary">|</span>
                   <Button
                     size="sm"
@@ -238,37 +238,37 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
                     variant="link"
                     className="p-0 fs-6 "
                     style={{ fontSize: "9pt", textDecoration: "none" }}
-                    onClick={() => handleLike(res.postID)}
+                    onClick={() => handleLike(res.PostID)}
                   >
                     <i className={`bi bi-hand-thumbs-up`} />
                   </Button>
-                  {res.likeCounter > 0 && <>&nbsp;{res.likeCounter}</>}
+                  {res.LikeCounter > 0 && <>&nbsp;{res.LikeCounter}</>}
                 </div>
 
                 {/* Replies */}
-                {expandedReplies.has(res.postID) && (
+                {expandedReplies.has(res.PostID) && (
                   <div className="mt-2 border-top pt-2">
-                    {loadingReplies.has(res.postID) ? (
+                    {loadingReplies.has(res.PostID) ? (
                       <div className="text-muted" style={{ fontSize: "9pt" }}>
                         <Spinner animation="border" size="sm" /> Loading
                         replies...
                       </div>
-                    ) : replies[res.postID]?.length > 0 ? (
-                      replies[res.postID].map((chi, i) => (
+                    ) : replies[res.PostID]?.length > 0 ? (
+                      replies[res.PostID].map((chi, i) => (
                         <div
                           key={i}
                           className="d-flex mb-2 pb-2"
                           style={{
                             borderBottom:
-                              i !== replies[res.postID].length - 1
+                              i !== replies[res.PostID].length - 1
                                 ? "1px solid #ddd"
                                 : "none",
                           }}
                         >
-                          <Link to={`/profile/${chi.memberID}`}>
+                          <Link to={`/profile/${chi.MemberID}`}>
                             <img
-                              src={`${BASE_URL}/Images/members/${
-                                chi.picturePath || "default.png"
+                              src={`${BASE_URL}/static/images/members/${
+                                chi.PicturePath || "default.png"
                               }`}
                               alt="User"
                               className="rounded-circle"
@@ -281,20 +281,20 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
                           >
                             <strong>
                               <Link
-                                to={`/profile/${chi.memberID}`}
+                                to={`/profile/${chi.MemberID}`}
                                 style={{
                                   textDecoration: "none",
                                   fontWeight: "bold",
                                 }}
                               >
-                                {chi.memberName}
+                                {chi.MemberName}
                               </Link>
                             </strong>
                             <br />
-                            {chi.description}
+                            {chi.Description}
                             <br />
                             <span className="text-muted">
-                              {chi.dateResponded}
+                              {chi.DateResponded}
                             </span>
                             <br />
                             <Button
@@ -307,7 +307,7 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
                               }}
                               onClick={() => {
                                 setModalMode("reply");
-                                setTargetPostID(res.postID); 
+                                setTargetPostID(res.PostID);
                                 setShowModal(true);
                               }}
                             >
@@ -329,7 +329,7 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
                           }}
                           onClick={() => {
                             setModalMode("reply");
-                            setTargetPostID(res.postID); 
+                            setTargetPostID(res.PostID);
                             setShowModal(true);
                           }}
                         >

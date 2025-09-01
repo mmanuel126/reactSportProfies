@@ -25,7 +25,7 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
     defaultValues: {},
   });
 
-  const isAthlete = watch("currentStatus")?.includes("Athlete");
+  const isAthlete = watch("CurrentStatus")?.includes("Athlete");
 
   useEffect(() => {
     getBasicInfo(memberId).then((data) => {
@@ -58,9 +58,9 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
         <input
           className="form-control"
           placeholder="Enter First Name"
-          {...register("firstName", { required: true })}
+          {...register("FirstName", { required: true })}
         />
-        {errors.firstName && touchedFields.firstName && (
+        {errors.FirstName && touchedFields.FirstName && (
           <span className="text-danger">First name required.</span>
         )}
       </div>
@@ -70,7 +70,7 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
         <input
           className="form-control"
           placeholder="Enter Middle Name"
-          {...register("middleName")}
+          {...register("MiddleName")}
         />
       </div>
 
@@ -79,9 +79,9 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
         <input
           className="form-control"
           placeholder="Enter Last Name"
-          {...register("lastName", { required: true })}
+          {...register("LastName", { required: true })}
         />
-        {errors.lastName && touchedFields.lastName && (
+        {errors.LastName && touchedFields.LastName && (
           <span className="text-danger">Last name required.</span>
         )}
       </div>
@@ -91,9 +91,9 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
         <input
           className="form-control"
           placeholder="Basketball Player, Sport Enthusiast..."
-          {...register("titleDesc", { required: true })}
+          {...register("TitleDesc", { required: true })}
         />
-        {errors.titleDesc && (
+        {errors.TitleDesc && (
           <span className="text-danger">Title required.</span>
         )}
       </div>
@@ -102,16 +102,16 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
         <b>Your Main Sport:</b>
         <select
           className="form-control"
-          {...register("sport", { required: true })}
+          {...register("Sport", { required: true })}
         >
           <option value="">Select sport...</option>
           {sportsList.map((sport) => (
-            <option key={sport.id} value={sport.name}>
-              {sport.name}
+            <option key={sport.id} value={sport.Name}>
+              {sport.Name}
             </option>
           ))}
         </select>
-        {errors.sport && (
+        {errors.Sport && (
           <span className="text-danger">Sport is required.</span>
         )}
       </div>
@@ -120,7 +120,7 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
         <b>Current Status:</b>
         <select
           className="form-control"
-          {...register("currentStatus", { required: true })}
+          {...register("CurrentStatus", { required: true })}
         >
           <option value="">Select status...</option>
           {[
@@ -140,7 +140,7 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
             </option>
           ))}
         </select>
-        {errors.currentStatus && (
+        {errors.CurrentStatus && (
           <span className="text-danger">Status is required.</span>
         )}
       </div>
@@ -150,7 +150,7 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
         <>
           <div className="form-group pb-3">
             <b>Preferred Hand/Foot:</b>
-            <select className="form-control" {...register("leftRightHandFoot")}>
+            <select className="form-control" {...register("LeftRightHandFoot")}>
               <option value="Left">Left</option>
               <option value="Right">Right</option>
             </select>
@@ -161,7 +161,7 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
             <input
               className="form-control"
               placeholder="Enter preferred position..."
-              {...register("preferredPosition")}
+              {...register("PreferredPosition")}
             />
           </div>
 
@@ -170,13 +170,13 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
             <input
               className="form-control"
               placeholder="Enter secondary position..."
-              {...register("secondaryPosition")}
+              {...register("SecondaryPosition")}
             />
           </div>
 
           <div className="form-group pb-3">
             <b>Height:</b>
-            <select className="form-control" {...register("height")}>
+            <select className="form-control" {...register("Height")}>
               <option value="">Select height...</option>
               {[...Array(37)].map((_, i) => {
                 const feet = Math.floor(i / 12) + 4;
@@ -192,7 +192,7 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
 
           <div className="form-group pb-3">
             <b>Weight:</b>
-            <select className="form-control" {...register("weight")}>
+            <select className="form-control" {...register("Weight")}>
               <option value="">Select weight...</option>
               {[...Array(251)].map((_, i) => (
                 <option key={i} value={`${i + 50} lbs`}>
@@ -209,7 +209,7 @@ const EditBasicInfoTab = ({ memberId }: Props) => {
         <textarea
           className="form-control"
           style={{ height: "70px" }}
-          {...register("bio")}
+          {...register("Bio")}
         />
       </div>
 

@@ -23,9 +23,9 @@ const PrivacySettings: React.FC = () => {
     const fetchBasicInfo = async () => {
       try {
         const data = await getBasicInfo(memberId!);
-        setMemImage(data.picturePath!);
-        setMemName(data.firstName! + " " + data.lastName!);
-        setMemTitle(data.titleDesc!);
+        setMemImage(data.PicturePath!);
+        setMemName(data.FirstName! + " " + data.LastName!);
+        setMemTitle(data.TitleDesc!);
       } catch (error) {
         console.error("Failed to fetch member basic info", error);
       }
@@ -73,7 +73,7 @@ const PrivacySettings: React.FC = () => {
                     id="memberImg"
                     width="90"
                     height="90"
-                    src={`${BASE_URL}/Images/members/${
+                    src={`${BASE_URL}/static/images/members/${
                       memImage || "default.png"
                     }`}
                     alt="Member"

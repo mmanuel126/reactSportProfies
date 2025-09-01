@@ -71,8 +71,8 @@ const SearchTab: React.FC<Props> = ({ memberId }) => {
           <strong>You are visible to:</strong>
         </Form.Label>
         <Form.Select
-          name="visibility"
-          value={settings.visibility}
+          name="Visibility"
+          value={settings.Visibility}
           onChange={handleChange}
           style={{ width: "auto", height: "auto", paddingTop: "10px" }}
         >
@@ -88,29 +88,29 @@ const SearchTab: React.FC<Props> = ({ memberId }) => {
       <Form.Group className="mb-4">
         <Form.Check
           id="chkProfile"
-          name="viewProfilePicture"
-          checked={settings.viewProfilePicture}
+          name="ViewProfilePicture"
+          checked={settings.ViewProfilePicture}
           onChange={handleChange}
           label="Your profile picture"
         />
         <Form.Check
           id="chkContactList"
-          name="viewFriendsList"
-          checked={settings.viewFriendsList}
+          name="ViewFriendsList"
+          checked={settings.ViewFriendsList}
           onChange={handleChange}
           label="Your Contacts list"
         />
         <Form.Check
           id="chkAddContactLink"
-          name="viewLinksToRequestAddingYouAsFriend"
-          checked={settings.viewLinksToRequestAddingYouAsFriend}
+          name="ViewLinksToRequestAddingYouAsFriend"
+          checked={settings.ViewLinksToRequestAddingYouAsFriend}
           onChange={handleChange}
           label="A link to request adding you as a Contact"
         />
         <Form.Check
           id="chkSendMessage"
-          name="viewLinkTSendYouMsg"
-          checked={settings.viewLinkTSendYouMsg}
+          name="ViewLinkTSendYouMsg"
+          checked={settings.ViewLinkTSendYouMsg}
           onChange={handleChange}
           label="A link to send you a message"
         />

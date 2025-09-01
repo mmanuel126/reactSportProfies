@@ -67,7 +67,9 @@ button:focus-visible {
   }
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -83,7 +85,6 @@ html, body, #root {
 .bg-fafafa {
   background-color: #fafafa !important;
 }
-
 
 /* css for home page popover menu */
 .hover-bg-light:hover {
@@ -105,4 +106,35 @@ html, body, #root {
 
 .popover-item:hover {
   background-color: #f8f9fa !important; /* Light gray on hover */
+}
+
+.modal-backdrop.show {
+  background-color: rgba(0, 0, 0, 0.5) !important; /* or customize */
+}
+
+.playlist-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  background-color: black;
+}
+
+.playlist-item {
+  min-width: 150px;
+  font-size: 9pt;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.playlist-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.playlist-scroll-container {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

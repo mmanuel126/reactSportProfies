@@ -11,7 +11,6 @@ const ChangePhotoTab: React.FC<Props> = ({ memberId }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [isSaving, setIsSaving] = useState<boolean>(false);
-  console.log(memberId);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;

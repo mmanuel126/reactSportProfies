@@ -71,7 +71,7 @@ const PeopleFollowingMe: React.FC = () => {
       <div className="px-3 pt-3">
         {following.map((res, index) => (
           <div
-            key={res.contactID}
+            key={res.ContactID}
             className="d-flex align-items-center justify-content-between pb-3 mb-3"
             style={{
               borderBottom:
@@ -79,10 +79,10 @@ const PeopleFollowingMe: React.FC = () => {
             }}
           >
             <div className="d-flex align-items-center">
-              <Link to={`/profile/${res.contactID}`}>
+              <Link to={`/profile/${res.ContactID}`}>
                 <img
-                  src={`${BASE_URL}/Images/members/${
-                    res.picturePath || "default.png"
+                  src={`${BASE_URL}/static/images/members/${
+                    res.PicturePath || "default.png"
                   }`}
                   alt="User"
                   className="rounded-circle"
@@ -92,15 +92,15 @@ const PeopleFollowingMe: React.FC = () => {
               <div className="ms-3">
                 <strong>
                   <Link
-                    to={`/profile/${res.contactID}`}
-                    style={{ textDecoration: "none",fontWeight:"bold" }}
+                    to={`/profile/${res.ContactID}`}
+                    style={{ textDecoration: "none", fontWeight: "bold" }}
                   >
-                    {res.friendName}
+                    {res.FriendName}
                   </Link>
                 </strong>
                 <br />
                 <span style={{ color: "gray", fontSize: "10pt" }}>
-                  {res.titleDesc}
+                  {res.TitleDesc}
                 </span>
               </div>
             </div>

@@ -12,14 +12,14 @@ type Props = {
 
 const NameTab: React.FC<Props> = ({ memberId }) => {
   const [formData, setFormData] = useState<AccountSettings>({
-    firstName: "",
-    middleName: "",
-    lastName: "",
+    FirstName: "",
+    MiddleName: "",
+    LastName: "",
   });
 
   const [errors, setErrors] = useState<{
-    firstName?: string;
-    lastName?: string;
+    FirstName?: string;
+    LastName?: string;
   }>({});
   const [isSaving, setIsSaving] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -32,9 +32,9 @@ const NameTab: React.FC<Props> = ({ memberId }) => {
   }, [memberId]);
 
   const validate = () => {
-    const errs: { firstName?: string; lastName?: string } = {};
-    if (!formData.firstName!.trim()) errs.firstName = "First name required.";
-    if (!formData.lastName!.trim()) errs.lastName = "Last name required.";
+    const errs: { FirstName?: string; LastName?: string } = {};
+    if (!formData.FirstName!.trim()) errs.FirstName = "First name required.";
+    if (!formData.LastName!.trim()) errs.LastName = "Last name required.";
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -54,9 +54,9 @@ const NameTab: React.FC<Props> = ({ memberId }) => {
     try {
       await saveMemberNameInfo(
         memberId,
-        formData.firstName!.trim(),
-        formData.middleName!.trim(),
-        formData.lastName!.trim()
+        formData.FirstName!.trim(),
+        formData.MiddleName!.trim(),
+        formData.LastName!.trim()
       );
 
       setIsSuccess(true);
@@ -76,15 +76,15 @@ const NameTab: React.FC<Props> = ({ memberId }) => {
         </label>
         <input
           type="text"
-          name="firstName"
+          name="FirstName"
           className="form-control"
           placeholder="Enter first name"
-          value={formData!.firstName}
+          value={formData!.FirstName}
           onChange={handleChange}
           required
         />
-        {errors.firstName && (
-          <small className="text-danger">{errors.firstName}</small>
+        {errors.FirstName && (
+          <small className="text-danger">{errors.FirstName}</small>
         )}
       </div>
 
@@ -97,7 +97,7 @@ const NameTab: React.FC<Props> = ({ memberId }) => {
           name="middleName"
           className="form-control"
           placeholder="Enter middle name"
-          value={formData!.middleName}
+          value={formData!.MiddleName}
           onChange={handleChange}
         />
       </div>
@@ -108,15 +108,15 @@ const NameTab: React.FC<Props> = ({ memberId }) => {
         </label>
         <input
           type="text"
-          name="lastName"
+          name="LastName"
           className="form-control"
           placeholder="Enter last name"
-          value={formData!.lastName}
+          value={formData!.LastName}
           onChange={handleChange}
           required
         />
-        {errors.lastName && (
-          <small className="text-danger">{errors.lastName}</small>
+        {errors.LastName && (
+          <small className="text-danger">{errors.LastName}</small>
         )}
       </div>
 
@@ -124,7 +124,7 @@ const NameTab: React.FC<Props> = ({ memberId }) => {
         <button
           type="submit"
           className="btn btn-primary"
-          disabled={isSaving || !formData!.firstName || !formData!.lastName}
+          disabled={isSaving || !formData!.FirstName || !formData!.LastName}
         >
           {isSaving ? (
             <>

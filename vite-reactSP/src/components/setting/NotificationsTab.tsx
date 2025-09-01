@@ -1,25 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { getMemberNotifications, saveNotificationSettings } from '../../services/settingService';
-import type { NotificationBody } from '../../types/settings';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../store';
+import React, { useState, useEffect } from "react";
+import {
+  getMemberNotifications,
+  saveNotificationSettings,
+} from "../../services/settingService";
+import type { NotificationBody } from "../../types/settings";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store";
 
 type Props = {
   memberId: string;
 };
 
 const NotificationsTab: React.FC<Props> = ({ memberId }) => {
-  const [form, setForm] = useState<Omit<NotificationBody, 'memberId'>>({
-    sendMsg: false,
-    addAsFriend: false,
-    confirmFriendShipRequest: false,
-    repliesToYourHelpQuest: false,
+  const [form, setForm] = useState<Omit<NotificationBody, "memberId">>({
+    SendMsg: false,
+    AddAsFriend: false,
+    ConfirmFriendShipRequest: false,
+    RepliesToYourHelpQuest: false,
   });
- 
+
   const [isSaving, setIsSaving] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  
+
   const userEmail = useSelector((state: RootState) => state.auth.user?.email);
 
   useEffect(() => {
@@ -27,13 +30,13 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
       try {
         const data = await getMemberNotifications(memberId);
         setForm({
-          sendMsg: data.sendMsg,
-          addAsFriend: data.addAsFriend,
-          confirmFriendShipRequest: data.confirmFriendShipRequest,
-          repliesToYourHelpQuest: data.repliesToYourHelpQuest,
+          SendMsg: data.SendMsg,
+          AddAsFriend: data.AddAsFriend,
+          ConfirmFriendShipRequest: data.ConfirmFriendShipRequest,
+          RepliesToYourHelpQuest: data.RepliesToYourHelpQuest,
         });
       } catch (err) {
-        console.error('Failed to load notification settings', err);
+        console.error("Failed to load notification settings", err);
       }
     };
 
@@ -42,7 +45,7 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
-    setForm(prev => ({ ...prev, [name]: checked }));
+    setForm((prev) => ({ ...prev, [name]: checked }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -50,11 +53,11 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
     setIsSaving(true);
     setIsSuccess(false);
     try {
-      const body: NotificationBody = { memberId, ...form };
+      const body: NotificationBody = { MemberID: memberId, ...form };
       await saveNotificationSettings(memberId, body);
       setIsSuccess(true);
     } catch (err) {
-      console.error('Error saving notification settings:', err);
+      console.error("Error saving notification settings:", err);
     } finally {
       setIsSaving(false);
     }
@@ -64,8 +67,9 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
     <div className="container mt-4">
       <form onSubmit={handleSubmit}>
         <p className="text-muted">
-          We will notify you by email whenever actions that involve you are taken. Each site application has its own email
-          notification settings. Use this section to change these settings as necessary.
+          We will notify you by email whenever actions that involve you are
+          taken. Each site application has its own email notification settings.
+          Use this section to change these settings as necessary.
         </p>
 
         <p>
@@ -78,12 +82,12 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
             <input
               type="checkbox"
               className="form-check-input"
-              id="sendMsg"
-              name="sendMsg"
-              checked={form.sendMsg}
+              id="SendMsg"
+              name="SendMsg"
+              checked={form.SendMsg}
               onChange={handleChange}
             />
-            <label className="form-check-label" htmlFor="sendMsg">
+            <label className="form-check-label" htmlFor="SendMsg">
               Sends you a message
             </label>
           </div>
@@ -92,12 +96,12 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
             <input
               type="checkbox"
               className="form-check-input"
-              id="addAsFriend"
-              name="addAsFriend"
-              checked={form.addAsFriend}
+              id="AddAsFriend"
+              name="AddAsFriend"
+              checked={form.AddAsFriend}
               onChange={handleChange}
             />
-            <label className="form-check-label" htmlFor="addAsFriend">
+            <label className="form-check-label" htmlFor="AddAsFriend">
               Adds you as a contact
             </label>
           </div>
@@ -106,12 +110,15 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
             <input
               type="checkbox"
               className="form-check-input"
-              id="confirmFriendShipRequest"
-              name="confirmFriendShipRequest"
-              checked={form.confirmFriendShipRequest}
+              id="ConfirmFriendShipRequest"
+              name="ConfirmFriendShipRequest"
+              checked={form.ConfirmFriendShipRequest}
               onChange={handleChange}
             />
-            <label className="form-check-label" htmlFor="confirmFriendShipRequest">
+            <label
+              className="form-check-label"
+              htmlFor="ConfirmFriendShipRequest"
+            >
               Confirms a contact request
             </label>
           </div>
@@ -123,12 +130,15 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
             <input
               type="checkbox"
               className="form-check-input"
-              id="repliesToYourHelpQuest"
-              name="repliesToYourHelpQuest"
-              checked={form.repliesToYourHelpQuest}
+              id="RepliesToYourHelpQuest"
+              name="RepliesToYourHelpQuest"
+              checked={form.RepliesToYourHelpQuest}
               onChange={handleChange}
             />
-            <label className="form-check-label" htmlFor="repliesToYourHelpQuest">
+            <label
+              className="form-check-label"
+              htmlFor="RepliesToYourHelpQuest"
+            >
               Replies to your help questions
             </label>
           </div>
@@ -137,13 +147,13 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
         <div className="mb-3">
           <button type="submit" className="btn btn-primary" disabled={isSaving}>
             {isSaving ? <i className="fa fa-spinner fa-spin me-2" /> : null}
-            {isSaving ? 'Saving...' : 'Save'}
+            {isSaving ? "Saving..." : "Save"}
           </button>
         </div>
 
         {isSuccess && (
           <div className="mb-5">
-            <span style={{ color: 'green' }}>Saved successfully.</span>
+            <span style={{ color: "green" }}>Saved successfully.</span>
           </div>
         )}
       </form>

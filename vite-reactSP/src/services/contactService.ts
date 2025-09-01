@@ -7,7 +7,7 @@ export async function getSearchList(
   query: string
 ): Promise<Search[]> {
   const data = await apiFetch(
-    `/services/contact/SearchResults?memberID=${memberId}&searchText=${query}`,
+    `/color: "red",search-results?member_id=${memberId}&search_text=${query}`,
     {
       method: "GET",
     }
@@ -17,7 +17,7 @@ export async function getSearchList(
 
 export async function getPeopleIFollow(memberID: string): Promise<Contact[]> {
   const data = await apiFetch(
-    `/services/contact/GetPeopleIFollow?memberID=${memberID}`,
+    `/api/contact/people-iam-following?member_id=${memberID}`,
     {
       method: "GET",
     }
@@ -25,9 +25,11 @@ export async function getPeopleIFollow(memberID: string): Promise<Contact[]> {
   return Array.isArray(data) ? data : []; // ensure it's an array
 }
 
-export async function getPeopleFollowingMe(memberID: string): Promise<Contact[]> {
+export async function getPeopleFollowingMe(
+  memberID: string
+): Promise<Contact[]> {
   const data = await apiFetch(
-    `/services/contact/GetWhosFollowingMe?memberID=${memberID}`,
+    `/api/contact/whose-following-me?member_id=${memberID}`,
     {
       method: "GET",
     }
@@ -40,7 +42,7 @@ export async function unfollowPerson(
   contactID: string
 ): Promise<void> {
   await apiFetch(
-    `/services/contact/UnfollowMember?memberID=${memberID}&contactID=${contactID}`,
+    `/api/contact/unfollow-member?member_id=${memberID}&contact_id=${contactID}`,
     {
       method: "POST",
     }
@@ -52,7 +54,7 @@ export async function followContact(
   contactID: string
 ): Promise<void> {
   await apiFetch(
-    `/services/contact/FollowMember?memberID=${memberID}&contactID=${contactID}`,
+    `/api/contact/follow-member?member_id=${memberID}&contact_id=${contactID}`,
     {
       method: "POST",
     }
@@ -64,9 +66,9 @@ export async function addContact(
   contactID: string
 ): Promise<void> {
   await apiFetch(
-    `/services/contact/SendRequestContact?memberID=${memberID}&contactID=${contactID}`,
+    `/api/contact/send-request?member_id=${memberID}&contact_id=${contactID}`,
     {
-      method: "PUT",
+      method: "POST",
     }
   );
 }
@@ -76,16 +78,13 @@ export async function getMyContacts(
   searchText: string
 ): Promise<Contact[]> {
   if (searchText == "") {
-    const data = await apiFetch(
-      `/services/contact/GetMemberContacts?memberID=${memberID}&show=`,
-      {
-        method: "GET",
-      }
-    );
+    const data = await apiFetch(`/api/contact/contacts?member_id=${memberID}`, {
+      method: "GET",
+    });
     return Array.isArray(data) ? data : []; // ensure it's an array
   } else {
     const data = await apiFetch(
-      `/services/contact/SearchMemberContacts?memberID=${memberID}&searchText=${searchText}&show=`,
+      `/api/contact/search-member-contacts?member_id=${memberID}&search_text=${searchText}`,
       {
         method: "GET",
       }
@@ -100,7 +99,7 @@ export async function deleteContact(
   contactID: string
 ): Promise<void> {
   await apiFetch(
-    `/services/contact/DeleteContact?memberID=${memberID}&contactID=${contactID}`,
+    `/api/contact/delete-contact?member_id=${memberID}&contact_id=${contactID}`,
     {
       method: "DELETE",
     }
@@ -112,9 +111,9 @@ export async function acceptRequest(
   contactID: string
 ): Promise<void> {
   await apiFetch(
-    `/services/contact/AcceptRequest?memberID=${memberID}&contactID=${contactID}`,
+    `/api/contact/accept-request?member_id=${memberID}&contact_id=${contactID}`,
     {
-      method: "PUT",
+      method: "POST",
     }
   );
 }
@@ -124,31 +123,26 @@ export async function rejectRequest(
   contactID: string
 ): Promise<void> {
   await apiFetch(
-    `/services/contact/RejectRequest?memberID=${memberID}&contactID=${contactID}`,
+    `/api/contact/reject-request?member_id=${memberID}&contact_id=${contactID}`,
     {
-      method: "PUT",
+      method: "POST",
     }
   );
 }
 
-export async function getContactRequests(
-  memberId: string
-): Promise<Contact[]> {
-  const data = await apiFetch(
-    `/services/contact/GetRequestsList?memberID=${memberId}`,
-    {
-      method: "GET",
-    }
-  );
+export async function getContactRequests(memberId: string): Promise<Contact[]> {
+  const data = await apiFetch(`/api/contact/requests?member_id=${memberId}`, {
+    method: "GET",
+  });
   return Array.isArray(data) ? data : []; // ensure it's an array
 }
-
 
 export async function getSearchContacts(
-  memberId: string, searchText:string
+  memberId: string,
+  searchText: string
 ): Promise<Contact[]> {
   const data = await apiFetch(
-    `/services/contact/GetSearchContacts?userID=${memberId}&searchText=${searchText}`,
+    `/api/contact/search-contacts?user_id=${memberId}&search_text=${searchText}`,
     {
       method: "GET",
     }
@@ -156,18 +150,12 @@ export async function getSearchContacts(
   return Array.isArray(data) ? data : []; // ensure it's an array
 }
 
-export async function getMySuggestions(
-  memberId: string
-): Promise<Contact[]> {
+export async function getMySuggestions(memberId: string): Promise<Contact[]> {
   const data = await apiFetch(
-    `/services/contact/GetMemberSuggestions?memberID=${memberId}`,
+    `/api/contact/suggestions?member_id=${memberId}`,
     {
       method: "GET",
     }
   );
   return Array.isArray(data) ? data : []; // ensure it's an array
 }
-
-
-
-

@@ -1,64 +1,77 @@
-
-
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { getMemberNameInfo, saveSecurityQuestionInfo } from '../../services/settingService';
-import type { AccountSettings } from '../../types/settings';
+import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  getMemberNameInfo,
+  saveSecurityQuestionInfo,
+} from "../../services/settingService";
+import type { AccountSettings } from "../../types/settings";
 
 type Props = {
   memberId: string;
 };
 
-const SecurityQuestionsTab: React.FC<Props> = ({memberId}) => {
+const SecurityQuestionsTab: React.FC<Props> = ({ memberId }) => {
   const [form, setForm] = useState<AccountSettings>({
-    securityQuestion: '',
-    securityAnswer: '',
+    SecurityQuestion: "",
+    SecurityAnswer: "",
   });
 
   const [isSaving, setIsSaving] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [touched, setTouched] = useState<{ question: boolean; answer: boolean }>({
+  const [touched, setTouched] = useState<{
+    question: boolean;
+    answer: boolean;
+  }>({
     question: false,
     answer: false,
   });
 
   useEffect(() => {
-  const fetchMember = async () => {
-    try {
-      const data = await getMemberNameInfo(memberId);
-      // Assuming data looks like { securityQuestion: '1', securityAnswer: 'My Answer' }
-      setForm({
-        securityQuestion: data.securityQuestion || '',
-        securityAnswer: data.securityAnswer || '',
-      });
-    } catch (error) {
-      console.error('Failed to load member info:', error);
-    }
-  };
+    const fetchMember = async () => {
+      try {
+        const data = await getMemberNameInfo(memberId);
+        // Assuming data looks like { securityQuestion: '1', securityAnswer: 'My Answer' }
+        setForm({
+          SecurityQuestion: data.SecurityQuestion || "",
+          SecurityAnswer: data.SecurityAnswer || "",
+        });
+      } catch (error) {
+        console.error("Failed to load member info:", error);
+      }
+    };
 
-  fetchMember();
-}, [memberId]);
+    fetchMember();
+  }, [memberId]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleBlur = (field: 'question' | 'answer') => {
-    setTouched(prev => ({ ...prev, [field]: true }));
+  const handleBlur = (field: "question" | "answer") => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
   };
 
-  const isFormValid = form.securityQuestion && form.securityQuestion !== 'select' && form.securityAnswer!.trim();
+  const isFormValid =
+    form.SecurityQuestion &&
+    form.SecurityQuestion !== "select" &&
+    form.SecurityAnswer!.trim();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
     setIsSuccess(false);
     try {
-      await saveSecurityQuestionInfo(memberId, form.securityQuestion!, form.securityAnswer!);
+      await saveSecurityQuestionInfo(
+        memberId,
+        form.SecurityQuestion!,
+        form.SecurityAnswer!
+      );
       setIsSuccess(true);
     } catch (error) {
-      console.error('Failed to save security question:', error);
+      console.error("Failed to save security question:", error);
     } finally {
       setIsSaving(false);
     }
@@ -69,22 +82,24 @@ const SecurityQuestionsTab: React.FC<Props> = ({memberId}) => {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <p>
-            In case you ever need our help (such as forgetting your password), we will use this to identify you as the account
-            owner.
+            In case you ever need our help (such as forgetting your password),
+            we will use this to identify you as the account owner.
           </p>
         </div>
 
         <div className="form-group mb-3">
-          <label htmlFor="ddlQuestion"><strong>Question:</strong></label>
+          <label htmlFor="ddlQuestion">
+            <strong>Question:</strong>
+          </label>
           <select
             className="form-control"
-            name="securityQuestion"
+            name="SecurityQuestion"
             id="ddlQuestion"
-            value={form.securityQuestion}
+            value={form.SecurityQuestion}
             onChange={handleChange}
-            onBlur={() => handleBlur('question')}
+            onBlur={() => handleBlur("question")}
             required
-            style={{ width: '320px', height: '29px', paddingTop: '1px' }}
+            style={{ width: "320px", height: "29px", paddingTop: "1px" }}
           >
             <option value="select">Select Question...</option>
             <option value="1">Who was your first love?</option>
@@ -94,39 +109,47 @@ const SecurityQuestionsTab: React.FC<Props> = ({memberId}) => {
             <option value="5">What neighborhood did you grow up on?</option>
             <option value="6">What is your father's nickname?</option>
           </select>
-          {touched.question && (!form.securityQuestion || form.securityQuestion === 'select') && (
-            <div className="text-danger">Security question required.</div>
-          )}
+          {touched.question &&
+            (!form.SecurityQuestion || form.SecurityQuestion === "select") && (
+              <div className="text-danger">Security question required.</div>
+            )}
         </div>
 
         <div className="form-group mb-3">
-          <label htmlFor="txtAnswer"><strong>Answer:</strong></label>
+          <label htmlFor="txtAnswer">
+            <strong>Answer:</strong>
+          </label>
           <input
             type="text"
             className="form-control"
             id="txtAnswer"
-            name="securityAnswer"
-            value={form.securityAnswer}
+            name="SecurityAnswer"
+            value={form.SecurityAnswer}
             onChange={handleChange}
-            onBlur={() => handleBlur('answer')}
+            onBlur={() => handleBlur("answer")}
             placeholder="Enter answer"
             required
-            style={{ width: '320px', height: '29px', paddingTop: '1px' }}
+            style={{ width: "320px", height: "29px", paddingTop: "1px" }}
           />
-          {touched.answer && !form.securityAnswer!.trim() && (
+          {touched.answer && !form.SecurityAnswer!.trim() && (
             <div className="text-danger">Your answer is required.</div>
           )}
         </div>
 
         <div className="mb-3">
-          <button type="submit" className="btn btn-primary btn-md" disabled={!isFormValid || isSaving}>
-            {isSaving ? <i className="fa fa-spinner fa-spin"></i> : null} {isSaving ? 'Saving...' : 'Save'}
+          <button
+            type="submit"
+            className="btn btn-primary btn-md"
+            disabled={!isFormValid || isSaving}
+          >
+            {isSaving ? <i className="fa fa-spinner fa-spin"></i> : null}{" "}
+            {isSaving ? "Saving..." : "Save"}
           </button>
         </div>
 
         {isSuccess && (
           <div className="mb-5">
-            <span style={{ color: 'green' }}>Saved successfully.</span>
+            <span style={{ color: "green" }}>Saved successfully.</span>
           </div>
         )}
       </form>

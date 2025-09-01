@@ -9,6 +9,8 @@ import { sendMessage } from "../../services/messengerService";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store";
 
+const BASE_URL = import.meta.env.VITE_IMAGES_BASE_URL;
+
 type CreateMsgModalProps = {
   show: boolean;
   onClose: () => void;
@@ -69,7 +71,7 @@ const CreateMessageModal: React.FC<CreateMsgModalProps> = ({
 
   const handleSendMessage = async () => {
     if (!isFormValid) return;
-    const contactId = selectedContact[0]?.contactID;
+    const contactId = selectedContact[0]?.ContactID;
     if (!contactId) return;
     await sendMessage(memberID!, contactId, subject.trim(), text.trim());
     setText("");
@@ -91,7 +93,7 @@ const CreateMessageModal: React.FC<CreateMsgModalProps> = ({
             <Typeahead
               id="contact-autocomplete"
               ref={typeaheadRef}
-              labelKey="friendName"
+              labelKey="FriendName"
               options={contacts}
               selected={selectedContact}
               onChange={(selected: Contact[]) => setSelectedContact(selected)}
@@ -101,8 +103,13 @@ const CreateMessageModal: React.FC<CreateMsgModalProps> = ({
               renderMenuItemChildren={(option: any) => (
                 <div className="d-flex align-items-center">
                   <img
-                    src={option.picturePath || "/Images/members/default.png"}
-                    alt={option.friendName}
+                    src={`${BASE_URL}/images/members/${
+                      option.PicturePath || "/images/members/default.png"
+                    }`}
+                    //src={
+                    //  option.PicturePath || "/static/images/members/default.png"
+                    //}
+                    alt={option.FriendName}
                     style={{
                       width: 30,
                       height: 30,
@@ -111,8 +118,8 @@ const CreateMessageModal: React.FC<CreateMsgModalProps> = ({
                     }}
                   />
                   <div>
-                    <div className="fw-bold">{option.friendName}</div>
-                    <div className="text-muted small">{option.titleDesc}</div>
+                    <div className="fw-bold">{option.FriendName}</div>
+                    <div className="text-muted small">{option.TitleDesc}</div>
                   </div>
                 </div>
               )}

@@ -1,24 +1,24 @@
 export interface Sports {
-  name: string;
+  Name: string;
   id: string;
   description: string;
 }
 
 export interface SchoolsByState {
-     schoolId: string;
-     schoolName: string;
+  SchoolID: string;
+  SchoolName: string;
 }
 
 export interface States {
-  stateId :number;
-  abbreviation :string;
-  name :string;
+  StateId: number;
+  Abbreviation: string;
+  Name: string;
 }
 
 export interface Ads {
-  id: number;
-  headerText: string;
-  imageUrl: string;
-  textField: string;
-  navigateUrl: string;
+  ID: number;
+  HeaderText: string;
+  ImageUrl: string;
+  TextField: string;
+  NavigateURL: string;
 }

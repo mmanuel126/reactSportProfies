@@ -1,49 +1,48 @@
-export interface AccountSettings { 
-  firstName?: string;
-  lastName?: string;
-  middleName?:string;
-  email?:string;
-  securityQuestion?:string;
-  securityAnswer?:string;
-  passWord?: string;
+export interface AccountSettings {
+  FirstName?: string;
+  LastName?: string;
+  MiddleName?: string;
+  Email?: string;
+  SecurityQuestion?: string;
+  SecurityAnswer?: string;
+  PassWord?: string;
 }
 
 export interface PrivacySettings {
-    ID?: string;
-    memberID?: string;
-    profile?: string;
-    basicInfo?: string;
-    personalInfo?: string;
-    photosTagOfYou?: string;
-    videosTagOfYou?: string;
-    contactInfo?: string;
-    education?: string;
-    workInfo?: string;
-    IMdisplayName?: string;
-    mobilePhone?: string;
-    otherPhone?: string;
-    emailAddress?: string;
-    visibility?: string;
-    viewProfilePicture?: string;
-    viewFriendsList?: string;
-    viewLinksToRequestAddingYouAsFriend?: string;
-    viewLinkTSendYouMsg?: string;
-    email?: string;
+  ID?: string;
+  MemberID?: string;
+  Profile?: string;
+  BasicInfo?: string;
+  PersonalInfo?: string;
+  PhotosTagOfYou?: string;
+  VideosTagOfYou?: string;
+  ContactInfo?: string;
+  Education?: string;
+  WorkInfo?: string;
+  IMdisplayName?: string;
+  MobilePhone?: string;
+  OtherPhone?: string;
+  EmailAddress?: string;
+  Visibility?: string;
+  ViewProfilePicture?: string;
+  ViewFriendsList?: string;
+  ViewLinksToRequestAddingYouAsFriend?: string;
+  ViewLinkTSendYouMsg?: string;
+  Email?: string;
 }
 
 export interface SearchSettings {
-  visibility: string;
-  viewProfilePicture: boolean;
-  viewFriendsList: boolean;
-  viewLinksToRequestAddingYouAsFriend: boolean;
-  viewLinkTSendYouMsg: boolean;
+  Visibility?: string;
+  ViewProfilePicture?: boolean;
+  ViewFriendsList?: boolean;
+  ViewLinksToRequestAddingYouAsFriend?: boolean;
+  ViewLinkTSendYouMsg?: boolean;
 }
 
-export interface NotificationBody  {
-    memberId: string;
-    sendMsg: boolean ;
-    addAsFriend: boolean ;
-    confirmFriendShipRequest: boolean;
-    repliesToYourHelpQuest: boolean;
+export interface NotificationBody {
+  MemberID?: string;
+  SendMsg?: boolean;
+  AddAsFriend?: boolean;
+  ConfirmFriendShipRequest?: boolean;
+  RepliesToYourHelpQuest?: boolean;
 }
-

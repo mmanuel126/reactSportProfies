@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getEducationInfo } from "../../services/memberService";
-import type { EducationInfo} from "../../types/member";
+import type { EducationInfo } from "../../types/member";
 
 type Props = {
   memberId: string;
@@ -13,7 +13,13 @@ const EducationTab: React.FC<Props> = ({ memberId }) => {
     getEducationInfo(memberId).then(setEducation);
   }, [memberId]);
 
-  if (!education.length) return <div style={{fontSize:"10pt"}}><br/>No educational information found.</div>;
+  if (!education.length)
+    return (
+      <div style={{ fontSize: "10pt" }}>
+        <br />
+        No educational information found.
+      </div>
+    );
 
   const normalizeUrl = (url: string) => {
     if (!url) return "#"; // fallback
@@ -32,27 +38,27 @@ const EducationTab: React.FC<Props> = ({ memberId }) => {
           className="mb-3 border-bottom pb-2"
           style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}
         >
-          <a href={edu.webSite!} target="_blank" rel="noreferrer">
+          <a href={edu.WebSite!} target="_blank" rel="noreferrer">
             <img
-              src={edu.schoolImage}
+              src={edu.SchoolImage}
               style={{ width: "35px", height: "35px", borderRadius: "50%" }}
             />
           </a>
           <div>
             <a
-              href={normalizeUrl(edu.webSite!)}
+              href={normalizeUrl(edu.WebSite!)}
               target="_blank"
               rel="noreferrer"
-              style={{textDecoration:"none"}}
+              style={{ textDecoration: "none" }}
             >
-              <b>{edu.schoolName}</b>
+              <b>{edu.SchoolName}</b>
             </a>
-            <div>{edu.schoolAddress}</div>
+            <div>{edu.SchoolAddress}</div>
             <div>
-              {edu.yearClass} - {edu.major}
+              {edu.YearClass} - {edu.Major}
             </div>
-            <div>{edu.degree}</div>
-            {edu.sportLevelType && <div>Played {edu.sportLevelType}</div>}
+            <div>{edu.Degree}</div>
+            {edu.SportLevelType && <div>Played {edu.SportLevelType}</div>}
           </div>
         </div>
       ))}

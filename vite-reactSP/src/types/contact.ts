@@ -1,19 +1,19 @@
 export interface Contact {
-  friendName: string;
-  firstName: string;
-  location: string;
-  picturePath: string;
-  connectionID: string;
-  showType: string;
-  status: string;
-  titleDesc: string;
+  FriendName: string;
+  FirstName: string;
+  Location: string;
+  PicturePath: string;
+  ConnectionID: string;
+  AhowType: string;
+  Status: string;
+  TitleDesc: string;
   Params: string;
   paramsAV: string;
-  email: string;
-  labelText: string;
-  nameAndID: string;
-  fromID: string;
-  contactID: string;
-  showConnect: string;
-  showFollow: string;
+  Email: string;
+  LabelText: string;
+  NameAndID: string;
+  FromID: string;
+  ContactID: string;
+  ShowConnect: string;
+  ShowFollow: string;
 }

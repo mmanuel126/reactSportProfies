@@ -22,9 +22,7 @@ const EducationTab: React.FC<Props> = ({ memberId }) => {
     null
   );
   const [showEditPopup, setShowEditPopup] = useState(false);
-  const [schoolToEdit, setSchoolToEdit] = useState<EducationInfo | null>(
-    null
-  );
+  const [schoolToEdit, setSchoolToEdit] = useState<EducationInfo | null>(null);
 
   useEffect(() => {
     getEducationInfo(memberId).then(setEducation);
@@ -51,8 +49,8 @@ const EducationTab: React.FC<Props> = ({ memberId }) => {
     await saveNewSchool(memberId, data);
   };
 
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   const doEditEducationInfo = async (data: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const doEditEducationInfo = async (data: any) => {
     await updateSchool(memberId, data);
   };
 
@@ -60,7 +58,7 @@ const EducationTab: React.FC<Props> = ({ memberId }) => {
     if (!schoolToRemove) return;
 
     try {
-      await removeSchool(memberId, schoolToRemove.schoolID, "3"); // or whatever field identifies the school
+      await removeSchool(memberId, schoolToRemove.SchoolID, "3"); // or whatever field identifies the school
       const updatedEducation = await getEducationInfo(memberId);
       setEducation(updatedEducation);
     } catch (error) {
@@ -102,31 +100,30 @@ const EducationTab: React.FC<Props> = ({ memberId }) => {
           className="mb-3 border-bottom pb-2"
           style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}
         >
-          <a href={edu.webSite!} target="_blank" rel="noreferrer">
+          <a href={edu.WebSite!} target="_blank" rel="noreferrer">
             <img
-              src={edu.schoolImage}
+              src={edu.SchoolImage}
               style={{ width: "35px", height: "35px", borderRadius: "50%" }}
             />
           </a>
           <div>
             <a
-              href={normalizeUrl(edu.webSite!)}
+              href={normalizeUrl(edu.WebSite!)}
               target="_blank"
               rel="noreferrer"
               style={{ textDecoration: "none" }}
             >
-              <b>{edu.schoolName}</b>
+              <b>{edu.SchoolName}</b>
             </a>
-            <div>{edu.schoolAddress}</div>
+            <div>{edu.SchoolAddress}</div>
             <div>
-              {edu.yearClass} - {edu.major}
+              {edu.YearClass} - {edu.Major}
             </div>
-            <div>{edu.degree}</div>
-            {edu.sportLevelType && <div>Played {edu.sportLevelType}</div>}
+            <div>{edu.Degree}</div>
+            {edu.SportLevelType && <div>Played {edu.SportLevelType}</div>}
 
             <div>
               <a
-                
                 onClick={() => {
                   setSchoolToEdit(edu);
                   setShowEditPopup(true);
@@ -203,11 +200,9 @@ const EducationTab: React.FC<Props> = ({ memberId }) => {
           setEducation(updatedEducation);
           setShowEditPopup(false);
         }}
-        schoolToEdit= {schoolToEdit}
+        schoolToEdit={schoolToEdit}
       />
-
     </div>
-    
   );
 };
 

@@ -4,7 +4,8 @@ import {
   getStates,
   getSchools,
   getYears,
-} from "../../../services/commonService"; 
+} from "../../../services/commonService";
+import type { SchoolsByState, States } from "../../../types/common";
 
 type Props = {
   show: boolean;
@@ -13,22 +14,19 @@ type Props = {
   onSave: (formData: any) => void;
 };
 
-type School = { schoolId: string; schoolName: string };
-type StateItem = { abbreviation: string; name: string };
-
 const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
   const [form, setForm] = useState({
-    schoolType: "3",
-    schoolAddress: "",
-    schoolID: "",
-    major: "",
-    degree: "",
-    yearClass: "",
-    sportLevelType: "",
+    SchoolType: "3",
+    SchoolAddress: "",
+    SchoolID: "",
+    Major: "",
+    Degree: "",
+    YearClass: "",
+    SportLevelType: "",
   });
 
-  const [states, setStates] = useState<StateItem[]>([]);
-  const [schools, setSchools] = useState<School[]>([]);
+  const [states, setStates] = useState<States[]>([]);
+  const [schools, setSchools] = useState<SchoolsByState[]>([]);
   const [years, setYears] = useState<number[]>([]);
   const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
   const [isSaving, setIsSaving] = useState(false);
@@ -39,12 +37,13 @@ const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
   }, []);
 
   useEffect(() => {
-    if (form.schoolAddress) {
-      getSchools(form.schoolAddress, form.schoolType).then(setSchools);
+    if (form.SchoolAddress) {
+      getSchools(form.SchoolAddress, form.SchoolType).then(setSchools);
+      console.log("Fetched schools:", setSchools);
     } else {
       setSchools([]);
     }
-  }, [form.schoolID, form.schoolType, form.schoolAddress]);
+  }, [form.SchoolType, form.SchoolAddress]);
 
   const handleChange: React.ChangeEventHandler<
     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -61,12 +60,12 @@ const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
   };
 
   const isFormValid = () =>
-    form.schoolAddress &&
-    form.schoolID &&
-    form.major &&
-    form.degree &&
-    form.yearClass &&
-    form.sportLevelType;
+    form.SchoolAddress &&
+    form.SchoolID &&
+    form.Major &&
+    form.Degree &&
+    form.YearClass &&
+    form.SportLevelType;
 
   const handleSubmit = async () => {
     if (!isFormValid()) {
@@ -83,6 +82,7 @@ const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
 
     setIsSaving(true);
     try {
+      console.log("Submitting form:", form);
       await onSave(form);
       onClose();
     } finally {
@@ -103,7 +103,7 @@ const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
             </Form.Label>
             <Form.Select
               name="schoolType"
-              value={form.schoolType}
+              value={form.SchoolType}
               onChange={handleChange}
               autoFocus
             >
@@ -118,16 +118,16 @@ const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
               <strong>State:</strong>
             </Form.Label>
             <Form.Select
-              name="schoolAddress"
-              value={form.schoolAddress}
+              name="SchoolAddress"
+              value={form.SchoolAddress}
               onChange={handleChange}
-              onBlur={() => markTouched("schoolAddress")}
-              isInvalid={isInvalid("schoolAddress")}
+              onBlur={() => markTouched("SchoolAddress")}
+              isInvalid={isInvalid("SchoolAddress")}
             >
               <option value="">Select State...</option>
               {states.map((s) => (
-                <option key={s.abbreviation} value={s.abbreviation}>
-                  {s.name}
+                <option key={s.Abbreviation} value={s.Abbreviation}>
+                  {s.Name}
                 </option>
               ))}
             </Form.Select>
@@ -144,17 +144,17 @@ const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
               </span>
             </Form.Label>
             <Form.Select
-              name="schoolID"
-              value={form.schoolID}
+              name="SchoolID"
+              value={form.SchoolID}
               onChange={handleChange}
-              onBlur={() => markTouched("schoolID")}
-              isInvalid={isInvalid("schoolID")}
+              onBlur={() => markTouched("SchoolID")}
+              isInvalid={isInvalid("SchoolID")}
               style={{ width: "320px" }}
             >
               <option value="">Select school...</option>
               {schools.map((s) => (
-                <option key={s.schoolId} value={s.schoolId}>
-                  {s.schoolName}
+                <option key={s.SchoolID} value={s.SchoolID}>
+                  {s.SchoolName}
                 </option>
               ))}
             </Form.Select>
@@ -169,12 +169,12 @@ const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
             </Form.Label>
             <Form.Control
               type="text"
-              name="major"
-              value={form.major}
+              name="Major"
+              value={form.Major}
               placeholder="Enter Major"
               onChange={handleChange}
-              onBlur={() => markTouched("major")}
-              isInvalid={isInvalid("major")}
+              onBlur={() => markTouched("Major")}
+              isInvalid={isInvalid("Major")}
             />
             <Form.Control.Feedback type="invalid">
               Major required.
@@ -186,11 +186,11 @@ const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
               <strong>Degree:</strong>
             </Form.Label>
             <Form.Select
-              name="degree"
-              value={form.degree}
+              name="Degree"
+              value={form.Degree}
               onChange={handleChange}
-              onBlur={() => markTouched("degree")}
-              isInvalid={isInvalid("degree")}
+              onBlur={() => markTouched("Degree")}
+              isInvalid={isInvalid("Degree")}
             >
               <option value="">Select...</option>
               <option value="2">Post Graduate</option>
@@ -208,11 +208,11 @@ const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
               <strong>Year:</strong>
             </Form.Label>
             <Form.Select
-              name="yearClass"
-              value={form.yearClass}
+              name="YearClass"
+              value={form.YearClass}
               onChange={handleChange}
-              onBlur={() => markTouched("yearClass")}
-              isInvalid={isInvalid("yearClass")}
+              onBlur={() => markTouched("YearClass")}
+              isInvalid={isInvalid("YearClass")}
             >
               <option value="">Select Year...</option>
               {years.map((year) => (
@@ -231,11 +231,11 @@ const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
               <strong>Sport Competition Level:</strong>
             </Form.Label>
             <Form.Select
-              name="sportLevelType"
-              value={form.sportLevelType}
+              name="SportLevelType"
+              value={form.SportLevelType}
               onChange={handleChange}
-              onBlur={() => markTouched("sportLevelType")}
-              isInvalid={isInvalid("sportLevelType")}
+              onBlur={() => markTouched("SportLevelType")}
+              isInvalid={isInvalid("SportLevelType")}
             >
               <option value="">Select...</option>
               <option value="Division I">Division I</option>

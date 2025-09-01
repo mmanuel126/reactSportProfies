@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
-import { logout } from "../store/authSlice"; 
+import { logout } from "../store/authSlice";
 import "./BurgerMenu.css";
 import type { RootState } from "../store";
 
@@ -20,8 +20,10 @@ const BurgerMenu: React.FC = () => {
     (state: RootState) => state.auth.user?.picturePath
   );
   const myEmail = useSelector((state: RootState) => state.auth.user?.email);
-  const myPic = `${BASE_URL}/Images/members/${picturePath || "default.png"}`;
-  console.log(myPic);
+  const myPic = `${BASE_URL}/static/images/members/${
+    picturePath || "default.png"
+  }`;
+
   const handleNavigate = (path: string) => {
     navigate(path);
   };
@@ -37,7 +39,7 @@ const BurgerMenu: React.FC = () => {
         <Dropdown.Menu className="burger-dropdown shadow-sm">
           <div className="dropdown-header-info px-3 py-2 d-flex align-items-center">
             <img
-              src={myPic} 
+              src={myPic}
               alt="Profile"
               className="rounded-circle me-2"
               style={{ width: "32px", height: "32px" }}

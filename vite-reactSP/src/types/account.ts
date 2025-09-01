@@ -6,13 +6,13 @@ export interface LoginFormInputs {
 }
 
 export interface LoginResponse {
-    name:string;
-    email: string;
-    memberID: string;
-    picturePath: string;
-    accessToken: string;
-    title: string;
-    currentStatus: string;
+  name: string;
+  email: string;
+  memberID: string;
+  picturePath: string;
+  accessToken: string;
+  title: string;
+  currentStatus: string;
 }
 
 /**** interfaces for the SignIn form */
@@ -24,9 +24,9 @@ export interface SignUpFormInputs {
   password: string;
   confirmPassword: string;
   gender: string;
-  birthMonth: string;
-  birthDay: string;
-  birthYear: string;
+  month: string;
+  day: string;
+  year: string;
   profileType: string;
   termsAccepted: boolean;
 }

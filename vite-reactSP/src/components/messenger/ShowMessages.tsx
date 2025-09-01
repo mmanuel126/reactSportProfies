@@ -56,19 +56,19 @@ const ShowMessages: React.FC<Props> = ({
   const handleOpenMessage = async (msg: SearchMessageInfo) => {
     try {
       // Call API to toggle message state to "read"
-      await toggleMessageState("1", msg.messageID);
+      await toggleMessageState("1", msg.MessageID);
 
       // Update local state to unbold the subject
       setMessages((prevMessages) =>
         prevMessages.map((m) =>
-          m.messageID === msg.messageID
+          m.MessageID === msg.MessageID
             ? { ...m, messageState: "1" } // mark as read
             : m
         )
       );
 
       // Show the message in modal
-      setSelectedMessage({ ...msg, messageState: "1" });
+      setSelectedMessage({ ...msg, MessageState: "1" });
       setShowOpenModal(true);
     } catch (err) {
       console.error("Failed to mark message as read:", err);
@@ -82,7 +82,7 @@ const ShowMessages: React.FC<Props> = ({
 
       // Remove the deleted message from local state
       setMessages((prevMessages) =>
-        prevMessages.filter((msg) => msg.messageID !== msgID)
+        prevMessages.filter((msg) => msg.MessageID !== msgID)
       );
     } catch (err) {
       console.error("Failed to delete message:", err);
@@ -138,7 +138,7 @@ const ShowMessages: React.FC<Props> = ({
         <div className="p-3">
           {messages.map((res, index) => (
             <div
-              key={res.messageID}
+              key={res.MessageID}
               className="d-flex justify-content-between align-items-start pb-3 mb-3"
               style={{
                 borderBottom:
@@ -151,7 +151,7 @@ const ShowMessages: React.FC<Props> = ({
                   id="lbDelete"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleDeleteMessage(res.messageID);
+                    handleDeleteMessage(res.MessageID);
                   }}
                 >
                   <i
@@ -160,10 +160,10 @@ const ShowMessages: React.FC<Props> = ({
                   ></i>
                 </a>
                 &nbsp;
-                <Link to={`/profile/${res.fromID}`}>
+                <Link to={`/profile/${res.FromID}`}>
                   <img
-                    src={`${BASE_URL}/Images/members/${
-                      res.senderImage || "default.png"
+                    src={`${BASE_URL}/static/images/members/${
+                      res.SenderImage || "default.png"
                     }`}
                     alt="User"
                     title="View Profile"
@@ -182,11 +182,11 @@ const ShowMessages: React.FC<Props> = ({
                   >
                     <strong>
                       <Link
-                        to={`/profile/${res.fromID}`}
+                        to={`/profile/${res.FromID}`}
                         style={{ textDecoration: "none", fontWeight: "bold" }}
                         title="View Profile"
                       >
-                        {res.senderID}
+                        {res.SenderID}
                       </Link>
                     </strong>
                     <br />
@@ -200,15 +200,15 @@ const ShowMessages: React.FC<Props> = ({
                       style={{
                         textDecoration: "none",
                         fontWeight:
-                          res.messageState === "0" ? "bold" : "normal",
+                          res.MessageState === "0" ? "bold" : "normal",
                       }}
                     >
-                      {res.subject}
+                      {res.Subject}
                     </a>
                     <br />
-                    {res.msgDate}
+                    {res.MsgDate}
                     <br />
-                    {res.body}
+                    {res.Body}
                     <br />
                   </div>
                 </div>
@@ -241,7 +241,7 @@ const ShowMessages: React.FC<Props> = ({
         show={showOpenModal}
         onClose={() => {
           setShowOpenModal(false);
-          setSelectedMessage(null); 
+          setSelectedMessage(null);
         }}
         message={selectedMessage}
       />

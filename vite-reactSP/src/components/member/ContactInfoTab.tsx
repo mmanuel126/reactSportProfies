@@ -13,9 +13,14 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
     getContactInfo(memberId).then(setData);
   }, [memberId]);
 
-  if (!data) return <div style ={{fontSize:"10pt"}}><i className="fa fa-spinner fa-spin" />  Loading contact info...</div>;
+  if (!data)
+    return (
+      <div style={{ fontSize: "10pt" }}>
+        <i className="fa fa-spinner fa-spin" /> Loading contact info...
+      </div>
+    );
 
-  const showEmail = data.showEmailToMembers && data.email;
+  const showEmail = data.ShowEmailToMembers && data.Email;
 
   return (
     <div style={{ fontSize: "10pt" }}>
@@ -25,7 +30,7 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Email:</b> {data.email}
+              <b>Email:</b> {data.Email}
             </span>
           </span>
           <br />
@@ -36,14 +41,14 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Other Email:</b> {data.otherEmail}
+              <b>Other Email:</b> {data.OtherEmail}
             </span>
           </span>
           <br />
         </>
       )}
 
-      {data.facebook && (
+      {data.Facebook && (
         <>
           <br />
           <span className="padded-span">
@@ -52,9 +57,9 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
               <a
                 style={{ textDecoration: "none" }}
                 target="_blank"
-                href={data.facebook}
+                href={data.Facebook}
               >
-                {data.facebook}
+                {data.Facebook}
               </a>
             </span>
           </span>
@@ -62,7 +67,7 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         </>
       )}
 
-      {data.instagram && (
+      {data.Instagram && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
@@ -70,9 +75,9 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
               <a
                 style={{ textDecoration: "none" }}
                 target="_blank"
-                href={data.instagram}
+                href={data.Instagram}
               >
-                {data.instagram}
+                {data.Instagram}
               </a>
             </span>
           </span>
@@ -80,7 +85,7 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         </>
       )}
 
-      {data.twitter && (
+      {data.Twitter && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
@@ -88,9 +93,9 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
               <a
                 style={{ textDecoration: "none" }}
                 target="_blank"
-                href={data.twitter}
+                href={data.Twitter}
               >
-                {data.twitter}
+                {data.Twitter}
               </a>
             </span>
           </span>
@@ -98,7 +103,7 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         </>
       )}
 
-      {data.website && (
+      {data.Website && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
@@ -106,9 +111,9 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
               <a
                 style={{ textDecoration: "none" }}
                 target="_blank"
-                href={data.website}
+                href={data.Website}
               >
-                {data.website}
+                {data.Website}
               </a>
             </span>
           </span>
@@ -116,14 +121,14 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         </>
       )}
 
-      {data.showCellPhone && (
+      {data.ShowCellPhone && (
         <>
-          {data.cellPhone && (
+          {data.CellPhone && (
             <>
               <br />
               <span className="padded-span">
                 <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-                  <b>Cell Phone:</b> {data.cellPhone}
+                  <b>Cell Phone:</b> {data.CellPhone}
                 </span>
               </span>
               <br />
@@ -132,13 +137,13 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         </>
       )}
 
-      {data.showHomePhone && (
+      {data.ShowHomePhone && (
         <>
-          {data.homePhone && (
+          {data.HomePhone && (
             <>
               <span className="padded-span">
                 <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-                  <b>Home Phone:</b> {data.homePhone}
+                  <b>Home Phone:</b> {data.HomePhone}
                 </span>
               </span>
               <br />
@@ -147,51 +152,50 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         </>
       )}
 
-      {data.showAddress && (
+      {data.ShowAddress && (
         <>
           <br />
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Address:</b> {data.address}
+              <b>Address:</b> {data.Address}
             </span>
           </span>
           <br />
         </>
       )}
 
-      {data.showAddress && (
+      {data.ShowAddress && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>City/Town:</b> {data.city}
+              <b>City/Town:</b> {data.City}
             </span>
           </span>
           <br />
         </>
       )}
 
-      {data.showAddress && (
+      {data.ShowAddress && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>State:</b> {data.state}
+              <b>State:</b> {data.State}
             </span>
           </span>
           <br />
         </>
       )}
 
-      {data.showAddress && (
+      {data.ShowAddress && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Zip Code:</b> {data.zip}
+              <b>Zip Code:</b> {data.Zip}
             </span>
           </span>
           <br />
         </>
       )}
-
     </div>
   );
 };

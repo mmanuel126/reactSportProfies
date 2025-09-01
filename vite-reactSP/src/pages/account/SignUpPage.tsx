@@ -23,9 +23,9 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password")], "Passwords must match")
     .required("Please confirm your password"),
   gender: yup.string().oneOf(["Male", "Female"], "Select gender").required(),
-  birthMonth: yup.string().required("Month is required"),
-  birthDay: yup.string().required("Day is required"),
-  birthYear: yup.string().required("Year is required"),
+  month: yup.string().required("Month is required"),
+  day: yup.string().required("Day is required"),
+  year: yup.string().required("Year is required"),
   profileType: yup.string().required("Select a profile type"),
   termsAccepted: yup.boolean().oneOf([true], "You must accept the terms"),
 });
@@ -217,10 +217,8 @@ const SignUpPage: React.FC = () => {
             {/* Birth Date */}
             <div className="mb-3 d-flex gap-2">
               <select
-                className={`form-select ${
-                  errors.birthMonth ? "is-invalid" : ""
-                }`}
-                {...register("birthMonth")}
+                className={`form-select ${errors.month ? "is-invalid" : ""}`}
+                {...register("month")}
               >
                 <option value="">Month</option>
                 {months.map((m) => (
@@ -230,8 +228,8 @@ const SignUpPage: React.FC = () => {
                 ))}
               </select>
               <select
-                className={`form-select ${errors.birthDay ? "is-invalid" : ""}`}
-                {...register("birthDay")}
+                className={`form-select ${errors.day ? "is-invalid" : ""}`}
+                {...register("day")}
               >
                 <option value="">Day</option>
                 {days.map((d) => (
@@ -241,10 +239,8 @@ const SignUpPage: React.FC = () => {
                 ))}
               </select>
               <select
-                className={`form-select ${
-                  errors.birthYear ? "is-invalid" : ""
-                }`}
-                {...register("birthYear")}
+                className={`form-select ${errors.year ? "is-invalid" : ""}`}
+                {...register("year")}
               >
                 <option value="">Year</option>
                 {years.map((y) => (
@@ -254,7 +250,7 @@ const SignUpPage: React.FC = () => {
                 ))}
               </select>
             </div>
-            {(errors.birthMonth || errors.birthDay || errors.birthYear) && (
+            {(errors.month || errors.day || errors.year) && (
               <div className="text-danger small mb-2">
                 Complete birth date is required
               </div>

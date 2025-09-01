@@ -14,22 +14,19 @@ import { apiFetch } from "./api";
 //********************************************/
 
 export async function getRecentPosts(memberID: string): Promise<PostItem[]> {
-  return await apiFetch<PostItem[]>(
-    `/services/member/getRecentPosts/${memberID}`,
-    {
-      method: "GET",
-    }
-  );
+  return await apiFetch<PostItem[]>(`/api/member/posts/${memberID}`, {
+    method: "GET",
+  });
 }
 
 export async function getPostReplies(postID: number): Promise<ReplyItem[]> {
-  return await apiFetch(`/services/member/getRecentPostResponses/${postID}`, {
+  return await apiFetch(`/api/member/post-responses/${postID}`, {
     method: "GET",
   });
 }
 
 export async function incrementLikedPost(postID: number): Promise<void> {
-  return await apiFetch(`/services/member/ImcrementPostLikeCounter/${postID}`, {
+  return await apiFetch(`/api/member/increment-post-like-counter/${postID}`, {
     method: "POST",
   });
 }
@@ -40,9 +37,9 @@ export async function addPostReply(
   text: string
 ): Promise<ReplyItem> {
   return await apiFetch(
-    `/services/member/CreatePostComment/${memberID}/${postID}?postMsg=${text}`,
+    `/api/member/create-post-response/${memberID}/${postID}?post_msg=${text}`,
     {
-      method: "GET",
+      method: "POST",
     }
   );
 }
@@ -52,7 +49,7 @@ export async function addNewPost(
   text: string
 ): Promise<PostItem> {
   return await apiFetch(
-    `/services/member/CreateMemberPost/${memberID}/?postMsg=${text}`,
+    `/api/member/create-post/${memberID}/?post_msg=${text}`,
     {
       method: "POST",
     }
@@ -64,51 +61,50 @@ export async function addNewPost(
 //*********************************************/
 
 export async function getBasicInfo(id: string): Promise<BasicInfo> {
-  return await apiFetch(`/services/member/GetMemberGeneralInfoV2/${id}`, {
+  return await apiFetch(`/api/member/general-info/${id}`, {
     method: "GET",
   });
 }
 
 export async function getContactInfo(id: string): Promise<ContactInfo> {
-  return await apiFetch(`/services/member/GetMemberContactInfo/${id}`, {
+  return await apiFetch(`/api/member/contact-info/${id}`, {
     method: "GET",
   });
 }
 
 export async function getEducationInfo(id: string): Promise<EducationInfo[]> {
-  const response = await apiFetch(
-    `/services/member/GetMemberEducationInfo/${id}`,
-    {
-      method: "GET",
-    }
-  );
+  const response = await apiFetch(`/api/member/education-info/${id}`, {
+    method: "GET",
+  });
 
   const educationData = response as EducationInfo[];
+
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const updatedResponse = educationData.map((item: EducationInfo) => {
     return {
       ...item,
-      degree: item.degree || "N/A", // fallback if degree is missing
-      webSite: item.schoolImage?.startsWith("http")
-        ? item.schoolImage
-        : `https://${item.schoolImage}`, // ensure https
-      schoolImage: item.schoolImage
-        ? `https://www.google.com/s2/favicons?domain=${item.schoolImage}`
-        : "http://www.marcman.xyz/assets/images/members/default.png",
+      //Degree: item.Degree || "N/A", // fallback if degree is missing
+      WebSite: item.SchoolImage?.startsWith("http")
+        ? item.SchoolImage
+        : `https://${item.SchoolImage}`, // ensure https
+      SchoolImage: item.SchoolImage
+        ? `https://www.google.com/s2/favicons?domain=${item.SchoolImage}`
+        : `${BASE_URL}/static/images/members/default.png`,
     };
   });
 
   return updatedResponse;
 }
 
-export async function getVideosList(id: string): Promise<VideoInfo[]> {
-  return await apiFetch(`/services/member/GetVideosList/${id}`, {
+export async function getVideosList(id: string): Promise<PlaylistInfo[]> {
+  return await apiFetch(`/api/member/video-playlist/${id}`, {
     method: "GET",
   });
 }
 
-export async function getPlaylists(id: string): Promise<PlaylistInfo[]> {
-  return await apiFetch(`/services/member/GetVideoPlayList/${id}`, {
+export async function getPlaylistVideos(id: string): Promise<VideoInfo[]> {
+  return await apiFetch(`/api/member/youtube-videos/${id}`, {
     method: "GET",
   });
 }
@@ -118,7 +114,7 @@ export async function checkIfToShowAsContact(
   contactId: string
 ): Promise<boolean> {
   const response = await apiFetch(
-    `/services/member/IsFriendByContactID/${loggedUserId}/${contactId}`,
+    `/api/member/is-friend-by-contact-id/${loggedUserId}/${contactId}`,
     {
       method: "GET",
     }
@@ -136,7 +132,7 @@ export async function checkIfToShowFollowMember(
   contactId: string
 ): Promise<boolean> {
   const response = await apiFetch(
-    `/services/member/IsFollowingContact?memberID=${loggedUserId}&contactID=${contactId}`,
+    `/api/member/is-following-contact/${loggedUserId}/${contactId}`,
     {
       method: "GET",
     }
@@ -150,55 +146,57 @@ export async function checkIfToShowFollowMember(
 }
 
 export async function saveBasicInfo(memberID: string, data: BasicInfo) {
-  return await apiFetch(`/services/member/SaveMemberGeneralInfo/${memberID}`, {
+  data.MemberID = memberID;
+  return await apiFetch(`/api/member/general-info`, {
     method: "POST",
     body: JSON.stringify(data),
   });
 }
 
 export async function saveContactInfo(memberID: string, data: ContactInfo) {
-  return await apiFetch(`/services/member/SaveMemberContactInfo/${memberID}`, {
+  data.MemberID = memberID;
+  return await apiFetch(`/api/member/contact-info`, {
     method: "POST",
     body: JSON.stringify(data),
   });
 }
 
 export async function getInstagramURL(memberID: string): Promise<string> {
-  return await apiFetch(`/services/member/GetInstagramURL/${memberID}`, {
+  return await apiFetch(`/api/member/instagram-url/${memberID}`, {
     method: "GET",
   });
 }
 
 export async function saveInstagramURL(memberID: string, data: PhotosData) {
   const postBody = {
-    memberID: memberID,
-    instagramURL: data.instagramURL,
+    MemberID: memberID,
+    InstagramURL: data.instagramURL,
   };
-  return await apiFetch(`/services/member/SetInstagramURL`, {
+  return await apiFetch(`/api/member/instagram-url`, {
     method: "PUT",
     body: JSON.stringify(postBody),
   });
 }
 
 export async function getChannelID(memberID: string): Promise<string> {
-  return await apiFetch(`/services/member/GetYoutubeChannel/${memberID}`, {
+  return await apiFetch(`/api/member/youtube-channel/${memberID}`, {
     method: "GET",
   });
 }
 
 export async function saveChannelID(memberID: string, channelID: string) {
   const postBody = {
-    memberID: memberID,
-    channelID: channelID,
+    MemberID: memberID,
+    ChannelID: channelID,
   };
-  return await apiFetch(`/services/member/SetYoutubeChannel`, {
+  return await apiFetch(`/api/member/youtube-channel`, {
     method: "PUT",
     body: JSON.stringify(postBody),
   });
 }
 
 export async function saveNewSchool(memberId: string, body: EducationInfo) {
-  return await apiFetch(`/services/member/AddMemberSchool/${memberId}`, {
+  return await apiFetch(`/api/member/add-school/${memberId}`, {
     method: "POST",
     body: JSON.stringify(body),
   });
@@ -210,7 +208,7 @@ export async function removeSchool(
   instType: string
 ) {
   return await apiFetch(
-    `/services/member/RemoveMemberSchool?memberID=${memberId}&instID=${instId}&instType=${instType}`,
+    `/api/member/remove-school?member_id=${memberId}&inst_id=${instId}&inst_type=${instType}`,
     {
       method: "DELETE",
     }
@@ -218,7 +216,7 @@ export async function removeSchool(
 }
 
 export async function updateSchool(memberId: string, body: EducationInfo) {
-  return await apiFetch(`/services/member/UpdateMemberSchool/${memberId}`, {
+  return await apiFetch(`/api/member/update-school/${memberId}`, {
     method: "PUT",
     body: JSON.stringify(body),
   });

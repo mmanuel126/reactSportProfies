@@ -25,13 +25,13 @@ const MyContacts: React.FC = () => {
     (state: RootState) => state.contact
   );
 
-const [localResults, setLocalResults] = useState(results);
+  const [localResults, setLocalResults] = useState(results);
 
   useEffect(() => {
     dispatch(fetchMyContacts(query)); // Always run, even if empty
   }, [query, dispatch]);
 
-   useEffect(() => {
+  useEffect(() => {
     setLocalResults(results);
   }, [results]);
 
@@ -39,7 +39,7 @@ const [localResults, setLocalResults] = useState(results);
     if (!memberID) return;
     try {
       await deleteContact(memberID, contactID);
-      setLocalResults((prev) => prev.filter((c) => c.contactID !== contactID));
+      setLocalResults((prev) => prev.filter((c) => c.ContactID !== contactID));
     } catch (err) {
       console.error("Failed to drop member:", err);
     }
@@ -96,7 +96,9 @@ const [localResults, setLocalResults] = useState(results);
 
           <Card.Body>
             {loading ? (
-              <div className="text-center py-4"><i className="fa fa-spinner fa-spin" /> &nbsp;Loading...</div>
+              <div className="text-center py-4">
+                <i className="fa fa-spinner fa-spin" /> &nbsp;Loading...
+              </div>
             ) : error ? (
               <div className="text-center py-4 text-danger">{error}</div>
             ) : localResults.length === 0 ? (
@@ -106,13 +108,13 @@ const [localResults, setLocalResults] = useState(results);
             ) : (
               <ListGroup variant="flush">
                 {localResults.map((user) => (
-                  <ListGroup.Item key={user.contactID}>
+                  <ListGroup.Item key={user.ContactID}>
                     <Row className="align-items-center">
                       <Col xs="auto">
-                        <Link to={`/profile/${user.contactID}`}>
+                        <Link to={`/profile/${user.ContactID}`}>
                           <Image
-                            src={`${BASE_URL}/Images/members/${
-                              user.picturePath || "default.png"
+                            src={`${BASE_URL}/static/images/members/${
+                              user.PicturePath || "default.png"
                             }`}
                             roundedCircle
                             fluid
@@ -123,17 +125,17 @@ const [localResults, setLocalResults] = useState(results);
                       <Col style={{ marginLeft: "-12px" }}>
                         <strong>
                           <Link
-                            to={`/profile/${user.contactID}`}
+                            to={`/profile/${user.ContactID}`}
                             style={{
                               textDecoration: "none",
                               fontWeight: "bold",
                             }}
                           >
-                            {user.friendName}
+                            {user.FriendName}
                           </Link>
                         </strong>
                         <br />
-                        <small className="text-muted">{user.titleDesc}</small>
+                        <small className="text-muted">{user.TitleDesc}</small>
                       </Col>
                       <Col xs="auto" className="text-end">
                         <Button
@@ -145,7 +147,7 @@ const [localResults, setLocalResults] = useState(results);
                             border: "none",
                             borderRadius: "6px",
                           }}
-                         onClick={() => handleDrop(user.contactID)}
+                          onClick={() => handleDrop(user.ContactID)}
                         >
                           Drop
                         </Button>

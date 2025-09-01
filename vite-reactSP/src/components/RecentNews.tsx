@@ -67,10 +67,14 @@ const RecentNews: React.FC = () => {
       <div>
         {recentNews.map((res, index) => (
           <div className="card m-3" key={index}>
-            <a href={res.navigateUrl} target="_blank" rel="noopener noreferrer">
+            <a href={res.NavigateURL} target="_blank" rel="noopener noreferrer">
               <img
                 className="card-img-top"
-                src={res.imageUrl.replace("~", imageBaseUrl)}
+                src={
+                  res.ImageUrl
+                    ? res.ImageUrl.replace("~", imageBaseUrl)
+                    : `${imageBaseUrl}/members/default.jpg` // or fallback
+                }
                 alt=""
               />
             </a>
@@ -83,22 +87,22 @@ const RecentNews: React.FC = () => {
                 }}
               >
                 <a
-                  href={res.navigateUrl}
+                  href={res.NavigateURL}
                   target="_blank"
                   style={{ textDecoration: "none" }}
                   rel="noopener noreferrer"
                 >
-                  {res.headerText}
+                  {res.HeaderText}
                 </a>
               </span>
               <br />
-              <small>Posted Date: {res.postingDate}</small>
+              <small>Posted Date: {res.PostingDate}</small>
               <br />
               <span style={{ color: "gray", fontSize: "10pt" }}>
-                {res.textField}…&nbsp;
+                {res.TextField}…&nbsp;
                 <span style={{ fontSize: "8pt" }}>
                   <a
-                    href={res.navigateUrl}
+                    href={res.NavigateURL}
                     target="_blank"
                     style={{ textDecoration: "none" }}
                     rel="noopener noreferrer"
@@ -107,7 +111,7 @@ const RecentNews: React.FC = () => {
                   </a>
                 </span>
                 <a
-                  href={`http://www.${res.navigateUrl}`}
+                  href={`http://www.${res.NavigateURL}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

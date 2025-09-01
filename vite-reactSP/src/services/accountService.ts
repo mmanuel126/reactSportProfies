@@ -3,11 +3,12 @@ import type {
   LoginFormInputs,
   LoginResponse,
   ChangePasswordFormInputs,
+  SignUpFormInputs,
 } from "../types/account";
 import { apiFetch } from "./api";
 
 export async function loginUser(data: LoginFormInputs): Promise<LoginResponse> {
-  const result = await apiFetch<LoginResponse>("/services/account/login", {
+  const result = await apiFetch<LoginResponse>("/api/account/login", {
     method: "POST",
     body: JSON.stringify(data),
   });
@@ -17,9 +18,9 @@ export async function loginUser(data: LoginFormInputs): Promise<LoginResponse> {
 }
 
 export async function createUserAccount(
-  data: LoginFormInputs
+  data: SignUpFormInputs
 ): Promise<string> {
-  const result = await apiFetch<string>("/services/account/register", {
+  const result = await apiFetch<string>("/api/account/register", {
     method: "POST",
     body: JSON.stringify(data),
   });
@@ -30,10 +31,9 @@ export async function resetPassword(
   data: ForgotPasswordFormInputs
 ): Promise<string> {
   const result = await apiFetch<string>(
-    "/services/account/resetPassword?email=" + data.email,
+    "/api/account/reset-password?email=" + data.email,
     {
-      method: "GET",
-      
+      method: "POST",
     }
   );
   return result;
@@ -41,9 +41,9 @@ export async function resetPassword(
 
 export async function isResetCodeExpired(code: string): Promise<string> {
   const result = await apiFetch<string>(
-    "/services/Account/IsResetCodeExpired?code=" + code,
+    "/api/account/is-reset-code-expired?code=" + code,
     {
-      method: "GET"
+      method: "POST",
     }
   );
   return result;
@@ -55,14 +55,14 @@ export async function changePassword(
   code: string
 ): Promise<string> {
   const result = await apiFetch<string>(
-    "/services/account/changePassword?pwd=" +
+    "/api/account/change-password?new_password=" +
       data.password +
       "&email=" +
       email +
       "&code=" +
       code,
     {
-      method: "GET",
+      method: "POST",
     }
   );
   return result;
@@ -72,9 +72,9 @@ export async function setMemberStatus(
   memberId: string,
   status: string
 ): Promise<string> {
-  const url = `/services/member/SetMemberStatus?memberId=${memberId}&status=${status}`;
+  const url = `/api/account/set-member-status/${memberId}/${status}`;
   const result = await apiFetch<string>(url, {
-    method: "GET",
+    method: "PUT",
   });
   return result;
 }

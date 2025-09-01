@@ -40,7 +40,7 @@ const Requests: React.FC = () => {
     try {
       await acceptRequest(memberID, contactID);
       setRequest((prev) =>
-        prev.filter((contact) => contact.contactID !== contactID)
+        prev.filter((contact) => contact.ContactID !== contactID)
       );
     } catch (error) {
       console.error("Error accept contact:", error);
@@ -53,7 +53,7 @@ const Requests: React.FC = () => {
     try {
       await rejectRequest(memberID, contactID);
       setRequest((prev) =>
-        prev.filter((contact) => contact.contactID !== contactID)
+        prev.filter((contact) => contact.ContactID !== contactID)
       );
     } catch (error) {
       console.error("Error rejecting contact:", error);
@@ -106,7 +106,7 @@ const Requests: React.FC = () => {
       <div className="px-3 pt-3">
         {following.map((res, index) => (
           <div
-            key={res.contactID}
+            key={res.ContactID}
             className="d-flex align-items-center justify-content-between pb-3 mb-3"
             style={{
               borderBottom:
@@ -114,10 +114,10 @@ const Requests: React.FC = () => {
             }}
           >
             <div className="d-flex align-items-center">
-              <Link to={`/profile/${res.contactID}`}>
+              <Link to={`/profile/${res.ContactID}`}>
                 <img
-                  src={`${BASE_URL}/Images/members/${
-                    res.picturePath || "default.png"
+                  src={`${BASE_URL}/static/images/members/${
+                    res.PicturePath || "default.png"
                   }`}
                   alt="User"
                   className="rounded-circle"
@@ -127,15 +127,15 @@ const Requests: React.FC = () => {
               <div className="ms-3">
                 <strong>
                   <Link
-                    to={`/profile/${res.contactID}`}
+                    to={`/profile/${res.ContactID}`}
                     style={{ textDecoration: "none", fontWeight: "bold" }}
                   >
-                    {res.friendName}
+                    {res.FriendName}
                   </Link>
                 </strong>
                 <br />
                 <span style={{ color: "gray", fontSize: "10pt" }}>
-                  {res.titleDesc}
+                  {res.TitleDesc}
                 </span>
               </div>
             </div>
@@ -147,7 +147,7 @@ const Requests: React.FC = () => {
                   color: "white",
                   border: "none",
                 }}
-                onClick={() => handleAccept(res.contactID)}
+                onClick={() => handleAccept(res.ContactID)}
               >
                 <b>Accept</b>
               </Button>
@@ -158,7 +158,7 @@ const Requests: React.FC = () => {
                   color: "white",
                   border: "none",
                 }}
-                onClick={() => handleReject(res.contactID)}
+                onClick={() => handleReject(res.ContactID)}
               >
                 <b>Reject</b>
               </Button>

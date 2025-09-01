@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import { getInstagramURL } from "../../services/memberService";
 
 type Props = {
   memberId: string;
   instagramUrl?: string;
 };
 
-const PhotosTab: React.FC<Props> = ({ instagramUrl }) => {
-  if (!instagramUrl) {
-    return <div style={{fontSize:"10pt"}}><br/>No Instagram photos available.</div>;
-  }
+const PhotosTab: React.FC<Props> = ({ memberId }) => {
+  const [instagramUrl, setInstagramUrl] = useState<string>("");
+
+  useEffect(() => {
+    (async () => {
+      const url = await getInstagramURL(memberId);
+      setInstagramUrl(url);
+    })();
+  }, [memberId]);
+
+  if (!instagramUrl)
+    return (
+      <div style={{ fontSize: "10pt" }}>
+        <br />
+        No Instagram photos available.
+      </div>
+    );
 
   return (
-    <div>
+    <div style={{ fontSize: "10pt" }}>
       <p>
-        This website uses a member's public Instagram posts to display their public images.
+        <br></br>
+        This website uses a member's public Instagram posts to display their
+        public images.
       </p>
       <a href={instagramUrl} target="_blank" rel="noreferrer">
         View Instagram Profile

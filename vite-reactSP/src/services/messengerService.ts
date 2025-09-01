@@ -1,12 +1,12 @@
 import { apiFetch } from "./api";
-import type { SearchMessageInfo } from "../types/messages";
+import type { SearchMessageInfo, SendMessageModel } from "../types/messages";
 
 export async function getMemberMessages(
   memberId: string,
   showType: string
 ): Promise<SearchMessageInfo[]> {
   const data = await apiFetch(
-    `/services/message/GetMemberMessages/${memberId}?showType=${showType}`,
+    `/api/message/messages/${memberId}?type=Inbox&show_type=${showType}`,
     {
       method: "GET",
     }
@@ -15,35 +15,49 @@ export async function getMemberMessages(
 }
 
 export async function sendMessage(
-    memberId: string,
-    senderId: string,
-    subject: string,
-    msg: string
+  memberId: string,
+  senderId: string,
+  subject: string,
+  msg: string
 ): Promise<void> {
-  await apiFetch(
-    `/services/message/CreateMessage?to=${senderId}&from=${memberId}&subject=${subject}&body=${msg}`,
-    {
-      method: "POST",
-    }
-  );
+  const data: SendMessageModel = {
+    From: memberId,
+    To: senderId.toString(),
+    Subject: subject,
+    Body: msg,
+    Attachment: "",
+    OriginalMsg: "",
+    MessageID: 0,
+    SentDate: "2025-08-27T19:21:08.702Z",
+    SenderPicture: "",
+  };
+
+  await apiFetch(`/api/message/send-message`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
 }
 
-export async function toggleMessageState(status: string, msgID: string) 
-: Promise<void> {
+export async function toggleMessageState(
+  status: string,
+  msgID: string
+): Promise<void> {
   await apiFetch(
-    `/services/message/ToggleMessageState?status=${status}&msgID=${msgID}`,
+    `/api/message/toggle-message-state?status=${status}&msg_id=${msgID}`,
     {
       method: "PUT",
     }
   );
 }
 
-export async function deleteMessage(msgID: string) 
-: Promise<void> {
-  await apiFetch(
-    `/services/message/DeleteMessage/${msgID}`,
-    {
-      method: "DELETE",
-    }
-  );
+export async function deleteMessage(msgID: string): Promise<void> {
+  await apiFetch(`/api/message/delete/${msgID}`, {
+    method: "DELETE",
+  });
+}
+
+export async function totalUnreadMessages(memberID: string): Promise<number> {
+  return await apiFetch(`/api/message/total-unread-messages/${memberID}`, {
+    method: "GET",
+  });
 }

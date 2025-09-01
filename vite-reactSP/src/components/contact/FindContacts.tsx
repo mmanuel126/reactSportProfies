@@ -27,12 +27,11 @@ const FindContacts: React.FC = () => {
   );
 
   const [showAddContactPopup, setShowAddContactPopup] = useState(false);
-  const [,setIsContactAdded] = useState(false);
+  const [, setIsContactAdded] = useState(false);
   const [selectedContactID, setSelectedContactID] = useState<string | null>(
     null
   );
   const [addedContacts, setAddedContacts] = useState<string[]>([]);
-
 
   useEffect(() => {
     if (query.trim()) {
@@ -46,7 +45,7 @@ const FindContacts: React.FC = () => {
     try {
       await addContact(memberID!, selectedContactID);
       setIsContactAdded(true);
-      setAddedContacts((prev) => [...prev, selectedContactID]); 
+      setAddedContacts((prev) => [...prev, selectedContactID]);
       setShowAddContactPopup(false);
       setSelectedContactID(null); // Reset after action
     } catch (err) {
@@ -115,13 +114,13 @@ const FindContacts: React.FC = () => {
             {query.trim() !== "" && (
               <ListGroup variant="flush">
                 {results.map((user) => (
-                  <ListGroup.Item key={user.contactID}>
+                  <ListGroup.Item key={user.ContactID}>
                     <Row className="align-items-center">
                       <Col xs="auto">
-                        <Link to={`/profile/${user.contactID}`}>
+                        <Link to={`/profile/${user.ContactID}`}>
                           <Image
-                            src={`${BASE_URL}/Images/members/${
-                              user.picturePath || "default.png"
+                            src={`${BASE_URL}/static/images/members/${
+                              user.PicturePath || "default.png"
                             }`}
                             roundedCircle
                             fluid
@@ -132,38 +131,39 @@ const FindContacts: React.FC = () => {
                       <Col style={{ marginLeft: "-12px" }}>
                         <strong>
                           <Link
-                            to={`/profile/${user.contactID}`}
+                            to={`/profile/${user.ContactID}`}
                             style={{
                               textDecoration: "none",
                               fontWeight: "bold",
                             }}
                           >
-                            {user.friendName}
+                            {user.FriendName}
                           </Link>
                         </strong>
                         <br />
-                        <small className="text-muted">{user.titleDesc}</small>
+                        <small className="text-muted">{user.TitleDesc}</small>
                       </Col>
                       <Col xs="auto" className="text-end">
-                        {user.labelText === "Add as Contact" && !addedContacts.includes(user.contactID) &&  (
-                          <Button
-                            size="sm"
-                            style={{
-                              backgroundColor: "#000",
-                              color: "#fff",
-                              fontWeight: "bold",
-                              border: "none",
-                              borderRadius: "6px",
-                            }}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setSelectedContactID(user.contactID);
-                              setShowAddContactPopup(true);
-                            }}
-                          >
-                            Add as Contact
-                          </Button>
-                        )}
+                        {user.LabelText === "Add as Contact" &&
+                          !addedContacts.includes(user.ContactID) && (
+                            <Button
+                              size="sm"
+                              style={{
+                                backgroundColor: "#000",
+                                color: "#fff",
+                                fontWeight: "bold",
+                                border: "none",
+                                borderRadius: "6px",
+                              }}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setSelectedContactID(user.ContactID);
+                                setShowAddContactPopup(true);
+                              }}
+                            >
+                              Add as Contact
+                            </Button>
+                          )}
                       </Col>
                     </Row>
                   </ListGroup.Item>

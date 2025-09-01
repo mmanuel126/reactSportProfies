@@ -9,31 +9,31 @@ import { apiFetch } from "./api";
 export async function getMemberNameInfo(
   memberId: string
 ): Promise<AccountSettings> {
-  const data = await apiFetch<AccountSettings[]>(
-    `/services/setting/GetMemberNameInfo/${memberId}`,
+  const data = await apiFetch<AccountSettings>(
+    `/api/setting/name-info/${memberId}`,
     {
       method: "GET",
     }
   );
-  if (!Array.isArray(data) || data.length === 0) {
+  if (!data) {
     throw new Error("No account settings data returned");
   }
-  return data[0];
+  return data;
 }
 
 export async function getMemberNotifications(
   memberId: string
 ): Promise<NotificationBody> {
-  const data = await apiFetch<NotificationBody[]>(
-    `/services/setting/GetMemberNotifications/${memberId}`,
+  const data = await apiFetch<NotificationBody>(
+    `/api/setting/notifications/${memberId}`,
     {
       method: "GET",
     }
   );
-  if (!Array.isArray(data) || data.length === 0) {
-    throw new Error("No account settings data returned");
+  if (!data) {
+    throw new Error("No notifications account settings data returned");
   }
-  return data[0];
+  return data;
 }
 
 export async function saveMemberNameInfo(
@@ -43,7 +43,7 @@ export async function saveMemberNameInfo(
   lastName: string
 ): Promise<void> {
   await apiFetch(
-    `/services/setting/SaveMemberNameInfo/${memberID}?fName=${firstName}&mName=${middleName}&lName=${lastName}`,
+    `/api/setting/update-name-info/${memberID}?first_name=${firstName}&middle_name=${middleName}&last_name=${lastName}`,
     {
       method: "PUT",
     }
@@ -54,26 +54,26 @@ export async function saveMemberEmailInfo(
   memberID: string,
   email: string
 ): Promise<void> {
-  await apiFetch(
-    `/services/setting/SaveMemberEmailInfo/${memberID}?email=${email}`,
-    {
-      method: "PUT",
-    }
-  );
+  await apiFetch(`/api/setting/update-email-info/${memberID}?email=${email}`, {
+    method: "PUT",
+  });
 }
 
 export async function savePasswordInfo(
   memberID: string,
   pwd: string
 ): Promise<void> {
-  const postBody = {
+  /*const postBody = {
     memberID: memberID,
     pwd: pwd,
-  };
-  await apiFetch(`/services/setting/SavePasswordInfo`, {
-    method: "PUT",
-    body: JSON.stringify(postBody),
-  });
+  };*/
+
+  await apiFetch(
+    `/api/setting/save-password-info/${memberID}?password=${pwd}`,
+    {
+      method: "PUT",
+    }
+  );
 }
 
 export async function saveSecurityQuestionInfo(
@@ -82,7 +82,7 @@ export async function saveSecurityQuestionInfo(
   answer: string
 ): Promise<void> {
   await apiFetch(
-    `/services/setting/SaveSecurityQuestionInfo/${memberID}?questionID=${question}&answer=${answer}`,
+    `/api/setting/save-security-question/${memberID}?question_id=${question}&answer=${answer}`,
     {
       method: "PUT",
     }
@@ -96,9 +96,9 @@ export async function deactivateAccount(
 ): Promise<void> {
   const futureEmail = false;
   await apiFetch(
-    `/services/setting/DeactivateAccount/${memberID}?reason=${reason}&explanation=${explanation}&futureEmail=${futureEmail}`,
+    `/api/setting/deactivate-account/${memberID}?reason=${reason}&explanation=${explanation}&future_email=${futureEmail}`,
     {
-      method: "PUT",
+      method: "POST",
     }
   );
 }
@@ -107,7 +107,8 @@ export async function saveNotificationSettings(
   memberID: string,
   body: NotificationBody
 ): Promise<void> {
-  await apiFetch(`/services/setting/SaveNotificationSettings/${memberID}`, {
+  body.MemberID = memberID;
+  await apiFetch(`/api/setting/update-notifications/${memberID}`, {
     method: "PUT",
     body: JSON.stringify(body),
   });
@@ -116,23 +117,23 @@ export async function saveNotificationSettings(
 export async function getProfileSettings(
   memberId: string
 ): Promise<PrivacySettings> {
-  const data = await apiFetch<PrivacySettings[]>(
-    `/services/setting/GetProfileSettings/${memberId}`,
+  const data = await apiFetch<PrivacySettings>(
+    `/api/setting/profile-settings/${memberId}`,
     {
       method: "GET",
     }
   );
-  if (!Array.isArray(data) || data.length === 0) {
+  if (!data) {
     throw new Error("No account settings data returned");
   }
-  return data[0];
+  return data;
 }
 
 export async function saveProfileSettings(
   memberID: string,
   body: PrivacySettings
 ): Promise<void> {
-  await apiFetch(`/services/setting/SaveProfileSettings/${memberID}`, {
+  await apiFetch(`/api/setting/save-profile-settings/${memberID}`, {
     method: "PUT",
     body: JSON.stringify(body),
   });
@@ -141,17 +142,17 @@ export async function saveProfileSettings(
 export async function getSearchSettings(
   memberId: string
 ): Promise<SearchSettings> {
-  const data = await apiFetch<SearchSettings[]>(
-    `/services/setting/GetPrivacySearchSettings/${memberId}`,
+  const data = await apiFetch<SearchSettings>(
+    `/api/setting/privacy-search-settings/${memberId}`,
     {
       method: "GET",
     }
   );
 
-  if (!Array.isArray(data) || data.length === 0) {
+  if (!data) {
     throw new Error("No account settings data returned");
   }
-  return data[0];
+  return data;
 }
 
 export async function saveSearchSettings(
@@ -159,10 +160,7 @@ export async function saveSearchSettings(
   body: SearchSettings
 ): Promise<void> {
   await apiFetch(
-    `/services/setting/SavePrivacySearchSettings/${memberID}
-        ?visibility=${body.visibility}&viewProfilePicture=${body.viewProfilePicture}
-        &viewFriendsList=${body.viewFriendsList}&viewLinkToRequestAddingYouAsFriend=${body.viewLinksToRequestAddingYouAsFriend}
-        &viewLinkToSendYouMsg=${body.viewLinkTSendYouMsg}`,
+    `/api/setting/save-privacy-search-settings/${memberID}?visibility=${body.Visibility}&view_profile_picture=${body.ViewProfilePicture}&view_friends_list=${body.ViewFriendsList}&view_link_to_request_adding_you_as_friend=${body.ViewLinksToRequestAddingYouAsFriend}&view_link_to_send_you_msg=${body.ViewLinkTSendYouMsg}`,
     {
       method: "PUT",
     }
@@ -176,9 +174,9 @@ export async function UploadProfilePhoto(
   const fd = new FormData();
   fd.append("image", file);
 
-  await apiFetch(`/services/member/UploadProfilePhoto/${memberId}`, {
+  await apiFetch(`/api/setting/upload-photo/${memberId}`, {
     method: "POST",
     body: fd,
-    headers: {}
+    //headers: {},
   });
 }

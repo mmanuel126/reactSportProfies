@@ -1,8 +1,6 @@
-
-
 export type Search = {
-  entityID: number;
-  entityName: string;
-  picturePath: string;
-  cityState: string;
+  EntityID: number;
+  EntityName: string;
+  PicturePath: string;
+  CityState: string;
 };
