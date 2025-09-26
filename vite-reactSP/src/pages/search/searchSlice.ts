@@ -10,7 +10,7 @@ export const fetchUsers = createAsyncThunk<
   string,
   { state: RootState }
 >("search/fetchUsers", async (query, thunkAPI) => {
-  const memberID = thunkAPI.getState().auth.user?.memberID;
+  const memberID = thunkAPI.getState().auth.user?.member_id;
   if (!memberID) {
     throw new Error("Missing memberID");
   }

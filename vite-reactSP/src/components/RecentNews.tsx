@@ -67,12 +67,16 @@ const RecentNews: React.FC = () => {
       <div>
         {recentNews.map((res, index) => (
           <div className="card m-3" key={index}>
-            <a href={res.NavigateURL} target="_blank" rel="noopener noreferrer">
+            <a
+              href={res.navigate_url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img
                 className="card-img-top"
                 src={
-                  res.ImageUrl
-                    ? res.ImageUrl.replace("~", imageBaseUrl)
+                  res.image_url
+                    ? res.image_url.replace("~", imageBaseUrl)
                     : `${imageBaseUrl}/members/default.jpg` // or fallback
                 }
                 alt=""
@@ -87,22 +91,22 @@ const RecentNews: React.FC = () => {
                 }}
               >
                 <a
-                  href={res.NavigateURL}
+                  href={res.navigate_url}
                   target="_blank"
                   style={{ textDecoration: "none" }}
                   rel="noopener noreferrer"
                 >
-                  {res.HeaderText}
+                  {res.header_text}
                 </a>
               </span>
               <br />
-              <small>Posted Date: {res.PostingDate}</small>
+              <small>Posted Date: {res.posting_date}</small>
               <br />
               <span style={{ color: "gray", fontSize: "10pt" }}>
-                {res.TextField}…&nbsp;
+                {res.text_field}…&nbsp;
                 <span style={{ fontSize: "8pt" }}>
                   <a
-                    href={res.NavigateURL}
+                    href={res.navigate_url}
                     target="_blank"
                     style={{ textDecoration: "none" }}
                     rel="noopener noreferrer"
@@ -111,7 +115,7 @@ const RecentNews: React.FC = () => {
                   </a>
                 </span>
                 <a
-                  href={`http://www.${res.NavigateURL}`}
+                  href={`http://www.${res.navigate_url}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

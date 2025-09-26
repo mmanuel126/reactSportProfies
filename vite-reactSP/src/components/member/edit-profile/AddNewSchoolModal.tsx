@@ -126,8 +126,8 @@ const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
             >
               <option value="">Select State...</option>
               {states.map((s) => (
-                <option key={s.Abbreviation} value={s.Abbreviation}>
-                  {s.Name}
+                <option key={s.abbreviation} value={s.abbreviation}>
+                  {s.name}
                 </option>
               ))}
             </Form.Select>
@@ -153,8 +153,8 @@ const AddNewSchoolModal: React.FC<Props> = ({ show, onClose, onSave }) => {
             >
               <option value="">Select school...</option>
               {schools.map((s) => (
-                <option key={s.SchoolID} value={s.SchoolID}>
-                  {s.SchoolName}
+                <option key={s.school_id} value={s.school_id}>
+                  {s.school_name}
                 </option>
               ))}
             </Form.Select>

@@ -2,14 +2,6 @@ import React, { useEffect, useState } from "react";
 import { getPlaylistVideos, getVideosList } from "../../services/memberService";
 import type { PlaylistInfo, VideoInfo } from "../../types/member";
 
-/*type Video = {
-  id: string;
-  title: string;
-  description: string;
-  publishedAt: string;
-  defaultThumbnail: string;
-};*/
-
 type Props = {
   memberId: string;
 };
@@ -44,38 +36,6 @@ const VideosTab: React.FC<Props> = ({ memberId }) => {
       </div>
     );
 
-  //   return (
-  //     <div>
-  //       <br></br>
-  //       <p>
-  //         We use a member's public youtube playlists to show and play their
-  //         showcase videos.
-  //       </p>
-  //       <p>
-  //         <b>Select a playlist:</b>
-  //       </p>
-  //       {videos.map((vid) => (
-  //         <div key={vid.id} className="mb-3">
-  //           <a
-  //             href={`https://www.youtube.com/watch?v=${vid.id}`}
-  //             target="_blank"
-  //             rel="noreferrer"
-  //           >
-  //             <img
-  //               src={vid.defaultThumbnail}
-  //               alt={vid.title}
-  //               style={{ width: "200px" }}
-  //             />
-  //             <div>
-  //               <strong>{vid.title}</strong>
-  //             </div>
-  //           </a>
-  //           <div>{vid.description}</div>
-  //         </div>
-  //       ))}
-  //     </div>
-  //   );
-  // };
   return (
     <div>
       {videos?.length > 0 ? (
@@ -116,7 +76,7 @@ const VideosTab: React.FC<Props> = ({ memberId }) => {
       <div id="VideosContentPanel" style={{ paddingTop: "10px" }}>
         <table>
           {videosList.map((vid) => (
-            <tr key={vid.Id}>
+            <tr key={vid.id}>
               <td style={{ paddingLeft: "10px" }}>
                 <table style={{ textAlign: "left" }}>
                   <tr>
@@ -129,7 +89,7 @@ const VideosTab: React.FC<Props> = ({ memberId }) => {
                       }}
                     >
                       <a
-                        href={`https://www.youtube.com/watch?v=${vid.Id}`}
+                        href={`https://www.youtube.com/watch?v=${vid.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -139,10 +99,10 @@ const VideosTab: React.FC<Props> = ({ memberId }) => {
                             borderColor: "LightGrey",
                             borderWidth: 1,
                             borderStyle: "None",
-                            height: `${vid.DefaultThumbnailHeight}px`,
-                            width: `${vid.DefaultThumbnailWidth}px`,
+                            height: `${vid.defaultThumbnailHeight}px`,
+                            width: `${vid.defaultThumbnailWidth}px`,
                           }}
-                          src={vid.DefaultThumbnail}
+                          src={vid.defaultThumbnail}
                           alt=""
                         />
                       </a>
@@ -160,20 +120,20 @@ const VideosTab: React.FC<Props> = ({ memberId }) => {
                     >
                       <a
                         id="lblTitle"
-                        href={`https://www.youtube.com/watch?v=${vid.Id}`}
+                        href={`https://www.youtube.com/watch?v=${vid.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{ fontWeight: "normal", paddingRight: "20px" }}
                       >
-                        {vid.Title}
+                        {vid.title}
                       </a>
                       <br />
                       <span id="lblDesc" style={{ color: "gray" }}>
-                        {vid.Description}
+                        {vid.description}
                       </span>
                       <br />
                       <span id="lblDate" style={{ color: "#596A7D" }}>
-                        Published date:&nbsp;{vid.PublishedAt}
+                        Published date:&nbsp;{vid.publishedAt}
                       </span>
                       <br />
                     </td>

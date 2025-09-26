@@ -21,15 +21,15 @@ export async function sendMessage(
   msg: string
 ): Promise<void> {
   const data: SendMessageModel = {
-    From: memberId,
-    To: senderId.toString(),
-    Subject: subject,
-    Body: msg,
-    Attachment: "",
-    OriginalMsg: "",
-    MessageID: 0,
-    SentDate: "2025-08-27T19:21:08.702Z",
-    SenderPicture: "",
+    from: memberId,
+    to: senderId.toString(),
+    subject: subject,
+    body: msg,
+    attachment: "0",
+    original_msg: "",
+    message_id: 0,
+    sent_date: "2025-08-27T19:21:08.702Z",
+    sender_picture: "",
   };
 
   await apiFetch(`/api/message/send-message`, {

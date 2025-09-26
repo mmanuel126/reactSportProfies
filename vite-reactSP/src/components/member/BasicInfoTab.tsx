@@ -28,20 +28,20 @@ const BasicInfoTab = ({ memberId }: Props) => {
     );
 
   const isAthelete =
-    basicInfo.CurrentStatus === "Athlete (Amateur)" ||
-    basicInfo.CurrentStatus === "Athlete (Professional)";
+    basicInfo.current_status === "Athlete (Amateur)" ||
+    basicInfo.current_status === "Athlete (Professional)";
 
-  const showSex = basicInfo.ShowSexInProfile == "true" && basicInfo.Sex != "";
-  const showDOB =
-    basicInfo.ShowDOBType == "true" && basicInfo.MemProfileDOB != "";
+  const showSex =
+    basicInfo.show_sex_in_profile == "true" && basicInfo.sex != "";
+  const showDOB = basicInfo.show_dob_type == "true" && basicInfo.dob_day != "";
 
   let str = "";
-  if (basicInfo.LookingForEmployment) str = "Employment, ";
-  if (basicInfo.LookingForNetworking) str = str + "Networking, ";
+  if (basicInfo.looking_for_employment) str = "Employment, ";
+  if (basicInfo.looking_for_networking) str = str + "Networking, ";
 
-  if (basicInfo.LookingForPartnership) str = str + "Partnership, ";
+  if (basicInfo.looking_for_partnership) str = str + "Partnership, ";
 
-  if (basicInfo.LookingForRecruitment) str = str + "Recruitment, ";
+  if (basicInfo.looking_for_recruitment) str = str + "Recruitment, ";
   str = str.slice(0, -2);
 
   const memLookingFor = str;
@@ -49,21 +49,21 @@ const BasicInfoTab = ({ memberId }: Props) => {
   return (
     <div style={{ fontSize: "10pt" }}>
       <br />
-      {basicInfo.Sport && (
+      {basicInfo.sport && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Sport:</b> {basicInfo.Sport}
+              <b>Sport:</b> {basicInfo.sport}
             </span>
           </span>
           <br />
         </>
       )}
-      {basicInfo.CurrentStatus && (
+      {basicInfo.current_status && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Status:</b> {basicInfo.CurrentStatus}
+              <b>Status:</b> {basicInfo.current_status}
             </span>
           </span>
           <br />
@@ -72,55 +72,55 @@ const BasicInfoTab = ({ memberId }: Props) => {
 
       {isAthelete && (
         <>
-          {basicInfo.LeftRightHandFoot && (
+          {basicInfo.left_right_hand_foot && (
             <>
               <span className="padded-span">
                 <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-                  <b>Preferred Hand/Foot:</b> {basicInfo.LeftRightHandFoot}
+                  <b>Preferred Hand/Foot:</b> {basicInfo.left_right_hand_foot}
                 </span>
               </span>
               <br />
             </>
           )}
 
-          {basicInfo.PreferredPosition && (
+          {basicInfo.preferred_position && (
             <>
               <span className="padded-span">
                 <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-                  <b>Preferred Position:</b> {basicInfo.PreferredPosition}
+                  <b>Preferred Position:</b> {basicInfo.preferred_position}
                 </span>
               </span>
               <br />
             </>
           )}
 
-          {basicInfo.SecondaryPosition && (
+          {basicInfo.secondary_position && (
             <>
               <span className="padded-span">
                 <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-                  <b>Secondary Position:</b> {basicInfo.SecondaryPosition}
+                  <b>Secondary Position:</b> {basicInfo.secondary_position}
                 </span>
               </span>
               <br />
             </>
           )}
 
-          {basicInfo.Height && (
+          {basicInfo.height && (
             <>
               <span className="padded-span">
                 <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-                  <b>Height:</b> {basicInfo.Height}
+                  <b>Height:</b> {basicInfo.height}
                 </span>
               </span>
               <br />
             </>
           )}
 
-          {basicInfo.Weight && (
+          {basicInfo.weight && (
             <>
               <span className="padded-span">
                 <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-                  <b>Weight:</b> {basicInfo.Weight}
+                  <b>Weight:</b> {basicInfo.weight}
                 </span>
               </span>
               <br />
@@ -133,7 +133,7 @@ const BasicInfoTab = ({ memberId }: Props) => {
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Gender:</b> {basicInfo.Sex}
+              <b>Gender:</b> {basicInfo.sex}
             </span>
           </span>
           <br />
@@ -144,7 +144,8 @@ const BasicInfoTab = ({ memberId }: Props) => {
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Birth Date:</b> {basicInfo.MemProfileDOB}
+              <b>Birth Date:</b> {basicInfo.dob_month}/{basicInfo.dob_day}/
+              {basicInfo.dob_year}
             </span>
           </span>
           <br />
@@ -162,11 +163,11 @@ const BasicInfoTab = ({ memberId }: Props) => {
         </>
       )}
 
-      {basicInfo.Bio && (
+      {basicInfo.bio && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Biography:</b> {basicInfo.Bio}
+              <b>Biography:</b> {basicInfo.bio}
             </span>
           </span>
           <br />

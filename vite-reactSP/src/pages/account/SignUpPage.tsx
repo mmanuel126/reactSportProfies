@@ -11,14 +11,14 @@ import { useNavigate } from "react-router-dom";
 
 // Validation schema
 const schema = yup.object().shape({
-  firstName: yup.string().required("First name is required"),
-  lastName: yup.string().required("Last name is required"),
+  first_name: yup.string().required("First name is required"),
+  last_name: yup.string().required("Last name is required"),
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup
     .string()
     .min(6, "Minimum 6 characters")
     .required("Password is required"),
-  confirmPassword: yup
+  confirm_password: yup
     .string()
     .oneOf([yup.ref("password")], "Passwords must match")
     .required("Please confirm your password"),
@@ -26,23 +26,23 @@ const schema = yup.object().shape({
   month: yup.string().required("Month is required"),
   day: yup.string().required("Day is required"),
   year: yup.string().required("Year is required"),
-  profileType: yup.string().required("Select a profile type"),
-  termsAccepted: yup.boolean().oneOf([true], "You must accept the terms"),
+  profile_type: yup.string().required("Select a profile type"),
+  terms_accepted: yup.boolean().oneOf([true], "You must accept the terms"),
 });
 
 const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  { number: "01", name: "January" },
+  { number: "02", name: "February" },
+  { number: "03", name: "March" },
+  { number: "04", name: "April" },
+  { number: "05", name: "May" },
+  { number: "06", name: "June" },
+  { number: "07", name: "July" },
+  { number: "08", name: "August" },
+  { number: "09", name: "September" },
+  { number: "10", name: "October" },
+  { number: "11", name: "November" },
+  { number: "12", name: "December" },
 ];
 
 const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
@@ -124,13 +124,13 @@ const SignUpPage: React.FC = () => {
                 type="text"
                 placeholder="First Name"
                 className={`form-control ${
-                  errors.firstName ? "is-invalid" : ""
+                  errors.first_name ? "is-invalid" : ""
                 }`}
-                {...register("firstName")}
+                {...register("first_name")}
               />
-              {errors.firstName && (
+              {errors.first_name && (
                 <div className="invalid-feedback">
-                  {errors.firstName.message}
+                  {errors.first_name.message}
                 </div>
               )}
             </div>
@@ -141,13 +141,13 @@ const SignUpPage: React.FC = () => {
                 type="text"
                 placeholder="Last Name"
                 className={`form-control ${
-                  errors.lastName ? "is-invalid" : ""
+                  errors.last_name ? "is-invalid" : ""
                 }`}
-                {...register("lastName")}
+                {...register("last_name")}
               />
-              {errors.lastName && (
+              {errors.last_name && (
                 <div className="invalid-feedback">
-                  {errors.lastName.message}
+                  {errors.last_name.message}
                 </div>
               )}
             </div>
@@ -188,13 +188,13 @@ const SignUpPage: React.FC = () => {
                 type="password"
                 placeholder="Confirm Password"
                 className={`form-control ${
-                  errors.confirmPassword ? "is-invalid" : ""
+                  errors.confirm_password ? "is-invalid" : ""
                 }`}
-                {...register("confirmPassword")}
+                {...register("confirm_password")}
               />
-              {errors.confirmPassword && (
+              {errors.confirm_password && (
                 <div className="invalid-feedback">
-                  {errors.confirmPassword.message}
+                  {errors.confirm_password.message}
                 </div>
               )}
             </div>
@@ -221,12 +221,13 @@ const SignUpPage: React.FC = () => {
                 {...register("month")}
               >
                 <option value="">Month</option>
-                {months.map((m) => (
-                  <option key={m} value={m}>
-                    {m}
+                {months.map((month) => (
+                  <option key={month.number} value={month.number}>
+                    {month.name}
                   </option>
                 ))}
               </select>
+
               <select
                 className={`form-select ${errors.day ? "is-invalid" : ""}`}
                 {...register("day")}
@@ -260,9 +261,9 @@ const SignUpPage: React.FC = () => {
             <div className="mb-3">
               <select
                 className={`form-select ${
-                  errors.profileType ? "is-invalid" : ""
+                  errors.profile_type ? "is-invalid" : ""
                 }`}
-                {...register("profileType")}
+                {...register("profile_type")}
               >
                 <option value="">Select Profile Type</option>
                 <option value="agent">Agent</option>
@@ -278,9 +279,9 @@ const SignUpPage: React.FC = () => {
                 <option value="Scout">Scout</option>
                 <option value="Sport Fanatic">Sport Fanatic</option>
               </select>
-              {errors.profileType && (
+              {errors.profile_type && (
                 <div className="invalid-feedback">
-                  {errors.profileType.message}
+                  {errors.profile_type.message}
                 </div>
               )}
             </div>
@@ -290,10 +291,10 @@ const SignUpPage: React.FC = () => {
               <input
                 type="checkbox"
                 className={`form-check-input ${
-                  errors.termsAccepted ? "is-invalid" : ""
+                  errors.terms_accepted ? "is-invalid" : ""
                 }`}
                 id="terms"
-                {...register("termsAccepted")}
+                {...register("terms_accepted")}
               />
               I accept the{" "}
               <label className="form-check-label" htmlFor="terms">
@@ -306,9 +307,9 @@ const SignUpPage: React.FC = () => {
                 </span>
               </label>
               .
-              {errors.termsAccepted && (
+              {errors.terms_accepted && (
                 <div className="text-danger small">
-                  {errors.termsAccepted.message}
+                  {errors.terms_accepted.message}
                 </div>
               )}
             </div>

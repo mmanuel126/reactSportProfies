@@ -38,17 +38,18 @@ const ViewMember: React.FC<ViewMemberProps> = ({ memberId }) => {
   const [, setIsContactAdded] = useState(false);
 
   const loggedInUserId = useSelector(
-    (state: RootState) => state.auth.user?.memberID
+    (state: RootState) => state.auth.user?.member_id
   );
+  console.log(loggedInUserId);
 
   // Get basic info data
   useEffect(() => {
     const fetchBasicInfo = async () => {
       try {
         const data = await getBasicInfo(memberId);
-        setMemImage(data.PicturePath!);
-        setMemName(data.FirstName! + " " + data.LastName!);
-        setMemTitle(data.TitleDesc!);
+        setMemImage(data.picture_path!);
+        setMemName(data.first_name! + " " + data.last_name!);
+        setMemTitle(data.title_desc!);
       } catch (error) {
         console.error("Failed to fetch member basic info", error);
       }

@@ -33,11 +33,11 @@ const LoginPage: React.FC = () => {
   const onSubmit = async (data: LoginFormInputs) => {
     try {
       const result = await loginUser(data); // API call
-      if (result.currentStatus == "2") {
+      if (result.current_status == "2") {
         //active member
         dispatch(loginSuccess(result)); // Update Redux
         navigate("/");
-      } else if (result.currentStatus == "3") {
+      } else if (result.current_status == "3") {
         //deactivated user
         notify(
           <span>

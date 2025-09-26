@@ -20,7 +20,9 @@ import CommonBaseModal from "../CommonBaseModal";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const FindContacts: React.FC = () => {
-  const memberID = useSelector((state: RootState) => state.auth.user?.memberID);
+  const memberID = useSelector(
+    (state: RootState) => state.auth.user?.member_id
+  );
   const dispatch: AppDispatch = useDispatch();
   const { query, results } = useSelector(
     (state: RootState) => state.findContact
@@ -114,13 +116,13 @@ const FindContacts: React.FC = () => {
             {query.trim() !== "" && (
               <ListGroup variant="flush">
                 {results.map((user) => (
-                  <ListGroup.Item key={user.ContactID}>
+                  <ListGroup.Item key={user.contact_id}>
                     <Row className="align-items-center">
                       <Col xs="auto">
-                        <Link to={`/profile/${user.ContactID}`}>
+                        <Link to={`/profile/${user.contact_id}`}>
                           <Image
                             src={`${BASE_URL}/static/images/members/${
-                              user.PicturePath || "default.png"
+                              user.picture_path || "default.png"
                             }`}
                             roundedCircle
                             fluid
@@ -131,21 +133,21 @@ const FindContacts: React.FC = () => {
                       <Col style={{ marginLeft: "-12px" }}>
                         <strong>
                           <Link
-                            to={`/profile/${user.ContactID}`}
+                            to={`/profile/${user.contact_id}`}
                             style={{
                               textDecoration: "none",
                               fontWeight: "bold",
                             }}
                           >
-                            {user.FriendName}
+                            {user.friend_name}
                           </Link>
                         </strong>
                         <br />
-                        <small className="text-muted">{user.TitleDesc}</small>
+                        <small className="text-muted">{user.title_desc}</small>
                       </Col>
                       <Col xs="auto" className="text-end">
-                        {user.LabelText === "Add as Contact" &&
-                          !addedContacts.includes(user.ContactID) && (
+                        {user.label_text === "Add as Contact" &&
+                          !addedContacts.includes(user.contact_id) && (
                             <Button
                               size="sm"
                               style={{
@@ -157,7 +159,7 @@ const FindContacts: React.FC = () => {
                               }}
                               onClick={(e) => {
                                 e.preventDefault();
-                                setSelectedContactID(user.ContactID);
+                                setSelectedContactID(user.contact_id);
                                 setShowAddContactPopup(true);
                               }}
                             >

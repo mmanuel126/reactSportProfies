@@ -10,7 +10,9 @@ import { Link } from "react-router-dom";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Following: React.FC = () => {
-  const memberID = useSelector((state: RootState) => state.auth.user?.memberID);
+  const memberID = useSelector(
+    (state: RootState) => state.auth.user?.member_id
+  );
   const [following, setFollowing] = useState<Contact[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -37,7 +39,7 @@ const Following: React.FC = () => {
     try {
       await unfollowPerson(memberID, contactID);
       setFollowing((prev) =>
-        prev.filter((contact) => contact.ContactID !== contactID)
+        prev.filter((contact) => contact.contact_id !== contactID)
       );
     } catch (error) {
       console.error("Error unfollowing contact:", error);
@@ -85,7 +87,7 @@ const Following: React.FC = () => {
       <div className="px-3 pt-3">
         {following.map((res, index) => (
           <div
-            key={res.ContactID}
+            key={res.contact_id}
             className="d-flex align-items-center justify-content-between pb-3 mb-3"
             style={{
               borderBottom:
@@ -93,10 +95,10 @@ const Following: React.FC = () => {
             }}
           >
             <div className="d-flex align-items-center">
-              <Link to={`/profile/${res.ContactID}`}>
+              <Link to={`/profile/${res.contact_id}`}>
                 <img
                   src={`${BASE_URL}/static/images/members/${
-                    res.PicturePath || "default.png"
+                    res.picture_path || "default.png"
                   }`}
                   alt="User"
                   className="rounded-circle"
@@ -106,15 +108,15 @@ const Following: React.FC = () => {
               <div className="ms-3">
                 <strong>
                   <Link
-                    to={`/profile/${res.ContactID}`}
+                    to={`/profile/${res.contact_id}`}
                     style={{ textDecoration: "none", fontWeight: "bold" }}
                   >
-                    {res.FriendName}
+                    {res.friend_name}
                   </Link>
                 </strong>
                 <br />
                 <span style={{ color: "gray", fontSize: "10pt" }}>
-                  {res.TitleDesc}
+                  {res.title_desc}
                 </span>
               </div>
             </div>
@@ -126,7 +128,7 @@ const Following: React.FC = () => {
                 color: "white",
                 border: "none",
               }}
-              onClick={() => handleUnfollow(res.ContactID)}
+              onClick={() => handleUnfollow(res.contact_id)}
             >
               <b>Unfollow</b>
             </Button>

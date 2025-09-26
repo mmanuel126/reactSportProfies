@@ -17,7 +17,7 @@ const BurgerMenu: React.FC = () => {
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const picturePath = useSelector(
-    (state: RootState) => state.auth.user?.picturePath
+    (state: RootState) => state.auth.user?.picture_path
   );
   const myEmail = useSelector((state: RootState) => state.auth.user?.email);
   const myPic = `${BASE_URL}/static/images/members/${

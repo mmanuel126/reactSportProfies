@@ -38,27 +38,27 @@ const EducationTab: React.FC<Props> = ({ memberId }) => {
           className="mb-3 border-bottom pb-2"
           style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}
         >
-          <a href={edu.WebSite!} target="_blank" rel="noreferrer">
+          <a href={edu.web_site!} target="_blank" rel="noreferrer">
             <img
-              src={edu.SchoolImage}
+              src={edu.school_image}
               style={{ width: "35px", height: "35px", borderRadius: "50%" }}
             />
           </a>
           <div>
             <a
-              href={normalizeUrl(edu.WebSite!)}
+              href={normalizeUrl(edu.web_site!)}
               target="_blank"
               rel="noreferrer"
               style={{ textDecoration: "none" }}
             >
-              <b>{edu.SchoolName}</b>
+              <b>{edu.school_name}</b>
             </a>
-            <div>{edu.SchoolAddress}</div>
+            <div>{edu.school_address}</div>
             <div>
-              {edu.YearClass} - {edu.Major}
+              {edu.year_class} - {edu.major}
             </div>
-            <div>{edu.Degree}</div>
-            {edu.SportLevelType && <div>Played {edu.SportLevelType}</div>}
+            <div>{edu.degree}</div>
+            {edu.sport_level_type && <div>Played {edu.sport_level_type}</div>}
           </div>
         </div>
       ))}

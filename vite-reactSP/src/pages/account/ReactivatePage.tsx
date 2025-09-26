@@ -36,14 +36,14 @@ const ReactivatePage: React.FC = () => {
   const onSubmit = async (data: LoginFormInputs) => {
     try {
       const result = await loginUser(data); // API call
-      if (result.memberID != "") {
-        if (result.currentStatus == "3") {
+      if (result.member_id != "") {
+        if (result.current_status == "3") {
           //deactivated
           //reset active flag to activated
-          await setMemberStatus(result.memberID, "2");
+          await setMemberStatus(result.member_id, "2");
         }
 
-        if (result.currentStatus == "2" || result.currentStatus == "3") {
+        if (result.current_status == "2" || result.current_status == "3") {
           //active or not check this if you land on this page
           dispatch(loginSuccess(result)); // Update Redux
           navigate("/");

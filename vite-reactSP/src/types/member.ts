@@ -1,26 +1,26 @@
 export type EducationInfo = {
-  WebSite: string;
-  SchoolImage: string;
-  SchoolName: string;
-  SchoolAddress: string;
-  YearClass: string;
-  Major: string;
-  Degree: string;
-  SportLevelType?: string;
-  SchoolID: string;
-  SchoolType: string;
-  Societies: string;
-  DegreeTypeID: string;
+  web_site: string;
+  school_image: string;
+  school_name: string;
+  school_address: string;
+  year_class: string;
+  major: string;
+  degree: string;
+  sport_level_type?: string;
+  school_id: string;
+  school_type: string;
+  societies: string;
+  degree_type_id: string;
 };
 
 export type VideoInfo = {
-  Id: string;
-  Title: string;
-  Description: string;
-  PublishedAt: string;
-  DefaultThumbnail: string;
-  DefaultThumbnailHeight: string;
-  DefaultThumbnailWidth: string;
+  id: string;
+  title: string;
+  description: string;
+  publishedAt: string;
+  defaultThumbnail: string;
+  defaultThumbnailHeight: string;
+  defaultThumbnailWidth: string;
 };
 
 export type PlaylistInfo = {
@@ -31,48 +31,50 @@ export type PlaylistInfo = {
 };
 
 export type BasicInfo = {
-  MemberID: string;
-  CurrentStatus?: string;
-  LeftRightHandFoot?: string;
-  PreferredPosition?: string;
-  SecondaryPosition?: string;
-  Height?: string;
-  Weight?: string;
-  Sex?: string;
-  MemProfileDOB?: string;
-  Bio?: string;
-  PicturePath?: string;
-  TitleDesc?: string;
-  FirstName?: string;
-  LastName?: string;
-  MiddleName?: string;
-  Sport?: string;
-  ShowSexInProfile?: string;
-  ShowDOBType?: string;
-  LookingForEmployment?: string;
-  LookingForNetworking?: string;
-  LookingForPartnership?: string;
-  LookingForRecruitment?: string;
+  member_id: string;
+  current_status?: string;
+  left_right_hand_foot?: string;
+  preferred_position?: string;
+  secondary_position?: string;
+  height?: string;
+  weight?: string;
+  sex?: string;
+  dob_month?: string;
+  dob_day?: string;
+  dob_year?: string;
+  bio?: string;
+  picture_path?: string;
+  title_desc?: string;
+  first_name?: string;
+  last_name?: string;
+  middle_name?: string;
+  sport?: string;
+  show_sex_in_profile?: string;
+  show_dob_type?: string;
+  looking_for_employment?: string;
+  looking_for_networking?: string;
+  looking_for_partnership?: string;
+  looking_for_recruitment?: string;
 };
 
 export type ContactInfo = {
-  MemberID: string;
-  Email?: string;
-  OtherEmail?: string;
-  Facebook?: string;
-  Instagram?: string;
-  Twitter?: string;
-  Website?: string;
-  CellPhone?: string;
-  HomePhone?: string;
-  Address?: string;
-  City?: string;
-  State?: string;
-  Zip?: string;
-  ShowCellPhone?: boolean;
-  ShowHomePhone?: boolean;
-  ShowAddress?: boolean;
-  ShowEmailToMembers?: boolean;
+  member_id: string;
+  email?: string;
+  other_email?: string;
+  facebook?: string;
+  instagram?: string;
+  twitter?: string;
+  website?: string;
+  cell_phone?: string;
+  home_phone?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  show_cell_phone?: boolean;
+  show_home_phone?: boolean;
+  show_address?: boolean;
+  show_email_to_members?: boolean;
 };
 
 export interface MemberData {

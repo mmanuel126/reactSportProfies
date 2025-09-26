@@ -20,7 +20,7 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
       </div>
     );
 
-  const showEmail = data.ShowEmailToMembers && data.Email;
+  const showEmail = data.show_email_to_members && data.email;
 
   return (
     <div style={{ fontSize: "10pt" }}>
@@ -30,7 +30,7 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Email:</b> {data.Email}
+              <b>Email:</b> {data.email}
             </span>
           </span>
           <br />
@@ -41,14 +41,14 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Other Email:</b> {data.OtherEmail}
+              <b>Other Email:</b> {data.other_email}
             </span>
           </span>
           <br />
         </>
       )}
 
-      {data.Facebook && (
+      {data.facebook && (
         <>
           <br />
           <span className="padded-span">
@@ -57,9 +57,9 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
               <a
                 style={{ textDecoration: "none" }}
                 target="_blank"
-                href={data.Facebook}
+                href={data.facebook}
               >
-                {data.Facebook}
+                {data.facebook}
               </a>
             </span>
           </span>
@@ -67,7 +67,7 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         </>
       )}
 
-      {data.Instagram && (
+      {data.instagram && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
@@ -75,9 +75,9 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
               <a
                 style={{ textDecoration: "none" }}
                 target="_blank"
-                href={data.Instagram}
+                href={data.instagram}
               >
-                {data.Instagram}
+                {data.instagram}
               </a>
             </span>
           </span>
@@ -85,7 +85,7 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         </>
       )}
 
-      {data.Twitter && (
+      {data.twitter && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
@@ -93,9 +93,9 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
               <a
                 style={{ textDecoration: "none" }}
                 target="_blank"
-                href={data.Twitter}
+                href={data.twitter}
               >
-                {data.Twitter}
+                {data.twitter}
               </a>
             </span>
           </span>
@@ -103,7 +103,7 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         </>
       )}
 
-      {data.Website && (
+      {data.website && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
@@ -111,9 +111,9 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
               <a
                 style={{ textDecoration: "none" }}
                 target="_blank"
-                href={data.Website}
+                href={data.website}
               >
-                {data.Website}
+                {data.website}
               </a>
             </span>
           </span>
@@ -121,14 +121,14 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         </>
       )}
 
-      {data.ShowCellPhone && (
+      {data.show_cell_phone && (
         <>
-          {data.CellPhone && (
+          {data.cell_phone && (
             <>
               <br />
               <span className="padded-span">
                 <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-                  <b>Cell Phone:</b> {data.CellPhone}
+                  <b>Cell Phone:</b> {data.cell_phone}
                 </span>
               </span>
               <br />
@@ -137,13 +137,13 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         </>
       )}
 
-      {data.ShowHomePhone && (
+      {data.show_home_phone && (
         <>
-          {data.HomePhone && (
+          {data.home_phone && (
             <>
               <span className="padded-span">
                 <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-                  <b>Home Phone:</b> {data.HomePhone}
+                  <b>Home Phone:</b> {data.home_phone}
                 </span>
               </span>
               <br />
@@ -152,45 +152,45 @@ const ContactInfoTab: React.FC<Props> = ({ memberId }) => {
         </>
       )}
 
-      {data.ShowAddress && (
+      {data.show_address && (
         <>
           <br />
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Address:</b> {data.Address}
+              <b>Address:</b> {data.address}
             </span>
           </span>
           <br />
         </>
       )}
 
-      {data.ShowAddress && (
+      {data.show_address && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>City/Town:</b> {data.City}
+              <b>City/Town:</b> {data.city}
             </span>
           </span>
           <br />
         </>
       )}
 
-      {data.ShowAddress && (
+      {data.show_address && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>State:</b> {data.State}
+              <b>State:</b> {data.state}
             </span>
           </span>
           <br />
         </>
       )}
 
-      {data.ShowAddress && (
+      {data.show_address && (
         <>
           <span className="padded-span">
             <span style={{ borderBottom: " solid 1px #e7eadf" }}>
-              <b>Zip Code:</b> {data.Zip}
+              <b>Zip Code:</b> {data.zip}
             </span>
           </span>
           <br />

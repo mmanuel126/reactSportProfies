@@ -10,23 +10,23 @@ export interface MessageInfo {
 }
 
 export interface SearchMessageInfo {
-  Attachement: string;
-  Body: string;
-  ContactName: string;
-  ContactImage: string;
-  SenderImage: string;
-  ContactID: string;
-  FlagLevel: string;
-  ImportanceLevel: string;
-  MessageID: string;
-  MessageState: string;
-  SenderID: string;
-  Subject: string;
-  MsgDate: string;
-  FromID: string;
-  FirstName: string;
-  FullBody: string;
-  Selected: boolean;
+  attachement: string;
+  body: string;
+  contact_name: string;
+  contact_image: string;
+  sender_image: string;
+  contact_id: string;
+  flag_level: string;
+  importance_level: string;
+  message_id: string;
+  message_state: string;
+  sender_id: string;
+  subject: string;
+  msg_date: string;
+  from_id: string;
+  first_name: string;
+  full_body: string;
+  selected: boolean;
 }
 
 export interface MemberNotificationsModel {
@@ -38,13 +38,13 @@ export interface MemberNotificationsModel {
 }
 
 export interface SendMessageModel {
-  To: string;
-  From: string;
-  Subject: string;
-  Body: string;
-  Attachment: string;
-  OriginalMsg: string;
-  MessageID: number;
-  SentDate: string;
-  SenderPicture: string;
+  to: string;
+  from: string;
+  subject: string;
+  body: string;
+  attachment: string;
+  original_msg: string;
+  message_id: number;
+  sent_date: string;
+  sender_picture: string;
 }

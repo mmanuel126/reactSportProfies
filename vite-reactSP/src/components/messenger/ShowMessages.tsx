@@ -31,7 +31,9 @@ const ShowMessages: React.FC<Props> = ({
   showOpenModal,
   setShowOpenModal,
 }) => {
-  const memberID = useSelector((state: RootState) => state.auth.user?.memberID);
+  const memberID = useSelector(
+    (state: RootState) => state.auth.user?.member_id
+  );
   const [messages, setMessages] = useState<SearchMessageInfo[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -56,19 +58,19 @@ const ShowMessages: React.FC<Props> = ({
   const handleOpenMessage = async (msg: SearchMessageInfo) => {
     try {
       // Call API to toggle message state to "read"
-      await toggleMessageState("1", msg.MessageID);
+      await toggleMessageState("1", msg.message_id);
 
       // Update local state to unbold the subject
       setMessages((prevMessages) =>
         prevMessages.map((m) =>
-          m.MessageID === msg.MessageID
+          m.message_id === msg.message_id
             ? { ...m, messageState: "1" } // mark as read
             : m
         )
       );
 
       // Show the message in modal
-      setSelectedMessage({ ...msg, MessageState: "1" });
+      setSelectedMessage({ ...msg, message_state: "1" });
       setShowOpenModal(true);
     } catch (err) {
       console.error("Failed to mark message as read:", err);
@@ -82,7 +84,7 @@ const ShowMessages: React.FC<Props> = ({
 
       // Remove the deleted message from local state
       setMessages((prevMessages) =>
-        prevMessages.filter((msg) => msg.MessageID !== msgID)
+        prevMessages.filter((msg) => msg.message_id !== msgID)
       );
     } catch (err) {
       console.error("Failed to delete message:", err);
@@ -138,7 +140,7 @@ const ShowMessages: React.FC<Props> = ({
         <div className="p-3">
           {messages.map((res, index) => (
             <div
-              key={res.MessageID}
+              key={res.message_id}
               className="d-flex justify-content-between align-items-start pb-3 mb-3"
               style={{
                 borderBottom:
@@ -151,7 +153,7 @@ const ShowMessages: React.FC<Props> = ({
                   id="lbDelete"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleDeleteMessage(res.MessageID);
+                    handleDeleteMessage(res.message_id);
                   }}
                 >
                   <i
@@ -160,10 +162,10 @@ const ShowMessages: React.FC<Props> = ({
                   ></i>
                 </a>
                 &nbsp;
-                <Link to={`/profile/${res.FromID}`}>
+                <Link to={`/profile/${res.from_id}`}>
                   <img
                     src={`${BASE_URL}/static/images/members/${
-                      res.SenderImage || "default.png"
+                      res.sender_image || "default.png"
                     }`}
                     alt="User"
                     title="View Profile"
@@ -182,11 +184,11 @@ const ShowMessages: React.FC<Props> = ({
                   >
                     <strong>
                       <Link
-                        to={`/profile/${res.FromID}`}
+                        to={`/profile/${res.from_id}`}
                         style={{ textDecoration: "none", fontWeight: "bold" }}
                         title="View Profile"
                       >
-                        {res.SenderID}
+                        {res.sender_id}
                       </Link>
                     </strong>
                     <br />
@@ -200,15 +202,15 @@ const ShowMessages: React.FC<Props> = ({
                       style={{
                         textDecoration: "none",
                         fontWeight:
-                          res.MessageState === "0" ? "bold" : "normal",
+                          res.message_state === "0" ? "bold" : "normal",
                       }}
                     >
-                      {res.Subject}
+                      {res.subject}
                     </a>
                     <br />
-                    {res.MsgDate}
+                    {res.msg_date}
                     <br />
-                    {res.Body}
+                    {res.body}
                     <br />
                   </div>
                 </div>

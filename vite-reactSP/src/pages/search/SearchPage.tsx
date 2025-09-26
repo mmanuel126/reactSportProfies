@@ -20,7 +20,9 @@ import { Link } from "react-router-dom";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const SearchPage: React.FC = () => {
-  const memberID = useSelector((state: RootState) => state.auth.user?.memberID);
+  const memberID = useSelector(
+    (state: RootState) => state.auth.user?.member_id
+  );
   const dispatch: AppDispatch = useDispatch();
   const { query, results } = useSelector((state: RootState) => state.search);
 
@@ -104,13 +106,13 @@ const SearchPage: React.FC = () => {
             {query.trim() !== "" && (
               <ListGroup variant="flush">
                 {results.map((user) => (
-                  <ListGroup.Item key={user.EntityID}>
+                  <ListGroup.Item key={user.entity_id}>
                     <Row className="align-items-center">
                       <Col xs="auto">
-                        <Link to={`/profile/${user.EntityID}`}>
+                        <Link to={`/profile/${user.entity_id}`}>
                           <Image
                             src={`${BASE_URL}/static/images/members/${
-                              user.PicturePath || "default.png"
+                              user.picture_path || "default.png"
                             }`}
                             roundedCircle
                             fluid
@@ -122,17 +124,17 @@ const SearchPage: React.FC = () => {
                         {/*<h6 className="mb-0">{user.entityName}</h6>*/}
                         <strong>
                           <Link
-                            to={`/profile/${user.EntityID}`}
+                            to={`/profile/${user.entity_id}`}
                             style={{
                               textDecoration: "none",
                               fontWeight: "bold",
                             }}
                           >
-                            {user.EntityName}
+                            {user.entity_name}
                           </Link>
                         </strong>
                         <br />
-                        <small className="text-muted">{user.CityState}</small>
+                        <small className="text-muted">{user.city_state}</small>
                       </Col>
                       <Col xs="auto" className="text-end">
                         <Button
@@ -148,7 +150,7 @@ const SearchPage: React.FC = () => {
                             try {
                               // Replace with actual IDs
                               if (!memberID) return;
-                              const contactId = user.EntityID;
+                              const contactId = user.entity_id;
 
                               await followContact(memberID, String(contactId));
 
@@ -159,9 +161,13 @@ const SearchPage: React.FC = () => {
                               // Optionally show an alert or toast
                             }
                           }}
-                          disabled={followingIds.includes(user.EntityID)}
+                          disabled={
+                            followingIds.includes(user.entity_id) ||
+                            user.show_cancel == "following"
+                          }
                         >
-                          {followingIds.includes(user.EntityID)
+                          {followingIds.includes(user.entity_id) ||
+                          user.show_cancel == "following"
                             ? "Following"
                             : "Follow"}
                         </Button>

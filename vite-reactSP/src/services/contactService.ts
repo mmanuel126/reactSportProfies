@@ -7,7 +7,7 @@ export async function getSearchList(
   query: string
 ): Promise<Search[]> {
   const data = await apiFetch(
-    `/color: "red",search-results?member_id=${memberId}&search_text=${query}`,
+    `/api/contact/search-results?member_id=${memberId}&search_text=${query}`,
     {
       method: "GET",
     }

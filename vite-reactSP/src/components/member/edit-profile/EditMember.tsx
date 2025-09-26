@@ -27,9 +27,9 @@ const EditMember: React.FC<ViewMemberProps> = ({ memberId, mode }) => {
     const fetchBasicInfo = async () => {
       try {
         const data = await getBasicInfo(memberId);
-        setMemImage(data.PicturePath!);
-        setMemName(data.FirstName! + " " + data.LastName!);
-        setMemTitle(data.TitleDesc!);
+        setMemImage(data.picture_path!);
+        setMemName(data.first_name! + " " + data.last_name!);
+        setMemTitle(data.title_desc!);
       } catch (error) {
         console.error("Failed to fetch member basic info", error);
       }

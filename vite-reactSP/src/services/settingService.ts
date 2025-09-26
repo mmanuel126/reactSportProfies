@@ -63,11 +63,6 @@ export async function savePasswordInfo(
   memberID: string,
   pwd: string
 ): Promise<void> {
-  /*const postBody = {
-    memberID: memberID,
-    pwd: pwd,
-  };*/
-
   await apiFetch(
     `/api/setting/save-password-info/${memberID}?password=${pwd}`,
     {
@@ -107,7 +102,7 @@ export async function saveNotificationSettings(
   memberID: string,
   body: NotificationBody
 ): Promise<void> {
-  body.MemberID = memberID;
+  body.member_id = memberID;
   await apiFetch(`/api/setting/update-notifications/${memberID}`, {
     method: "PUT",
     body: JSON.stringify(body),
@@ -159,8 +154,10 @@ export async function saveSearchSettings(
   memberID: string,
   body: SearchSettings
 ): Promise<void> {
+  let vl = "0";
+  if (body.view_link_to_request_adding_you_as_friend) vl = "1";
   await apiFetch(
-    `/api/setting/save-privacy-search-settings/${memberID}?visibility=${body.Visibility}&view_profile_picture=${body.ViewProfilePicture}&view_friends_list=${body.ViewFriendsList}&view_link_to_request_adding_you_as_friend=${body.ViewLinksToRequestAddingYouAsFriend}&view_link_to_send_you_msg=${body.ViewLinkTSendYouMsg}`,
+    `/api/setting/save-privacy-search-settings/${memberID}?visibility=${body.visibility}&view_profile_picture=${body.view_profile_picture}&view_friends_list=${body.view_friends_list}&view_link_to_request_adding_you_as_friend=${vl}&view_link_to_send_you_msg=${body.view_link_to_send_you_msg}`,
     {
       method: "PUT",
     }
@@ -177,6 +174,5 @@ export async function UploadProfilePhoto(
   await apiFetch(`/api/setting/upload-photo/${memberId}`, {
     method: "POST",
     body: fd,
-    //headers: {},
   });
 }

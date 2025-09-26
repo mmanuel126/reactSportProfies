@@ -22,6 +22,7 @@ import EditProfilePage from "./pages/member/EditProfilePage";
 import SiteGuide from "./pages/SiteGuide";
 import FindContacts from "./components/contact/FindContacts";
 import SettingPage from "./pages/setting/SettingPage";
+import CompleteSignUpPage from "./pages/account/CompleteSignUpPage";
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/change-password" element={<ChangePasswordPage />} />
+          <Route path="/complete-signup" element={<CompleteSignUpPage />} />
           <Route
             path="/reset-password-confirm"
             element={<ResetPwdConfirmPage />}
@@ -56,7 +58,10 @@ export default function App() {
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/contacts" element={<ContactsPage />} />
           <Route path="/contacts/find-contacts" element={<FindContacts />} />
-          <Route path="members/edit-profile/:mode" element={<EditProfilePage />} />
+          <Route
+            path="members/edit-profile/:mode"
+            element={<EditProfilePage />}
+          />
           <Route path="/messenger" element={<MessengerPage />} />
           <Route path="/messages/view-messages" element={<MessengerPage />} />
           <Route path="/site-guide" element={<SiteGuide />} />

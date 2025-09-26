@@ -26,7 +26,7 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
   const [isSaving, setIsSaving] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const email = watch("Email");
+  const email = watch("email");
 
   useEffect(() => {
     const loadContactInfo = async () => {
@@ -63,7 +63,7 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
         <input
           className="form-control"
           placeholder="Enter Email"
-          {...register("Email", {
+          {...register("email", {
             required: "Email is required",
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -71,13 +71,13 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
             },
           })}
         />
-        {errors.Email && (
-          <small className="text-danger">{errors.Email.message}</small>
+        {errors.email && (
+          <small className="text-danger">{errors.email.message}</small>
         )}
       </div>
 
       <div className="form-group pb-2">
-        <input type="checkbox" {...register("ShowEmailToMembers")} />
+        <input type="checkbox" {...register("show_email_to_members")} />
         <label>&nbsp;Show this to other members</label>
       </div>
 
@@ -86,7 +86,7 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
         <input
           className="form-control"
           placeholder="Enter Other Email"
-          {...register("OtherEmail")}
+          {...register("other_email")}
         />
       </div>
 
@@ -97,7 +97,7 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
         <input
           className="form-control"
           placeholder="Enter Facebook link"
-          {...register("Facebook")}
+          {...register("facebook")}
         />
       </div>
 
@@ -106,7 +106,7 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
         <input
           className="form-control"
           placeholder="Enter Instagram link"
-          {...register("Instagram")}
+          {...register("instagram")}
         />
       </div>
 
@@ -115,7 +115,7 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
         <input
           className="form-control"
           placeholder="Enter Twitter handle"
-          {...register("Twitter")}
+          {...register("twitter")}
         />
       </div>
 
@@ -124,7 +124,7 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
         <input
           className="form-control"
           placeholder="Enter website Url"
-          {...register("Website")}
+          {...register("website")}
         />
       </div>
 
@@ -136,12 +136,12 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
           className="form-control"
           style={{ width: 200 }}
           placeholder="Enter Cell Phone"
-          {...register("CellPhone")}
+          {...register("cell_phone")}
         />
       </div>
 
       <div className="form-group pb-2">
-        <input type="checkbox" {...register("ShowCellPhone")} />
+        <input type="checkbox" {...register("show_cell_phone")} />
         <label>&nbsp;Show cell phone to other members</label>
       </div>
 
@@ -151,12 +151,12 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
           className="form-control"
           style={{ width: 200 }}
           placeholder="Enter Home Phone"
-          {...register("HomePhone")}
+          {...register("home_phone")}
         />
       </div>
 
       <div className="form-group pb-2">
-        <input type="checkbox" {...register("ShowHomePhone")} />
+        <input type="checkbox" {...register("show_home_phone")} />
         <label>&nbsp;Show home phone to other members</label>
       </div>
 
@@ -167,12 +167,12 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
         <input
           className="form-control"
           placeholder="Enter Address"
-          {...register("Address")}
+          {...register("address")}
         />
       </div>
 
       <div className="form-group pb-2">
-        <input type="checkbox" {...register("ShowAddress")} />
+        <input type="checkbox" {...register("show_address")} />
         <label>&nbsp;Show address to other members</label>
       </div>
 
@@ -182,7 +182,7 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
           className="form-control"
           style={{ width: 250 }}
           placeholder="Enter City"
-          {...register("City")}
+          {...register("city")}
         />
       </div>
 
@@ -192,7 +192,7 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
           className="form-control"
           style={{ width: 200 }}
           placeholder="Enter State"
-          {...register("State")}
+          {...register("state")}
         />
       </div>
 
@@ -202,7 +202,7 @@ const EditContactInfoTab: React.FC<EditContactInfoTabProps> = ({
           className="form-control"
           style={{ width: 200 }}
           placeholder="Enter Zip Code"
-          {...register("Zip")}
+          {...register("zip")}
         />
       </div>
 

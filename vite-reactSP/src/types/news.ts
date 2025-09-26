@@ -1,8 +1,8 @@
 export type NewsItem = {
-  NavigateURL: string;
-  ImageUrl: string;
-  HeaderText: string;
-  PostingDate: string;
-  TextField: string;
-  ID: string;
+  navigate_url: string;
+  image_url: string;
+  header_text: string;
+  posting_date: string;
+  text_field: string;
+  id: string;
 };

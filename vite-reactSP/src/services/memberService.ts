@@ -85,11 +85,11 @@ export async function getEducationInfo(id: string): Promise<EducationInfo[]> {
     return {
       ...item,
       //Degree: item.Degree || "N/A", // fallback if degree is missing
-      WebSite: item.SchoolImage?.startsWith("http")
-        ? item.SchoolImage
-        : `https://${item.SchoolImage}`, // ensure https
-      SchoolImage: item.SchoolImage
-        ? `https://www.google.com/s2/favicons?domain=${item.SchoolImage}`
+      web_site: item.school_image?.startsWith("http")
+        ? item.school_image
+        : `https://${item.school_image}`, // ensure https
+      school_image: item.school_image
+        ? `https://www.google.com/s2/favicons?domain=${item.school_image}`
         : `${BASE_URL}/static/images/members/default.png`,
     };
   });
@@ -146,7 +146,7 @@ export async function checkIfToShowFollowMember(
 }
 
 export async function saveBasicInfo(memberID: string, data: BasicInfo) {
-  data.MemberID = memberID;
+  data.member_id = memberID;
   return await apiFetch(`/api/member/general-info`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -154,7 +154,7 @@ export async function saveBasicInfo(memberID: string, data: BasicInfo) {
 }
 
 export async function saveContactInfo(memberID: string, data: ContactInfo) {
-  data.MemberID = memberID;
+  data.member_id = memberID;
   return await apiFetch(`/api/member/contact-info`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -169,8 +169,8 @@ export async function getInstagramURL(memberID: string): Promise<string> {
 
 export async function saveInstagramURL(memberID: string, data: PhotosData) {
   const postBody = {
-    MemberID: memberID,
-    InstagramURL: data.instagramURL,
+    member_id: memberID,
+    instagram_url: data.instagramURL,
   };
   return await apiFetch(`/api/member/instagram-url`, {
     method: "PUT",
@@ -186,8 +186,8 @@ export async function getChannelID(memberID: string): Promise<string> {
 
 export async function saveChannelID(memberID: string, channelID: string) {
   const postBody = {
-    MemberID: memberID,
-    ChannelID: channelID,
+    member_id: memberID,
+    channel_id: channelID,
   };
   return await apiFetch(`/api/member/youtube-channel`, {
     method: "PUT",
@@ -195,10 +195,37 @@ export async function saveChannelID(memberID: string, channelID: string) {
   });
 }
 
-export async function saveNewSchool(memberId: string, body: EducationInfo) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function saveNewSchool(memberId: string, body: any) {
+  type UpdateInfo = {
+    school_type: string;
+    school_address: string;
+    school_id: string;
+    school_name: string;
+    school_image: string;
+    major: string;
+    degree: string;
+    degree_type_id: string;
+    year_class: string;
+    sport_level_type: string;
+  };
+
+  const data: UpdateInfo = {
+    school_type: body.SchoolType,
+    school_address: body.SchoolAddress,
+    school_id: body.SchoolID,
+    school_image: "",
+    school_name: "",
+    major: body.Major,
+    degree: body.Degree,
+    degree_type_id: body.Degree,
+    year_class: body.YearClass,
+    sport_level_type: body.SportLevelType,
+  };
+
   return await apiFetch(`/api/member/add-school/${memberId}`, {
     method: "POST",
-    body: JSON.stringify(body),
+    body: JSON.stringify(data),
   });
 }
 
@@ -215,9 +242,36 @@ export async function removeSchool(
   );
 }
 
-export async function updateSchool(memberId: string, body: EducationInfo) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function updateSchool(memberId: string, body: any) {
+  type UpdateInfo = {
+    school_image: string;
+    school_name: string;
+    school_address: string;
+    year_class: string;
+    major: string;
+    degree: string;
+    sport_level_type?: string;
+    school_id: string;
+    school_type: string;
+    degree_type_id: string;
+  };
+
+  const data: UpdateInfo = {
+    school_image: "",
+    school_name: "",
+    school_address: "",
+    year_class: body.YearClass,
+    major: body.Major,
+    degree: body.degree,
+    sport_level_type: body.SportLevelType,
+    school_id: body.school_id,
+    school_type: body.school_type,
+    degree_type_id: body.Degree,
+  };
+
   return await apiFetch(`/api/member/update-school/${memberId}`, {
     method: "PUT",
-    body: JSON.stringify(body),
+    body: JSON.stringify(data),
   });
 }

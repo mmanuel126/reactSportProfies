@@ -12,8 +12,8 @@ type Props = {
 
 const SecurityQuestionsTab: React.FC<Props> = ({ memberId }) => {
   const [form, setForm] = useState<AccountSettings>({
-    SecurityQuestion: "",
-    SecurityAnswer: "",
+    security_question: "",
+    security_answer: "",
   });
 
   const [isSaving, setIsSaving] = useState(false);
@@ -32,8 +32,8 @@ const SecurityQuestionsTab: React.FC<Props> = ({ memberId }) => {
         const data = await getMemberNameInfo(memberId);
         // Assuming data looks like { securityQuestion: '1', securityAnswer: 'My Answer' }
         setForm({
-          SecurityQuestion: data.SecurityQuestion || "",
-          SecurityAnswer: data.SecurityAnswer || "",
+          security_question: data.security_question || "",
+          security_answer: data.security_answer || "",
         });
       } catch (error) {
         console.error("Failed to load member info:", error);
@@ -55,9 +55,9 @@ const SecurityQuestionsTab: React.FC<Props> = ({ memberId }) => {
   };
 
   const isFormValid =
-    form.SecurityQuestion &&
-    form.SecurityQuestion !== "select" &&
-    form.SecurityAnswer!.trim();
+    form.security_question &&
+    form.security_question !== "select" &&
+    form.security_answer!.trim();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,8 +66,8 @@ const SecurityQuestionsTab: React.FC<Props> = ({ memberId }) => {
     try {
       await saveSecurityQuestionInfo(
         memberId,
-        form.SecurityQuestion!,
-        form.SecurityAnswer!
+        form.security_question!,
+        form.security_answer!
       );
       setIsSuccess(true);
     } catch (error) {
@@ -95,7 +95,7 @@ const SecurityQuestionsTab: React.FC<Props> = ({ memberId }) => {
             className="form-control"
             name="SecurityQuestion"
             id="ddlQuestion"
-            value={form.SecurityQuestion}
+            value={form.security_question}
             onChange={handleChange}
             onBlur={() => handleBlur("question")}
             required
@@ -110,7 +110,8 @@ const SecurityQuestionsTab: React.FC<Props> = ({ memberId }) => {
             <option value="6">What is your father's nickname?</option>
           </select>
           {touched.question &&
-            (!form.SecurityQuestion || form.SecurityQuestion === "select") && (
+            (!form.security_question ||
+              form.security_question === "select") && (
               <div className="text-danger">Security question required.</div>
             )}
         </div>
@@ -124,14 +125,14 @@ const SecurityQuestionsTab: React.FC<Props> = ({ memberId }) => {
             className="form-control"
             id="txtAnswer"
             name="SecurityAnswer"
-            value={form.SecurityAnswer}
+            value={form.security_answer}
             onChange={handleChange}
             onBlur={() => handleBlur("answer")}
             placeholder="Enter answer"
             required
             style={{ width: "320px", height: "29px", paddingTop: "1px" }}
           />
-          {touched.answer && !form.SecurityAnswer!.trim() && (
+          {touched.answer && !form.security_answer!.trim() && (
             <div className="text-danger">Your answer is required.</div>
           )}
         </div>

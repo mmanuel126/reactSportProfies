@@ -1,15 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import type { LoginResponse } from '../types/account';
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import type { LoginResponse } from "../types/account";
 
 type AuthState = {
   isAuthenticated: boolean;
   token: string | null;
-  user: Omit<LoginResponse, 'accessToken'> | null;
+  user: Omit<LoginResponse, "access_token"> | null;
 };
 
-const token = localStorage.getItem('token');
-const user = localStorage.getItem('user');
+const token = localStorage.getItem("token");
+const user = localStorage.getItem("user");
 
 const initialState: AuthState = {
   isAuthenticated: !!token,
@@ -18,24 +18,24 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     loginSuccess(state, action: PayloadAction<LoginResponse>) {
-      const { accessToken, ...userData } = action.payload;
+      const { access_token, ...userData } = action.payload;
       state.isAuthenticated = true;
-      state.token = accessToken;
+      state.token = access_token;
       state.user = userData;
 
-      localStorage.setItem('token', accessToken);
-      localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(userData));
     },
     logout(state) {
       state.isAuthenticated = false;
       state.token = null;
       state.user = null;
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
     },
   },
 });

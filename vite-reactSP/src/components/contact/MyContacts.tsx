@@ -19,7 +19,9 @@ import { Link } from "react-router-dom";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const MyContacts: React.FC = () => {
-  const memberID = useSelector((state: RootState) => state.auth.user?.memberID);
+  const memberID = useSelector(
+    (state: RootState) => state.auth.user?.member_id
+  );
   const dispatch: AppDispatch = useDispatch();
   const { query, results, loading, error } = useSelector(
     (state: RootState) => state.contact
@@ -39,7 +41,7 @@ const MyContacts: React.FC = () => {
     if (!memberID) return;
     try {
       await deleteContact(memberID, contactID);
-      setLocalResults((prev) => prev.filter((c) => c.ContactID !== contactID));
+      setLocalResults((prev) => prev.filter((c) => c.contact_id !== contactID));
     } catch (err) {
       console.error("Failed to drop member:", err);
     }
@@ -108,13 +110,13 @@ const MyContacts: React.FC = () => {
             ) : (
               <ListGroup variant="flush">
                 {localResults.map((user) => (
-                  <ListGroup.Item key={user.ContactID}>
+                  <ListGroup.Item key={user.contact_id}>
                     <Row className="align-items-center">
                       <Col xs="auto">
-                        <Link to={`/profile/${user.ContactID}`}>
+                        <Link to={`/profile/${user.contact_id}`}>
                           <Image
                             src={`${BASE_URL}/static/images/members/${
-                              user.PicturePath || "default.png"
+                              user.picture_path || "default.png"
                             }`}
                             roundedCircle
                             fluid
@@ -125,17 +127,17 @@ const MyContacts: React.FC = () => {
                       <Col style={{ marginLeft: "-12px" }}>
                         <strong>
                           <Link
-                            to={`/profile/${user.ContactID}`}
+                            to={`/profile/${user.contact_id}`}
                             style={{
                               textDecoration: "none",
                               fontWeight: "bold",
                             }}
                           >
-                            {user.FriendName}
+                            {user.friend_name}
                           </Link>
                         </strong>
                         <br />
-                        <small className="text-muted">{user.TitleDesc}</small>
+                        <small className="text-muted">{user.title_desc}</small>
                       </Col>
                       <Col xs="auto" className="text-end">
                         <Button
@@ -147,7 +149,7 @@ const MyContacts: React.FC = () => {
                             border: "none",
                             borderRadius: "6px",
                           }}
-                          onClick={() => handleDrop(user.ContactID)}
+                          onClick={() => handleDrop(user.contact_id)}
                         >
                           Drop
                         </Button>

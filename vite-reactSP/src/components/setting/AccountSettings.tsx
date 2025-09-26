@@ -17,7 +17,9 @@ const NotificationsTab = lazy(() => import("./NotificationsTab"));
 const DeactivateTab = lazy(() => import("./DeactivateTab"));
 
 const AccountSettings: React.FC = () => {
-  const memberId = useSelector((state: RootState) => state.auth.user?.memberID);
+  const memberId = useSelector(
+    (state: RootState) => state.auth.user?.member_id
+  );
   const [memImage, setMemImage] = useState<string>("");
   const [memName, setMemName] = useState<string>("");
   const [memTitle, setMemTitle] = useState<string>("");
@@ -27,9 +29,9 @@ const AccountSettings: React.FC = () => {
     const fetchBasicInfo = async () => {
       try {
         const data = await getBasicInfo(memberId!);
-        setMemImage(data.PicturePath!);
-        setMemName(data.FirstName! + " " + data.LastName!);
-        setMemTitle(data.TitleDesc!);
+        setMemImage(data.picture_path!);
+        setMemName(data.first_name! + " " + data.last_name!);
+        setMemTitle(data.title_desc!);
       } catch (error) {
         console.error("Failed to fetch member basic info", error);
       }

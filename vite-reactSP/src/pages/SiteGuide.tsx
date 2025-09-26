@@ -52,7 +52,7 @@ const SiteGuide: React.FC = () => {
         >
           <div className="scroll-area-lg" style={{ height: "auto" }}>
             {adsList.map((res) => (
-              <div key={res.ID} style={{ paddingTop: "10px" }}>
+              <div key={res.id} style={{ paddingTop: "10px" }}>
                 <span
                   style={{
                     color: "#4A6792",
@@ -60,12 +60,12 @@ const SiteGuide: React.FC = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  {res.HeaderText}
+                  {res.headertext}
                 </span>
                 <br />
                 <div className="d-flex align-items-start mt-2">
                   <img
-                    src={`/images/ads/${res.ImageUrl}`}
+                    src={`/images/ads/${res.imageurl}`}
                     alt=""
                     style={{
                       height: "50px",
@@ -80,21 +80,21 @@ const SiteGuide: React.FC = () => {
                       paddingLeft: "5px",
                     }}
                   >
-                    {res.TextField}
+                    {res.textfield}
                   </div>
                 </div>
                 <Link
                   to={{
                     pathname:
-                      res.ID === 4
+                      res.id === 4
                         ? "/settings/account"
-                        : res.ID === 5
+                        : res.id === 5
                         ? "/settings/privacy"
-                        : res.ID === 2 || res.ID === 3
-                        ? `${res.NavigateURL}/${res.ID}`
-                        : res.NavigateURL,
+                        : res.id === 2 || res.id === 3
+                        ? `${res.navigateurl}/${res.id}`
+                        : res.navigateurl,
                   }}
-                  state={{ adId: res.ID }}
+                  state={{ adId: res.id }}
                   className="text-decoration-none"
                 >
                   <span style={{ color: "#4A6792", fontSize: "10pt" }}>

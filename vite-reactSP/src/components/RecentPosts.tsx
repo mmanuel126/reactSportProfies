@@ -30,7 +30,9 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
   modalMode,
   setModalMode,
 }) => {
-  const memberID = useSelector((state: RootState) => state.auth.user?.memberID);
+  const memberID = useSelector(
+    (state: RootState) => state.auth.user?.member_id
+  );
   const [posts, setPosts] = useState<PostItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [expandedReplies, setExpandedReplies] = useState<Set<number>>(
@@ -89,8 +91,8 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
     // Optimistically update UI
     setPosts((prevPosts) =>
       prevPosts.map((post) =>
-        post.PostID === postID
-          ? { ...post, likeCounter: post.LikeCounter + 1 }
+        post.post_id === postID
+          ? { ...post, likeCounter: post.like_counter + 1 }
           : post
       )
     );
@@ -103,8 +105,8 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
       // Revert UI if API call fails
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
-          post.PostID === postID
-            ? { ...post, likeCounter: post.LikeCounter - 1 }
+          post.post_id === postID
+            ? { ...post, likeCounter: post.like_counter - 1 }
             : post
         )
       );
@@ -180,17 +182,17 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
         <div className="p-3">
           {posts.map((res, index) => (
             <div
-              key={res.PostID}
+              key={res.post_id}
               className="d-flex pb-3 mb-3"
               style={{
                 borderBottom:
                   index !== posts.length - 1 ? "1px solid #e0e0e0" : "none",
               }}
             >
-              <Link to={`/profile/${res.MemberID}`}>
+              <Link to={`/profile/${res.member_id}`}>
                 <img
                   src={`${BASE_URL}/static/images/members/${
-                    res.PicturePath || "default.png"
+                    res.picture_path || "default.png"
                   }`}
                   alt="User"
                   className="rounded-circle"
@@ -208,17 +210,17 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
                 >
                   <strong>
                     <Link
-                      to={`/profile/${res.MemberID}`}
+                      to={`/profile/${res.member_id}`}
                       style={{ textDecoration: "none", fontWeight: "bold" }}
                     >
-                      {res.MemberName}
+                      {res.member_name}
                     </Link>
                   </strong>
                   <br />
-                  {res.Description}
+                  {res.description}
                 </div>
                 <div className="mt-1 text-muted" style={{ fontSize: "9pt" }}>
-                  {res.DatePosted}
+                  {res.date_posted}
                   <br />
                   <Button
                     size="sm"
@@ -226,11 +228,11 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
                     className="p-0 fs-6 "
                     title="Reply"
                     style={{ fontSize: "9pt", textDecoration: "none" }}
-                    onClick={() => toggleReplies(res.PostID)}
+                    onClick={() => toggleReplies(res.post_id)}
                   >
                     <i className={`bi bi-chat`} />
                   </Button>
-                  {res.ChildPostCnt > 0 && <>&nbsp;{res.ChildPostCnt}</>}
+                  {res.child_post_cnt > 0 && <>&nbsp;{res.child_post_cnt}</>}
                   <span className="mx-2 text-secondary">|</span>
                   <Button
                     size="sm"
@@ -238,37 +240,37 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
                     variant="link"
                     className="p-0 fs-6 "
                     style={{ fontSize: "9pt", textDecoration: "none" }}
-                    onClick={() => handleLike(res.PostID)}
+                    onClick={() => handleLike(res.post_id)}
                   >
                     <i className={`bi bi-hand-thumbs-up`} />
                   </Button>
-                  {res.LikeCounter > 0 && <>&nbsp;{res.LikeCounter}</>}
+                  {res.like_counter > 0 && <>&nbsp;{res.like_counter}</>}
                 </div>
 
                 {/* Replies */}
-                {expandedReplies.has(res.PostID) && (
+                {expandedReplies.has(res.post_id) && (
                   <div className="mt-2 border-top pt-2">
-                    {loadingReplies.has(res.PostID) ? (
+                    {loadingReplies.has(res.post_id) ? (
                       <div className="text-muted" style={{ fontSize: "9pt" }}>
                         <Spinner animation="border" size="sm" /> Loading
                         replies...
                       </div>
-                    ) : replies[res.PostID]?.length > 0 ? (
-                      replies[res.PostID].map((chi, i) => (
+                    ) : replies[res.post_id]?.length > 0 ? (
+                      replies[res.post_id].map((chi, i) => (
                         <div
                           key={i}
                           className="d-flex mb-2 pb-2"
                           style={{
                             borderBottom:
-                              i !== replies[res.PostID].length - 1
+                              i !== replies[res.post_id].length - 1
                                 ? "1px solid #ddd"
                                 : "none",
                           }}
                         >
-                          <Link to={`/profile/${chi.MemberID}`}>
+                          <Link to={`/profile/${chi.member_id}`}>
                             <img
                               src={`${BASE_URL}/static/images/members/${
-                                chi.PicturePath || "default.png"
+                                chi.picture_path || "default.png"
                               }`}
                               alt="User"
                               className="rounded-circle"
@@ -281,20 +283,20 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
                           >
                             <strong>
                               <Link
-                                to={`/profile/${chi.MemberID}`}
+                                to={`/profile/${chi.member_id}`}
                                 style={{
                                   textDecoration: "none",
                                   fontWeight: "bold",
                                 }}
                               >
-                                {chi.MemberName}
+                                {chi.member_name}
                               </Link>
                             </strong>
                             <br />
-                            {chi.Description}
+                            {chi.description}
                             <br />
                             <span className="text-muted">
-                              {chi.DateResponded}
+                              {chi.date_responded}
                             </span>
                             <br />
                             <Button
@@ -307,7 +309,7 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
                               }}
                               onClick={() => {
                                 setModalMode("reply");
-                                setTargetPostID(res.PostID);
+                                setTargetPostID(res.post_id);
                                 setShowModal(true);
                               }}
                             >
@@ -329,7 +331,7 @@ const RecentPosts: React.FC<RecentPostsProps> = ({
                           }}
                           onClick={() => {
                             setModalMode("reply");
-                            setTargetPostID(res.PostID);
+                            setTargetPostID(res.post_id);
                             setShowModal(true);
                           }}
                         >

@@ -13,7 +13,9 @@ import { Link } from "react-router-dom";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Requests: React.FC = () => {
-  const memberID = useSelector((state: RootState) => state.auth.user?.memberID);
+  const memberID = useSelector(
+    (state: RootState) => state.auth.user?.member_id
+  );
   const [following, setRequest] = useState<Contact[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -40,7 +42,7 @@ const Requests: React.FC = () => {
     try {
       await acceptRequest(memberID, contactID);
       setRequest((prev) =>
-        prev.filter((contact) => contact.ContactID !== contactID)
+        prev.filter((contact) => contact.contact_id !== contactID)
       );
     } catch (error) {
       console.error("Error accept contact:", error);
@@ -53,7 +55,7 @@ const Requests: React.FC = () => {
     try {
       await rejectRequest(memberID, contactID);
       setRequest((prev) =>
-        prev.filter((contact) => contact.ContactID !== contactID)
+        prev.filter((contact) => contact.contact_id !== contactID)
       );
     } catch (error) {
       console.error("Error rejecting contact:", error);
@@ -106,7 +108,7 @@ const Requests: React.FC = () => {
       <div className="px-3 pt-3">
         {following.map((res, index) => (
           <div
-            key={res.ContactID}
+            key={res.contact_id}
             className="d-flex align-items-center justify-content-between pb-3 mb-3"
             style={{
               borderBottom:
@@ -114,10 +116,10 @@ const Requests: React.FC = () => {
             }}
           >
             <div className="d-flex align-items-center">
-              <Link to={`/profile/${res.ContactID}`}>
+              <Link to={`/profile/${res.contact_id}`}>
                 <img
                   src={`${BASE_URL}/static/images/members/${
-                    res.PicturePath || "default.png"
+                    res.picture_path || "default.png"
                   }`}
                   alt="User"
                   className="rounded-circle"
@@ -127,15 +129,15 @@ const Requests: React.FC = () => {
               <div className="ms-3">
                 <strong>
                   <Link
-                    to={`/profile/${res.ContactID}`}
+                    to={`/profile/${res.contact_id}`}
                     style={{ textDecoration: "none", fontWeight: "bold" }}
                   >
-                    {res.FriendName}
+                    {res.friend_name}
                   </Link>
                 </strong>
                 <br />
                 <span style={{ color: "gray", fontSize: "10pt" }}>
-                  {res.TitleDesc}
+                  {res.title_desc}
                 </span>
               </div>
             </div>
@@ -147,7 +149,7 @@ const Requests: React.FC = () => {
                   color: "white",
                   border: "none",
                 }}
-                onClick={() => handleAccept(res.ContactID)}
+                onClick={() => handleAccept(res.contact_id)}
               >
                 <b>Accept</b>
               </Button>
@@ -158,7 +160,7 @@ const Requests: React.FC = () => {
                   color: "white",
                   border: "none",
                 }}
-                onClick={() => handleReject(res.ContactID)}
+                onClick={() => handleReject(res.contact_id)}
               >
                 <b>Reject</b>
               </Button>

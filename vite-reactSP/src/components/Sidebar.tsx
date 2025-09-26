@@ -32,7 +32,9 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
 
-  const memberID = useSelector((state: RootState) => state.auth.user?.memberID);
+  const memberID = useSelector(
+    (state: RootState) => state.auth.user?.member_id
+  );
 
   const navItems: NavItem[] = [
     { key: "home", icon: "bi-house", path: "/" },

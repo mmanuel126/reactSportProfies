@@ -38,10 +38,10 @@ const EditSchoolModal: React.FC<Props> = ({
   useEffect(() => {
     if (schoolToEdit) {
       setForm({
-        Major: schoolToEdit.Major || "",
-        Degree: schoolToEdit.DegreeTypeID || "",
-        YearClass: schoolToEdit.YearClass || "",
-        SportLevelType: schoolToEdit.SportLevelType || "",
+        Major: schoolToEdit.major || "",
+        Degree: schoolToEdit.degree_type_id || "",
+        YearClass: schoolToEdit.year_class || "",
+        SportLevelType: schoolToEdit.sport_level_type || "",
       });
     }
   }, [schoolToEdit]);
@@ -69,10 +69,10 @@ const EditSchoolModal: React.FC<Props> = ({
   const handleSubmit = async () => {
     if (!isFormValid()) {
       setTouched({
-        major: true,
-        degree: true,
-        yearClass: true,
-        sportLevelType: true,
+        Major: true,
+        Degree: true,
+        YearClass: true,
+        SportLevelType: true,
       });
       return;
     }

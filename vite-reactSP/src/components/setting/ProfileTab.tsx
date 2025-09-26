@@ -83,13 +83,13 @@ const ProfileTab: React.FC<Props> = ({ memberId }) => {
 
       <table className="mb-3" style={{ paddingLeft: "30px" }}>
         <tbody>
-          {renderSelect("Basic Information", "BasicInfo")}
-          {renderSelect("Personal Information", "PersonalInfo")}
-          {renderSelect("Contacts", "ContactInfo")}
-          {renderSelect("Education", "Education")}
-          {renderSelect("Mobile Phone", "MobilePhone")}
-          {renderSelect("Other Phone", "OtherPhone")}
-          {renderSelect("Email Address", "EmailAddress")}
+          {renderSelect("Basic Information", "basic_info")}
+          {renderSelect("Personal Information", "personal_info")}
+          {renderSelect("Contacts", "contact_info")}
+          {renderSelect("Education", "education")}
+          {renderSelect("Mobile Phone", "mobile_phone")}
+          {renderSelect("Other Phone", "other_phone")}
+          {renderSelect("Email Address", "email_address")}
         </tbody>
       </table>
 

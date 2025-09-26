@@ -14,10 +14,10 @@ type Props = {
 
 const NotificationsTab: React.FC<Props> = ({ memberId }) => {
   const [form, setForm] = useState<Omit<NotificationBody, "memberId">>({
-    SendMsg: false,
-    AddAsFriend: false,
-    ConfirmFriendShipRequest: false,
-    RepliesToYourHelpQuest: false,
+    send_msg: false,
+    add_as_friend: false,
+    confirm_friendship_request: false,
+    replies_to_your_help_quest: false,
   });
 
   const [isSaving, setIsSaving] = useState(false);
@@ -30,10 +30,10 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
       try {
         const data = await getMemberNotifications(memberId);
         setForm({
-          SendMsg: data.SendMsg,
-          AddAsFriend: data.AddAsFriend,
-          ConfirmFriendShipRequest: data.ConfirmFriendShipRequest,
-          RepliesToYourHelpQuest: data.RepliesToYourHelpQuest,
+          send_msg: data.send_msg,
+          add_as_friend: data.add_as_friend,
+          confirm_friendship_request: data.confirm_friendship_request,
+          replies_to_your_help_quest: data.replies_to_your_help_quest,
         });
       } catch (err) {
         console.error("Failed to load notification settings", err);
@@ -53,7 +53,7 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
     setIsSaving(true);
     setIsSuccess(false);
     try {
-      const body: NotificationBody = { MemberID: memberId, ...form };
+      const body: NotificationBody = { member_id: memberId, ...form };
       await saveNotificationSettings(memberId, body);
       setIsSuccess(true);
     } catch (err) {
@@ -84,7 +84,7 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
               className="form-check-input"
               id="SendMsg"
               name="SendMsg"
-              checked={form.SendMsg}
+              checked={form.send_msg}
               onChange={handleChange}
             />
             <label className="form-check-label" htmlFor="SendMsg">
@@ -98,7 +98,7 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
               className="form-check-input"
               id="AddAsFriend"
               name="AddAsFriend"
-              checked={form.AddAsFriend}
+              checked={form.add_as_friend}
               onChange={handleChange}
             />
             <label className="form-check-label" htmlFor="AddAsFriend">
@@ -112,7 +112,7 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
               className="form-check-input"
               id="ConfirmFriendShipRequest"
               name="ConfirmFriendShipRequest"
-              checked={form.ConfirmFriendShipRequest}
+              checked={form.confirm_friendship_request}
               onChange={handleChange}
             />
             <label
@@ -132,7 +132,7 @@ const NotificationsTab: React.FC<Props> = ({ memberId }) => {
               className="form-check-input"
               id="RepliesToYourHelpQuest"
               name="RepliesToYourHelpQuest"
-              checked={form.RepliesToYourHelpQuest}
+              checked={form.replies_to_your_help_quest}
               onChange={handleChange}
             />
             <label
