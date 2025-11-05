@@ -49,7 +49,7 @@ const Following: React.FC = () => {
   return (
     <div
       className="card mb-3 p-0"
-      style={{ borderRadius: "1rem", width: "640px" }}
+      style={{ borderRadius: "1rem", width: "100%", maxWidth: "640px" }}
     >
       {/* Header */}
       <div

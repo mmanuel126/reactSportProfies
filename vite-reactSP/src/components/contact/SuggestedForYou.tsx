@@ -46,17 +46,14 @@ const Suggesting: React.FC = () => {
   };
 
   return (
-    <div
-      className="card mb-3 p-0"
-      style={{ borderRadius: "1rem", width: "640px" }}
-    >
+    <div className="card mb-3 p-0" style={{ borderRadius: "1rem" }}>
       {/* Header */}
       <div
         className="card-header d-flex align-items-center justify-content-between bg-white"
         style={{ borderTopLeftRadius: "1rem", borderTopRightRadius: "1rem" }}
       >
         <div className="card-header-title font-weight-normal text-body-tertiary ">
-          Suggested contacts based on your profile.
+          Suggested based on your profile
         </div>
 
         <OverlayTrigger

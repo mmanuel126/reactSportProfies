@@ -5,14 +5,15 @@ import HomePopoverMenu from "../../components/HomePopoverMenu";
 import RecentNews from "../../components/RecentNews";
 import Following from "../../components/Following";
 import RecentPosts from "../../components/RecentPosts";
+//import SiteGuide from "../SiteGuide";
+import AdsCarousel from "../../components/AdsCarousel";
+import SuggestedForYou from "../../components/contact/SuggestedForYou";
 
 export default function HomePage() {
   const location = useLocation();
   const navigate = useNavigate();
 
   const [selected, setSelected] = useState("Recent News");
-
-  // Controls for the PostModal
   const [showPostModal, setShowPostModal] = useState(false);
   const [modalMode, setModalMode] = useState<"new" | "reply">("new");
 
@@ -24,8 +25,6 @@ export default function HomePage() {
       setSelected("Posts");
       setModalMode("new");
       setShowPostModal(true);
-
-      // Optional: Clean up URL
       navigate("/", { replace: true });
     } else if (pstate === "Following" || pstate === "Recent News") {
       setSelected(pstate);
@@ -52,13 +51,23 @@ export default function HomePage() {
   };
 
   return (
-    <div className="d-flex flex-column h-100">
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        backgroundColor: "#fafafa",
+      }}
+    >
+      {/* Top Menu */}
       <div
-        className="position-sticky top-0 z-3 w-100"
         style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
           backgroundColor: "#fafafa",
-          paddingTop: "0.0rem",
-          paddingBottom: "0.5rem",
+          padding: "0.5rem 0",
+          borderBottom: "1px solid #ddd",
         }}
       >
         <div className="d-flex justify-content-center align-items-center">
@@ -66,11 +75,43 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* Main Content Area */}
       <div
-        className="container d-flex justify-content-center align-items-center"
-        style={{ maxWidth: "900px" }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          gap: "20px",
+          width: "100%",
+          maxWidth: "1100px",
+          margin: "20px auto",
+          padding: "0 15px",
+          flexWrap: "wrap", // 👈 allows wrapping on small screens
+        }}
       >
-        {renderContent()}
+        {/* LEFT SIDE */}
+        <div
+          style={{
+            flex: "1 1 600px", // prefers 600px but shrinks
+            minWidth: "300px",
+            maxWidth: "680px",
+          }}
+        >
+          {renderContent()}
+        </div>
+
+        {/* RIGHT SIDE */}
+        <div
+          style={{
+            flex: "1 1 300px", // prefers 300px but shrinks and wraps
+            minWidth: "280px",
+            maxWidth: "360px",
+          }}
+        >
+          <AdsCarousel />
+          <SuggestedForYou />
+        </div>
       </div>
     </div>
   );
